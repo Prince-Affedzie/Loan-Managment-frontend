@@ -45,6 +45,25 @@ const DashboardPage = ({ refreshTrigger }) => {
     }
   };
 
+  useEffect(() => {
+    async function fetchUserData() {
+      setLoading(true);
+      try {
+        const response = await fetch(`${backendUrl}/api/loan/user/dashboard`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data = await response.json();
+        setUserData(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUserData();
+  }, [refreshTrigger]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,25 +98,7 @@ const DashboardPage = ({ refreshTrigger }) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    async function fetchUserData() {
-      setLoading(true);
-      try {
-        const response = await fetch(`${backendUrl}/api/loan/user/dashboard`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        const data = await response.json();
-        setUserData(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchUserData();
-  }, [refreshTrigger]);
-
+ 
   if (loading) {
     return (
       <LoadingContainer>
