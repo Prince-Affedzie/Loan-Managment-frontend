@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const backendUrl = "http://localhost:3000"; // Change this to your backend URL
+const backendUrl = "https://loan-managment-app.onrender.com"; // Change this to your backend URL
 
 const AdminAddUserPage = () => {
   const [name, setName] = useState('');

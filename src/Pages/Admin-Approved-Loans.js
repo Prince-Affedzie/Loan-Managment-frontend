@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
 import { FiSearch } from 'react-icons/fi'
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminApprovedLoansPage = () => {
   const [loans, setLoans] = useState([]);
