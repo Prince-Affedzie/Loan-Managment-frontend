@@ -7,7 +7,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminDashboardPage = () => {
   const navigate = useNavigate();

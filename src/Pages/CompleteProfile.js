@@ -39,7 +39,7 @@ const UserProfilePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/auth/profile', {
+      const response = await fetch('https://loan-managment-app.onrender.com/api/auth/profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

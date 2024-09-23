@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiUserPlus, FiEdit, FiTrash, FiSearch, FiEye } from 'react-icons/fi'; // Add FiEye for view icon
 
-const backendUrl = "http://localhost:3000"; // Replace with actual backend URL
+const backendUrl = "https://loan-managment-app.onrender.com"; // Replace with actual backend URL
 
 const AdminViewUsersPage = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { MdOutlineError } from 'react-icons/md'; // Modern icon for no loans
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
 import { FiSearch } from 'react-icons/fi'; // Search icon for search bar
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminRejectedLoansPage = () => {
   const [loans, setLoans] = useState([]);

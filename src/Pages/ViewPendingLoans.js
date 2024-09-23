@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const ViewPendingLoansPage = () => {
   const [loans, setLoans] = useState([]);

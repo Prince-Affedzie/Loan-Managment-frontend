@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminRepayments = () => {
   const [repayments, setRepayments] = useState([]); // repayments state to hold the data

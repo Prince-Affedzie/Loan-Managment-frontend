@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const backendUrl = "http://localhost:3000"; // Replace with actual backend URL
+const backendUrl = "https://loan-managment-app.onrender.com"; // Replace with actual backend URL
 
 const AdminUserDetailsPage = () => {
   const { userId } = useParams(); // Get the userId from the URL

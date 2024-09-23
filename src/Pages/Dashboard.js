@@ -13,7 +13,7 @@ const recentActivities = [
   { id: 3, text: 'Loan repayment completed for $1500' },
 ];
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const DashboardPage = ({ refreshTrigger }) => {
   const navigate = useNavigate()

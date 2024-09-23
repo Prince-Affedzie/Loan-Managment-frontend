@@ -3,7 +3,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading ic
 
 import styled from 'styled-components';
 
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const RepayLoanPage = () => {
   const [loans, setLoans] = useState([]);
