@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
-
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import styled from 'styled-components';
+
 const backendUrl = "https://loan-managment-app.onrender.com";
-// Mock data for demonstration
-// const approvedLoansData = [
- // { id: 1, amount: '$5000', date: '2024-09-10', term: '12 months' },
- // { id: 2, amount: '$3000', date: '2024-09-12', term: '6 months' },
- // { id: 3, amount: '$7000', date: '2024-09-15', term: '24 months' },
- 
-//];
 
 const UserApprovedLoansPage = () => {
   const [loans, setLoans] = useState([]);
@@ -19,7 +12,7 @@ const UserApprovedLoansPage = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${backendUrl}/api/loan//borrower/approvedLoans`, {
+        const response = await fetch(`${backendUrl}/api/loan/borrower/approvedLoans`, {
           method: 'GET',
           credentials: 'include',
         });
@@ -29,15 +22,13 @@ const UserApprovedLoansPage = () => {
         }
 
         const data = await response.json();
-        console.log('Fetched data:', data); // Debugging output
+        console.log('Fetched data:', data);
 
         if (Array.isArray(data)) {
           setLoans(data);
-           // Set initial filtered loans
         } else {
           console.error('Data is not an array:', data);
           setLoans([]);
-          
         }
       } catch (err) {
         console.error(err);
@@ -65,50 +56,54 @@ const UserApprovedLoansPage = () => {
         <h1>Approved Loans</h1>
       </Header>
       <MainContent>
-      {loans.length > 0 ? (
-        <LoansTable>
-          <thead>
-            <tr>
-              <TableHeader>ID</TableHeader>
-              <TableHeader>Amount</TableHeader>
-              <TableHeader>Balance</TableHeader>
-              <TableHeader>Interest Rate</TableHeader>
-              <TableHeader>Term</TableHeader>
-              <TableHeader>Start Payment Date</TableHeader>
-              <TableHeader>Due Date</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {loans.map((loan, index) => (
-              <tr key={index}>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{loan.loanAmount}</TableCell>
-                <TableCell>{loan.balance}</TableCell>
-                <TableCell>{loan.interestRate} %</TableCell>
-                <TableCell>{loan.durationMonths} Months</TableCell>
-                <TableCell>{new Date(loan.startPaymentDate).toDateString()} </TableCell>
-                <TableCell>{new Date(loan.dueDate).toDateString()} </TableCell>
-
+        {loans.length > 0 ? (
+          <LoansTable>
+            <thead>
+              <tr>
+                <TableHeader>ID</TableHeader>
+                <TableHeader>Amount</TableHeader>
+                <TableHeader>Balance</TableHeader>
+                <TableHeader>Interest Rate</TableHeader>
+                <TableHeader>Term</TableHeader>
+                <TableHeader>Start Payment Date</TableHeader>
+                <TableHeader>Due Date</TableHeader>
               </tr>
-            ))}
-          </tbody>
-        </LoansTable>
-      ): (
-        <p>No loan information available.</p>
-      )}
+            </thead>
+            <tbody>
+              {loans.map((loan, index) => (
+                <tr key={index}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{loan.loanAmount}</TableCell>
+                  <TableCell>{loan.balance}</TableCell>
+                  <TableCell>{loan.interestRate} %</TableCell>
+                  <TableCell>{loan.durationMonths} Months</TableCell>
+                  <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>
+                  <TableCell>{new Date(loan.dueDate).toDateString()}</TableCell>
+                </tr>
+              ))}
+            </tbody>
+          </LoansTable>
+        ) : (
+          <p>No loan information available.</p>
+        )}
       </MainContent>
     </Container>
   );
 };
 
-// Styled components for styling the Approved Loans page
+// Styled components with responsive design
+
 const Container = styled.div`
   padding: 2rem;
-  background-color: #e6f7ff; /* Match Dashboard's background color */
+  background-color: #e6f7ff;
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Header = styled.header`
@@ -120,6 +115,10 @@ const Header = styled.header`
   h1 {
     font-size: 2rem;
     margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -128,6 +127,10 @@ const MainContent = styled.main`
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const LoansTable = styled.table`
@@ -138,6 +141,10 @@ const LoansTable = styled.table`
   th, td {
     padding: 1rem;
     border-bottom: 1px solid #ddd;
+
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+    }
   }
 
   th {
@@ -147,17 +154,30 @@ const LoansTable = styled.table`
   tr:hover {
     background: #f1f1f1;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const TableHeader = styled.th`
   font-size: 1rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const TableCell = styled.td`
   font-size: 1rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
+
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -165,10 +185,18 @@ const LoadingContainer = styled.div`
   align-items: center;
   padding: 2rem;
 
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
   .spinner {
     font-size: 3rem;
     color: #1a73e8;
     animation: spin 1s linear infinite;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
   }
 
   @keyframes spin {
@@ -185,6 +213,10 @@ const LoadingText = styled.p`
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #1a73e8;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 export default UserApprovedLoansPage;
