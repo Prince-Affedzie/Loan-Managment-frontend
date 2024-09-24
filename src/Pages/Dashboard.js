@@ -117,7 +117,7 @@ const DashboardPage = ({ refreshTrigger }) => {
             <LogoIcon />
            <LogoText>Loan Management</LogoText>
         </SidebarTop>
-
+         <Menu>
         <SidebarItem>
           <StyledLink to="/apply-loan">
             <FiDollarSign className="icon" /> Apply for Loan
@@ -164,10 +164,11 @@ const DashboardPage = ({ refreshTrigger }) => {
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
-          <button onClick={handleLogout}>
+          <LogoutButton onClick={handleLogout}>
             <FiLogOut className="icon" /> Logout
-          </button>
+          </LogoutButton>
         </SidebarItem>
+        </Menu>
       </Sidebar>
 
       <MainContent>
@@ -219,26 +220,18 @@ const DashboardPage = ({ refreshTrigger }) => {
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: #e6f7ff;
-  flex-direction: column;
-
-  @media(min-width: 768px) {
-    flex-direction: row;
-  }
+  background-color: #f5f7fa; /* Light background */
 `;
 
 const Sidebar = styled.aside`
-  width: 100%;
-  background: #003366;
+  width: 250px;
+  background: #004080; /* Deep blue */
   color: #fff;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media(min-width: 768px) {
-    width: 250px;
-  }
+  border-right: 1px solid #ccc;
 `;
 
 const SidebarTop = styled.div`
@@ -247,33 +240,63 @@ const SidebarTop = styled.div`
   align-items: center;
   margin-bottom: 2rem;
 `;
+
 const LogoIcon = styled(FiBriefcase)`
-  font-size: 6rem; /* Adjust this value to increase/decrease the size */
-  margin-bottom: 1rem; /* Space between the icon and text */
+  font-size: 4rem;
+  color: #fff;
+  margin-bottom: 1rem;
 `;
 
 const LogoText = styled.h2`
   color: #fff;
   font-size: 1.5rem;
-  margin-top: 0.5rem;
+`;
+
+const Menu = styled.div`
+  width: 100%;
 `;
 
 const SidebarItem = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   width: 100%;
 `;
 
 const StyledLink = styled(Link)`
   color: #fff;
   text-decoration: none;
-  font-size: 1.1rem;
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: #00509e;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+
   &:hover {
-    background: #00509e; /* Light Blue */
+    background: #006bb3;
   }
+
+  .icon {
+    margin-right: 1rem;
+  }
+`;
+
+const LogoutButton = styled.button`
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background: #006bb3;
+    border-radius: 4px;
+  }
+
   .icon {
     margin-right: 1rem;
   }
@@ -287,25 +310,21 @@ const MainContent = styled.main`
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 2rem;
-  h1 {
-    margin: 0;
-    font-size: 2rem;
-    color: #333;
-  }
 `;
 
 const ProfileInfo = styled.div`
+  font-size: 1rem;
+  color: #333;
   margin-top: 1rem;
+
   p {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-    color: #555;
+    margin: 0;
   }
 `;
 
-const Content = styled.div`
+const Content = styled.section`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -313,37 +332,25 @@ const Content = styled.div`
 
 const Section = styled.section`
   background: #fff;
+  padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
 `;
-
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-
-  @media(min-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
 `;
 
 const StatCard = styled.div`
-  background: #e9ecef;
+  background: #004080;
+  color: #fff;
+  padding: 1.5rem;
   border-radius: 8px;
-  padding: 1rem;
   text-align: center;
-  h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #333;
-  }
-  p {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #007bff;
-  }
+  font-size: 1.2rem;
+  font-weight: bold;
 `;
 
 const ActivityList = styled.ul`
@@ -353,40 +360,22 @@ const ActivityList = styled.ul`
 `;
 
 const ActivityItem = styled.li`
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
 `;
+
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
-
-  .spinner {
-    font-size: 3rem;
-    color: #1a73e8;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+  justify-content: center;
+  height: 100vh;
 `;
 
 const LoadingText = styled.p`
-  margin-top: 1rem;
   font-size: 1.5rem;
-  color: #1a73e8;
+  color: #004080;
+  margin-top: 1rem;
 `;
 
 export default DashboardPage;
