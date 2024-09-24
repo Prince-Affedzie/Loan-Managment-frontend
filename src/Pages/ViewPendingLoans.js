@@ -58,6 +58,8 @@ const LoanList = ({ loans }) => (
         <TableHeader>Amount</TableHeader>
         <TableHeader>Interest Rate</TableHeader>
         <TableHeader>Duration (Months)</TableHeader>
+        <TableHeader>Start Payment Date</TableHeader>
+        <TableHeader>Due Date</TableHeader>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +69,8 @@ const LoanList = ({ loans }) => (
           <TableCell>{loan.loanAmount}</TableCell>
           <TableCell>{loan.interestRate}%</TableCell>
           <TableCell>{loan.durationMonths} Months</TableCell>
+          <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>
+          <TableCell>{new Date(loan.dueDate).toDateString()}</TableCell>
         </TableRow>
       ))}
     </tbody>

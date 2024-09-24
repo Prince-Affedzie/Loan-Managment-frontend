@@ -95,7 +95,7 @@ const UserViewLoansPage = () => {
                   <TableCell>{loan.loanAmount}</TableCell>
                   <TableCell status={loan.status}>{loan.status}</TableCell>
                   <TableCell>{new Date(loan.startPaymentDate).toDateString() || 'N/A'}</TableCell>
-                  <TableCell>{loan.durationMonths}</TableCell>
+                  <TableCell>{loan.durationMonths} Months</TableCell>
                  
                 </TableRow>
               ))}
