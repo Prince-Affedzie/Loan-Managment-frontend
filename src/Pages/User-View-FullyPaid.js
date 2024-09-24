@@ -103,11 +103,19 @@ const  UserFullyPaidLoansPage= () => {
 // Styled components for styling the Approved Loans page
 const Container = styled.div`
   padding: 2rem;
-  background-color: #e6f7ff; /* Match Dashboard's background color */
+  background-color: #e6f7ff;
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 100vh; /* Ensures the container fills the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Header = styled.header`
@@ -119,6 +127,10 @@ const Header = styled.header`
   h1 {
     font-size: 2rem;
     margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -127,6 +139,15 @@ const MainContent = styled.main`
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-grow: 1; /* Allow the main content to grow and fill available space */
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+`;
+
+const TableContainer = styled.div`
+  overflow-x: auto; /* Enable horizontal scrolling on mobile devices */
 `;
 
 const LoansTable = styled.table`
@@ -137,6 +158,10 @@ const LoansTable = styled.table`
   th, td {
     padding: 1rem;
     border-bottom: 1px solid #ddd;
+
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+    }
   }
 
   th {
@@ -146,28 +171,55 @@ const LoansTable = styled.table`
   tr:hover {
     background: #f1f1f1;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 `;
 
 const TableHeader = styled.th`
   font-size: 1rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const TableCell = styled.td`
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: #333;
+  word-break: break-word; /* Break long text in cells */
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    white-space: nowrap; /* Prevent cell content from wrapping */
+  }
 `;
+
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  height: 100vh; /* Full viewport height */
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 
   .spinner {
     font-size: 3rem;
     color: #1a73e8;
     animation: spin 1s linear infinite;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
   }
 
   @keyframes spin {
@@ -184,6 +236,10 @@ const LoadingText = styled.p`
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #1a73e8;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 export default UserFullyPaidLoansPage;
