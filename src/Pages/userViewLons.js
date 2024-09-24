@@ -94,8 +94,9 @@ const UserViewLoansPage = () => {
                   <TableCell>{loan._id}</TableCell>
                   <TableCell>{loan.loanAmount}</TableCell>
                   <TableCell status={loan.status}>{loan.status}</TableCell>
-                  <TableCell>{loan.durationMonth}</TableCell>
                   <TableCell>{new Date(loan.startPaymentDate).toDateString() || 'N/A'}</TableCell>
+                  <TableCell>{loan.durationMonths}</TableCell>
+                 
                 </TableRow>
               ))}
             </tbody>
@@ -134,7 +135,6 @@ const Header = styled.header`
     margin-bottom: 1.5rem;
   }
 `;
-
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #333;
@@ -191,11 +191,14 @@ const FilterButton = styled.button`
   }
 `;
 
+
 const MainContent = styled.main`
   background: #fff;
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-x: auto; /* Ensures that horizontal overflow is handled */
+  width: 100%; /* Prevent the content from overflowing */
 
   @media (max-width: 768px) {
     padding: 1.5rem;
@@ -210,6 +213,8 @@ const LoansTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  overflow-x: auto; /* Prevent the table from overlapping */
+  white-space: nowrap; /* Prevents cell content from wrapping */
 
   th, td {
     padding: 1.25rem;
@@ -279,7 +284,6 @@ const TableRow = styled.tr`
     background-color: #f1f1f1;
   }
 `;
-
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
