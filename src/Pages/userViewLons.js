@@ -252,7 +252,7 @@ const LoansTable = styled.table`
 `;
 
 const TableHeader = styled.th`
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #333;
 
   @media (max-width: 768px) {
@@ -265,7 +265,7 @@ const TableHeader = styled.th`
 `;
 
 const TableCell = styled.td`
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: ${(props) => (props.status === 'approved' ? '#28a745' : 
                       props.status === 'pending' ? '#ffc107' : 
                       '#dc3545')};

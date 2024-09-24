@@ -102,6 +102,7 @@ const ContentSection = styled.section`
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto; // Prevent content overflow
 `;
 
 const LoadingMessage = styled.p`
@@ -120,6 +121,7 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  table-layout: fixed; // Ensure fixed layout
 `;
 
 const TableHeader = styled.th`
@@ -139,6 +141,9 @@ const TableCell = styled.td`
   padding: 1rem;
   border-bottom: 1px solid #ddd;
   color: #333;
+  overflow: hidden; // Prevent overflow in cells
+  text-overflow: ellipsis; // Ellipsis for overflowing text
+  white-space: nowrap; // Prevent text wrapping
 `;
 
 export default ViewPendingLoansPage;
