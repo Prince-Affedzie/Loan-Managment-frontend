@@ -57,32 +57,34 @@ const UserApprovedLoansPage = () => {
       </Header>
       <MainContent>
         {loans.length > 0 ? (
-          <LoansTable>
-            <thead>
-              <tr>
-                <TableHeader>ID</TableHeader>
-                <TableHeader>Amount</TableHeader>
-                <TableHeader>Balance</TableHeader>
-                <TableHeader>Interest Rate</TableHeader>
-                <TableHeader>Term</TableHeader>
-                <TableHeader>Start Payment Date</TableHeader>
-                <TableHeader>Due Date</TableHeader>
-              </tr>
-            </thead>
-            <tbody>
-              {loans.map((loan, index) => (
-                <tr key={index}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{loan.loanAmount}</TableCell>
-                  <TableCell>{loan.balance}</TableCell>
-                  <TableCell>{loan.interestRate} %</TableCell>
-                  <TableCell>{loan.durationMonths} Months</TableCell>
-                  <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>
-                  <TableCell>{new Date(loan.dueDate).toDateString()}</TableCell>
+          <TableContainer>
+            <LoansTable>
+              <thead>
+                <tr>
+                  <TableHeader>ID</TableHeader>
+                  <TableHeader>Amount</TableHeader>
+                  <TableHeader>Balance</TableHeader>
+                  <TableHeader>Interest Rate</TableHeader>
+                  <TableHeader>Term</TableHeader>
+                  <TableHeader>Start Payment Date</TableHeader>
+                  <TableHeader>Due Date</TableHeader>
                 </tr>
-              ))}
-            </tbody>
-          </LoansTable>
+              </thead>
+              <tbody>
+                {loans.map((loan, index) => (
+                  <tr key={index}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{loan.loanAmount}</TableCell>
+                    <TableCell>{loan.balance}</TableCell>
+                    <TableCell>{loan.interestRate} %</TableCell>
+                    <TableCell>{loan.durationMonths} Months</TableCell>
+                    <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>
+                    <TableCell>{new Date(loan.dueDate).toDateString()}</TableCell>
+                  </tr>
+                ))}
+              </tbody>
+            </LoansTable>
+          </TableContainer>
         ) : (
           <p>No loan information available.</p>
         )}
@@ -133,6 +135,10 @@ const MainContent = styled.main`
   }
 `;
 
+const TableContainer = styled.div`
+  overflow-x: auto; /* Enable horizontal scrolling on mobile devices */
+`;
+
 const LoansTable = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -157,6 +163,9 @@ const LoansTable = styled.table`
 
   @media (max-width: 768px) {
     font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 `;
 
@@ -172,9 +181,11 @@ const TableHeader = styled.th`
 const TableCell = styled.td`
   font-size: 1rem;
   color: #333;
+  word-break: break-word; /* Break long text in cells */
 
   @media (max-width: 768px) {
     font-size: 0.8rem;
+    white-space: nowrap; /* Prevent cell content from wrapping */
   }
 `;
 
