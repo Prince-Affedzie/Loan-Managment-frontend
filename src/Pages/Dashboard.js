@@ -54,6 +54,8 @@ const DashboardPage = ({ refreshTrigger }) => {
           credentials: 'include',
         });
         const data = await response.json();
+       
+
         setUserData(data);
       } catch (err) {
         console.error(err);
@@ -217,17 +219,26 @@ const DashboardPage = ({ refreshTrigger }) => {
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: #e6f7ff; /* Soft Blue */
+  background-color: #e6f7ff;
+  flex-direction: column;
+
+  @media(min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const Sidebar = styled.aside`
-  width: 250px;
-  background: #003366; /* Dark Blue */
+  width: 100%;
+  background: #003366;
   color: #fff;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media(min-width: 768px) {
+    width: 250px;
+  }
 `;
 
 const SidebarTop = styled.div`
@@ -307,10 +318,15 @@ const Section = styled.section`
   padding: 1.5rem;
 `;
 
+
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
+
+  @media(min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 `;
 
 const StatCard = styled.div`
