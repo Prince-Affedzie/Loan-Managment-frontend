@@ -102,6 +102,10 @@ const Container = styled.div`
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 100vh; /* Ensures the container fills the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -129,6 +133,7 @@ const MainContent = styled.main`
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-grow: 1; /* Allow the main content to grow and fill available space */
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -195,6 +200,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  height: 100vh; /* Full viewport height */
 
   @media (max-width: 768px) {
     padding: 1rem;
