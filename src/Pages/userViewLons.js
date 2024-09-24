@@ -115,6 +115,11 @@ const Container = styled.div`
   margin: 0 auto;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
 `;
 
 const Header = styled.header`
@@ -122,6 +127,10 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -129,12 +138,29 @@ const Title = styled.h1`
   color: #333;
   margin-bottom: 1rem;
   font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const StatusFilter = styled.div`
   display: flex;
   gap: 1.5rem;
   margin-top: 1rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const FilterButton = styled.button`
@@ -151,6 +177,16 @@ const FilterButton = styled.button`
     background-color: #007bff;
     color: white;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 `;
 
 const MainContent = styled.main`
@@ -158,6 +194,14 @@ const MainContent = styled.main`
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
 
 const LoansTable = styled.table`
@@ -180,11 +224,37 @@ const LoansTable = styled.table`
   tr:hover {
     background: #f0f8ff;
   }
+
+  @media (max-width: 768px) {
+    th, td {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    th, td {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    th {
+      font-size: 0.85rem;
+    }
+  }
 `;
 
 const TableHeader = styled.th`
   font-size: 1rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const TableCell = styled.td`
@@ -192,6 +262,14 @@ const TableCell = styled.td`
   color: ${(props) => (props.status === 'approved' ? '#28a745' : 
                       props.status === 'pending' ? '#ffc107' : 
                       '#dc3545')};
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const TableRow = styled.tr`
@@ -200,25 +278,20 @@ const TableRow = styled.tr`
   }
 `;
 
-const LoadingMessage = styled.p`
-  font-size: 1.5rem;
-  color: #007bff;
-  text-align: center;
-  margin: 2rem 0;
-`;
-
-const NoDataMessage = styled.p`
-  font-size: 1.2rem;
-  color: #555;
-  text-align: center;
-  margin: 2rem 0;
-`;
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 
   .spinner {
     font-size: 3rem;
@@ -240,6 +313,22 @@ const LoadingText = styled.p`
   margin-top: 1rem;
   font-size: 1.5rem;
   color: #1a73e8;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
+`;
+
+
+const NoDataMessage = styled.p`
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  margin: 2rem 0;
 `;
 
 export default UserViewLoansPage;
