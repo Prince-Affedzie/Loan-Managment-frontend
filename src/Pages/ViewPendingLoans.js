@@ -33,19 +33,21 @@ const ViewPendingLoansPage = () => {
 
   return (
     <PageWrapper>
-      <Header>
-        <Title>Pending Loans</Title>
-      </Header>
-      <ContentSection>
-        {loading ? (
-          <LoadingMessage>Loading loan information...</LoadingMessage>
-        ) : loans.length > 0 ? (
+    <Header>
+      <Title>Pending Loans</Title>
+    </Header>
+    <ContentSection>
+      {loading ? (
+        <LoadingMessage>Loading loan information...</LoadingMessage>
+      ) : loans.length > 0 ? (
+        <ResponsiveTableContainer>
           <LoanList loans={loans} />
-        ) : (
-          <NoLoansMessage>No loan information available.</NoLoansMessage>
-        )}
-      </ContentSection>
-    </PageWrapper>
+        </ResponsiveTableContainer>
+      ) : (
+        <NoLoansMessage>No loan information available.</NoLoansMessage>
+      )}
+    </ContentSection>
+  </PageWrapper>
   );
 };
 
@@ -85,6 +87,7 @@ const PageWrapper = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; // Enable horizontal scrolling if needed
 `;
 
 const Header = styled.header`
@@ -102,7 +105,7 @@ const ContentSection = styled.section`
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: auto; // Prevent content overflow
+  overflow: hidden; // Hide overflow
 `;
 
 const LoadingMessage = styled.p`
@@ -121,7 +124,6 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  table-layout: fixed; // Ensure fixed layout
 `;
 
 const TableHeader = styled.th`
@@ -142,8 +144,13 @@ const TableCell = styled.td`
   border-bottom: 1px solid #ddd;
   color: #333;
   overflow: hidden; // Prevent overflow in cells
-  text-overflow: ellipsis; // Ellipsis for overflowing text
+  text-overflow: ellipsis; // Add ellipsis for overflow text
   white-space: nowrap; // Prevent text wrapping
+`;
+
+const ResponsiveTableContainer = styled.div`
+  overflow-x: auto; // Allow horizontal scrolling
+  max-width: 100%; // Prevent overflow from the page
 `;
 
 export default ViewPendingLoansPage;
