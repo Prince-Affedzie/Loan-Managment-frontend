@@ -330,7 +330,13 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem; /* Reduced margin for mobile view */
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const ProfileInfo = styled.div`
@@ -341,7 +347,12 @@ const ProfileInfo = styled.div`
   p {
     margin: 0;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
+
 
 const Content = styled.section`
   display: flex;
@@ -354,13 +365,24 @@ const Section = styled.section`
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
+
 
 const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* Stack the stats on smaller screens */
+    gap: 1rem;
+  }
 `;
+
 
 const StatCard = styled.div`
   background: #004080;
@@ -396,5 +418,7 @@ const LoadingText = styled.p`
   color: #004080;
   margin-top: 1rem;
 `;
+
+
 
 export default DashboardPage;
