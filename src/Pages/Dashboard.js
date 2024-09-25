@@ -250,7 +250,7 @@ const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   transition: all 0.3s ease;
   z-index: 10;
 
