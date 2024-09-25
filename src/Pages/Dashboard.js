@@ -245,10 +245,11 @@ const Sidebar = styled.aside`
   background-color: #1e1e2d;
   color: white;
   padding: 2rem;
-  position: fixed;
+  
   top: 0;
   display: flex;
-  left: 0;
+  flex-direction: column;
+  align-items: center;
   height: 100vh;
   transition: all 0.3s ease;
   z-index: 10;
