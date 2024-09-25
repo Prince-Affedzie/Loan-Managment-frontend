@@ -175,6 +175,7 @@ const LoansTable = styled.table`
 `;
 
 const TableHeader = styled.th`
+  padding: 1rem;
   font-size: 1rem;
   color: #333;
 
@@ -184,6 +185,7 @@ const TableHeader = styled.th`
 `;
 
 const TableCell = styled.td`
+  padding: 1rem;
   font-size: 1.4rem;
   color: #333;
   word-break: break-word; /* Break long text in cells */
