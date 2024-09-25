@@ -225,14 +225,26 @@ const Container = styled.div`
 
 const Sidebar = styled.aside`
   width: 250px;
-  background: #004080; /* Deep blue */
+  background: #004080;
   color: #fff;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-right: 1px solid #ccc;
+
+  @media (max-width: 768px) { /* For devices less than or equal to 768px width */
+    width: 100%;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    border: none;
+    box-shadow: 0px -3px 10px rgba(0,0,0,0.1);
+  }
 `;
+
 
 const SidebarTop = styled.div`
   display: flex;
@@ -305,7 +317,14 @@ const LogoutButton = styled.button`
 const MainContent = styled.main`
   flex: 1;
   padding: 2rem;
+  overflow-y: auto; /* Allows scrolling within the main content */
+  
+  @media (max-width: 768px) {
+    padding: 1rem; /* Adjusts padding for smaller screens */
+    margin-top: 5rem; /* Ensures content is not hidden by fixed sidebar */
+  }
 `;
+;
 
 const Header = styled.header`
   display: flex;
