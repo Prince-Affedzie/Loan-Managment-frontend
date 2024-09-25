@@ -252,6 +252,7 @@ const LoansTable = styled.table`
 `;
 
 const TableHeader = styled.th`
+  padding :1rem
   font-size: 1.2rem;
   color: #333;
 
@@ -265,6 +266,7 @@ const TableHeader = styled.th`
 `;
 
 const TableCell = styled.td`
+   padding : 1rem;
   font-size: 1.4rem;
   color: ${(props) => (props.status === 'approved' ? '#28a745' : 
                       props.status === 'pending' ? '#ffc107' : 
