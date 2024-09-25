@@ -247,6 +247,7 @@ const Sidebar = styled.aside`
   padding: 2rem;
   position: fixed;
   top: 0;
+  display: flex;
   left: 0;
   height: 100vh;
   transition: all 0.3s ease;
