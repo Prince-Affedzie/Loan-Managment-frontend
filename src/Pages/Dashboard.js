@@ -233,38 +233,44 @@ const MobileHeader = styled.div`
   padding: 1rem;
   background-color: #004080;
   color: white;
-  align-items: center;
   justify-content: space-between;
-  
-  @media (max-width: 768px) {
+  align-items: center;
+
+  @media (max-width: 1000px) {
     display: flex;
   }
 `;
 
 const HamburgerMenu = styled.div`
-  font-size: 2rem;
+ display: none;
   cursor: pointer;
+  padding: 1rem;
+  background-color: #004080;
+  color: white;
+
+  @media (max-width: 1000px) {
+    display: block;
+  }
 `;
 
 const Sidebar = styled.aside`
   width: 250px;
-  background: #004080; /* Deep blue */
-  color: #fff;
+  background-color: #004080; /* Deep blue */
+  color: white;
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-right: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  transition: all 0.3s ease;
+  z-index: 10;
 
   @media (max-width: 1000px) {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-100%')};
-    transition: all 0.3s ease;
-    z-index: 10;
+    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
+    width: 250px;
   }
 `;
+
 
 const SidebarTop = styled.div`
   display: flex;
