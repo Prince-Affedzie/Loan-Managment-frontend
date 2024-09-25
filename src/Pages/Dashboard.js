@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiMenu } from 'react-icons/fi'; // Added new icons
+import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiMenu } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -14,7 +14,7 @@ const DashboardPage = ({ refreshTrigger }) => {
   const [approvedLoans, setApprovedLoans] = useState([]);
   const [pendingLoans, setPendingLoans] = useState([]);
   const [rejectedLoans, setRejectedLoans] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
 
   const handleLogout = async () => {
     try {
@@ -105,6 +105,7 @@ const DashboardPage = ({ refreshTrigger }) => {
         </HamburgerMenu>
         <h1>Loan Management</h1>
       </MobileHeader>
+
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
           <LogoIcon />
@@ -305,19 +306,19 @@ const LogoutButton = styled.button`
   border: none;
   background: none;
   color: #fff;
-  cursor: pointer;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  cursor: pointer;
 
   .icon {
     margin-right: 0.5rem;
   }
 `;
 
-const MainContent = styled.div`
+const MainContent = styled.main`
+  flex-grow: 1;
   margin-left: 250px;
-  flex: 1;
   padding: 2rem;
 
   @media (max-width: 1000px) {
@@ -325,17 +326,19 @@ const MainContent = styled.div`
   }
 `;
 
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
+const Header = styled.div`
   margin-bottom: 2rem;
 `;
 
 const ProfileInfo = styled.div`
   margin-top: 1rem;
+  font-size: 1rem;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Section = styled.section`
   margin-bottom: 2rem;
@@ -343,32 +346,15 @@ const Section = styled.section`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 2rem;
-
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
 const StatCard = styled.div`
   background-color: white;
-  padding: 1rem;
+  padding: 2rem;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-
-  h3 {
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
 `;
 
 const ActivityList = styled.ul`
@@ -379,25 +365,27 @@ const ActivityList = styled.ul`
 const ActivityItem = styled.li`
   background-color: white;
   padding: 1rem;
-  margin-bottom: 1rem;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 `;
 
 const LoadingContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
+  flex-direction: column;
 
   .spinner {
     font-size: 3rem;
-    animation: spin 2s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -405,5 +393,6 @@ const LoadingText = styled.p`
   font-size: 1.2rem;
   margin-top: 1rem;
 `;
+
 
 export default DashboardPage;
