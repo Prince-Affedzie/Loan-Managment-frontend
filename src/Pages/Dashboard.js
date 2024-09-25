@@ -22,7 +22,8 @@ const DashboardPage = ({ refreshTrigger }) => {
   const [approvedLoans, setApprovedLoans] = useState([]);
   const [pendingLoans, setPendingLoans] = useState([]);
   const [rejectedLoans, setRejectedLoans] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for toggling sidebar
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+ // State for toggling sidebar
 
   const handleLogout = async () => {
     try {
@@ -92,9 +93,9 @@ const DashboardPage = ({ refreshTrigger }) => {
     fetchData();
   }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
-  };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
 
   if (loading) {
     return (
@@ -108,69 +109,65 @@ const DashboardPage = ({ refreshTrigger }) => {
   return (
     <Container>
       <MobileHeader>
-        <HamburgerMenu onClick={toggleSidebar}>
+        <HamburgerMenu onClick={toggleMenu}>
           <FiMenu />
         </HamburgerMenu>
         <h1>Loan Management</h1>
       </MobileHeader>
-      <Sidebar isSidebarOpen={isSidebarOpen}>
-        <SidebarTop>
-          <LogoIcon />
-          <LogoText>Loan Management</LogoText>
-        </SidebarTop>
-        <Menu>
-          <SidebarItem>
-            <StyledLink to="/apply-loan">
+      <MobileMenu isOpen={isMenuOpen}>
+        <MenuItems>
+          <MenuItem>
+            <StyledLink to="/apply-loan" onClick={toggleMenu}>
               <FiDollarSign className="icon" /> Apply for Loan
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/view-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/view-loans" onClick={toggleMenu}>
               <FiList className="icon" /> View All Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/approved-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/approved-loans" onClick={toggleMenu}>
               <FiCheckCircle className="icon" /> Approved Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/rejected-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/rejected-loans" onClick={toggleMenu}>
               <FiXCircle className="icon" /> Rejected Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/view-pending">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/view-pending" onClick={toggleMenu}>
               <FiClock className="icon" /> Pending Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/repay-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/repay-loans" onClick={toggleMenu}>
               <FiCreditCard className="icon" /> Settle a Loan
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-repayments">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/user-repayments" onClick={toggleMenu}>
               <FiTrendingUp className="icon" /> Repayments Made
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-fullyPaid">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/user-fullyPaid" onClick={toggleMenu}>
               <FiCheckCircle className="icon" /> Fully Paid Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-profile">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/user-profile" onClick={toggleMenu}>
               <FiUser className="icon" /> View Profile
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
+          </MenuItem>
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>
               <FiLogOut className="icon" /> Logout
             </LogoutButton>
-          </SidebarItem>
-        </Menu>
-      </Sidebar>
+          </MenuItem>
+        </MenuItems>
+      </MobileMenu>
 
       <MainContent>
         <Header>
@@ -220,11 +217,10 @@ const DashboardPage = ({ refreshTrigger }) => {
   );
 };
 
-// Styled components for styling the dashboard
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: #f5f7fa; /* Light background */
+  background-color: #f5f7fa;
 `;
 
 const MobileHeader = styled.div`
@@ -242,70 +238,43 @@ const MobileHeader = styled.div`
 `;
 
 const HamburgerMenu = styled.div`
- display: none;
   cursor: pointer;
   padding: 1rem;
-  background-color: #004080;
   color: white;
+`;
+
+const MobileMenu = styled.div`
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
+  transition: transform 0.3s ease-in-out;
 
   @media (max-width: 1000px) {
     display: block;
   }
 `;
 
-const Sidebar = styled.aside`
-  width: 250px;
-  background-color: #004080; /* Deep blue */
-  color: white;
-  padding: 2rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  transition: all 0.3s ease;
-  z-index: 10;
-
-  @media (max-width: 1000px) {
-    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
-    width: 250px;
-  }
-`;
-
-
-const SidebarTop = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-
-const LogoIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border-radius: 50%;
-`;
-
-const LogoText = styled.h1`
-  font-size: 1.5rem;
-  color: white;
-`;
-
-const Menu = styled.ul`
+const MenuItems = styled.ul`
   list-style: none;
-  width: 100%;
-  padding: 0;
+  padding: 2rem;
+  height: 100%;
+  overflow-y: auto;
 `;
 
-const SidebarItem = styled.li`
-  width: 100%;
+const MenuItem = styled.li`
   margin-bottom: 1rem;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
 
@@ -323,7 +292,7 @@ const LogoutButton = styled.button`
   border: none;
   color: white;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
 
@@ -356,7 +325,7 @@ const Section = styled.section`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 `;
 
