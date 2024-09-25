@@ -263,7 +263,7 @@ const SidebarTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 `;
 
 const LogoIcon = styled.div`
