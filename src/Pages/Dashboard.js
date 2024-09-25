@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiBriefcase, FiMenu } from 'react-icons/fi'; // Added new icons
+import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiMenu } from 'react-icons/fi'; // Added new icons
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import axios from 'axios';
-
-// Mock data for demonstration (You may want to replace this with actual API data)
-const recentActivities = [
-  { id: 1, text: 'Loan application approved for $5000' },
-  { id: 2, text: 'New loan application received' },
-  { id: 3, text: 'Loan repayment completed for $1500' },
-];
 
 const backendUrl = "https://loan-managment-app.onrender.com";
 
@@ -22,14 +14,13 @@ const DashboardPage = ({ refreshTrigger }) => {
   const [approvedLoans, setApprovedLoans] = useState([]);
   const [pendingLoans, setPendingLoans] = useState([]);
   const [rejectedLoans, setRejectedLoans] = useState([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
- // State for toggling sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/auth/logout`, {
         method: "POST",
-        credentials: "include", // To include cookies if necessary
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -93,9 +84,9 @@ const DashboardPage = ({ refreshTrigger }) => {
     fetchData();
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  }
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
+  };
 
   if (loading) {
     return (
@@ -109,65 +100,69 @@ const DashboardPage = ({ refreshTrigger }) => {
   return (
     <Container>
       <MobileHeader>
-        <HamburgerMenu onClick={toggleMenu}>
+        <HamburgerMenu onClick={toggleSidebar}>
           <FiMenu />
         </HamburgerMenu>
         <h1>Loan Management</h1>
       </MobileHeader>
-      <MobileMenu isOpen={isMenuOpen}>
-        <MenuItems>
-          <MenuItem>
-            <StyledLink to="/apply-loan" onClick={toggleMenu}>
+      <Sidebar isSidebarOpen={isSidebarOpen}>
+        <SidebarTop>
+          <LogoIcon />
+          <LogoText>Loan Management</LogoText>
+        </SidebarTop>
+        <Menu>
+          <SidebarItem>
+            <StyledLink to="/apply-loan">
               <FiDollarSign className="icon" /> Apply for Loan
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/view-loans" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/view-loans">
               <FiList className="icon" /> View All Loans
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/approved-loans" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/approved-loans">
               <FiCheckCircle className="icon" /> Approved Loans
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/rejected-loans" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/rejected-loans">
               <FiXCircle className="icon" /> Rejected Loans
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/view-pending" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/view-pending">
               <FiClock className="icon" /> Pending Loans
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/repay-loans" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/repay-loans">
               <FiCreditCard className="icon" /> Settle a Loan
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/user-repayments" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/user-repayments">
               <FiTrendingUp className="icon" /> Repayments Made
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/user-fullyPaid" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/user-fullyPaid">
               <FiCheckCircle className="icon" /> Fully Paid Loans
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink to="/user-profile" onClick={toggleMenu}>
+          </SidebarItem>
+          <SidebarItem>
+            <StyledLink to="/user-profile">
               <FiUser className="icon" /> View Profile
             </StyledLink>
-          </MenuItem>
-          <MenuItem>
+          </SidebarItem>
+          <SidebarItem>
             <LogoutButton onClick={handleLogout}>
               <FiLogOut className="icon" /> Logout
             </LogoutButton>
-          </MenuItem>
-        </MenuItems>
-      </MobileMenu>
+          </SidebarItem>
+        </Menu>
+      </Sidebar>
 
       <MainContent>
         <Header>
@@ -217,6 +212,7 @@ const DashboardPage = ({ refreshTrigger }) => {
   );
 };
 
+// Styled components
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
@@ -239,62 +235,80 @@ const MobileHeader = styled.div`
 
 const HamburgerMenu = styled.div`
   cursor: pointer;
-  padding: 1rem;
   color: white;
+  font-size: 1.5rem;
 `;
 
-const MobileMenu = styled.div`
-  display: none;
+const Sidebar = styled.aside`
+  width: 250px;
+  background-color: #004080;
+  color: white;
+  padding: 2rem;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
-  transition: transform 0.3s ease-in-out;
+  height: 100vh;
+  transition: all 0.3s ease;
+  z-index: 10;
 
   @media (max-width: 1000px) {
-    display: block;
+    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
   }
 `;
 
-const MenuItems = styled.ul`
-  list-style: none;
-  padding: 2rem;
-  height: 100%;
-  overflow-y: auto;
+const SidebarTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
 `;
 
-const MenuItem = styled.li`
+const LogoIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+`;
+
+const LogoText = styled.h1`
+  font-size: 1.5rem;
+  color: white;
+`;
+
+const Menu = styled.ul`
+  list-style: none;
+  width: 100%;
+  padding: 0;
+`;
+
+const SidebarItem = styled.li`
   margin-bottom: 1rem;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-
-  .icon {
-    margin-right: 0.5rem;
-  }
 
   &:hover {
     text-decoration: underline;
   }
+
+  .icon {
+    margin-right: 0.5rem;
+  }
 `;
 
 const LogoutButton = styled.button`
-  background: transparent;
   border: none;
-  color: white;
+  background: none;
+  color: #fff;
   cursor: pointer;
-  font-size: 1.2rem;
   display: flex;
   align-items: center;
+  font-size: 1rem;
 
   .icon {
     margin-right: 0.5rem;
@@ -302,19 +316,23 @@ const LogoutButton = styled.button`
 `;
 
 const MainContent = styled.div`
+  margin-left: 250px;
   flex: 1;
   padding: 2rem;
+
+  @media (max-width: 1000px) {
+    margin-left: 0;
+  }
 `;
 
-const Header = styled.div`
-  background-color: #004080;
-  color: white;
-  padding: 2rem;
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2rem;
 `;
 
 const ProfileInfo = styled.div`
-  font-size: 1rem;
+  margin-top: 1rem;
 `;
 
 const Content = styled.div``;
@@ -325,16 +343,32 @@ const Section = styled.section`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const StatCard = styled.div`
   background-color: white;
   padding: 1rem;
-  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 `;
 
 const ActivityList = styled.ul`
@@ -343,24 +377,33 @@ const ActivityList = styled.ul`
 `;
 
 const ActivityItem = styled.li`
-  padding: 1rem;
   background-color: white;
+  padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  align-items: center;
+  height: 100vh;
+
+  .spinner {
+    font-size: 3rem;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;
 
 const LoadingText = styled.p`
-  margin-top: 1rem;
   font-size: 1.2rem;
+  margin-top: 1rem;
 `;
 
 export default DashboardPage;
