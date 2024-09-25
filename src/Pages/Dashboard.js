@@ -256,7 +256,7 @@ const Sidebar = styled.aside`
   align-items: center;
   border-right: 1px solid #ccc;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     position: absolute;
     width: 100%;
     height: 100%;
