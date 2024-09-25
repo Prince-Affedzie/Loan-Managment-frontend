@@ -149,34 +149,12 @@ const LoansTable = styled.table`
   border-collapse: collapse;
   text-align: left;
 
-  th, td {
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-
-    @media (max-width: 768px) {
-      padding: 0.5rem;
-    }
-  }
-
-  th {
-    background: #f8f9fa;
-  }
-
-  tr:hover {
-    background: #f1f1f1;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
+  
 `;
 
 const TableHeader = styled.th`
   padding: 1rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #333;
 
   @media (max-width: 768px) {
