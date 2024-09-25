@@ -220,18 +220,24 @@ const DashboardPage = ({ refreshTrigger }) => {
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: #f5f7fa; /* Light background */
+  background-color: #f5f7fa; 
+  flex-direction: column; // Change layout to column for smaller screens
+  @media (min-width: 768px) {
+    flex-direction: row; // Switch to row layout for larger screens
+  }
 `;
 
 const Sidebar = styled.aside`
-  width: 250px;
-  background: #004080; /* Deep blue */
+  width: 100%; // Full width on small screens
+  background: #004080; 
   color: #fff;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-right: 1px solid #ccc;
+  padding: 1rem; // Adjust padding for mobile view
+  border-bottom: 1px solid #ccc; 
+  @media (min-width: 768px) {
+    width: 250px; // Sidebar width for larger screens
+    padding: 2rem;
+    border-right: 1px solid #ccc;
+  }
 `;
 
 const SidebarTop = styled.div`
@@ -304,7 +310,10 @@ const LogoutButton = styled.button`
 
 const MainContent = styled.main`
   flex: 1;
-  padding: 2rem;
+  padding: 1rem;
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 const Header = styled.header`
@@ -332,15 +341,20 @@ const Content = styled.section`
 
 const Section = styled.section`
   background: #fff;
-  padding: 2rem;
+  padding: 1.5rem; // Smaller padding for mobile
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 `;
-
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr; // Single column for mobile
   gap: 1.5rem;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr); // Four columns on larger screens
+  }
 `;
 
 const StatCard = styled.div`
@@ -349,8 +363,10 @@ const StatCard = styled.div`
   padding: 1.5rem;
   border-radius: 8px;
   text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1rem; // Smaller font size for mobile
+  @media (min-width: 768px) {
+    font-size: 1.2rem; // Increase font size for larger screens
+  }
 `;
 
 const ActivityList = styled.ul`
