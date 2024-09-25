@@ -99,12 +99,12 @@ const DashboardPage = ({ refreshTrigger }) => {
 
   return (
     <Container>
-      <MobileHeader>
+     {/* <MobileHeader>
         <HamburgerMenu onClick={toggleSidebar}>
           <FiMenu />
         </HamburgerMenu>
         <h1>Loan Management</h1>
-      </MobileHeader>
+      </MobileHeader>*/}
 
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
