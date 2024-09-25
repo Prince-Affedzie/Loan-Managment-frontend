@@ -240,22 +240,22 @@ const HamburgerMenu = styled.div`
   font-size: 1.5rem;
 `;
 
-const Sidebar = styled.aside`
+const Sidebar = styled.div`
   width: 250px;
-  background-color: #004080;
+  background-color: #282c34;
   color: white;
-  padding: 2rem;
   position: fixed;
+  left: ${(props) => (props.isOpen ? '0' : '-250px')}; // Hide sidebar on small screens
+  height: 100%;
   top: 0;
-  left: 0;
-  height: 100vh;
-  transition: all 0.3s ease;
-  z-index: 10;
+  padding: 1rem;
+  transition: left 0.3s ease-in-out; // Smooth transition for sidebar
 
   @media (max-width: 1000px) {
-    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
+    width: 250px; // Adjust width for small screens
   }
 `;
+
 
 const SidebarTop = styled.div`
   display: flex;
@@ -318,11 +318,12 @@ const LogoutButton = styled.button`
 
 const MainContent = styled.main`
   flex-grow: 1;
-  margin-left: 250px;
+  margin-left: ${(props) => (props.isOpen ? '250px' : '0')}; // Adjust margin when sidebar is open
   padding: 2rem;
+  transition: margin-left 0.3s ease-in-out; // Smooth transition for content
 
   @media (max-width: 1000px) {
-    margin-left: 0;
+    margin-left: 0; // Full width on small screens
   }
 `;
 
