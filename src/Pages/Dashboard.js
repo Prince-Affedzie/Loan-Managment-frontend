@@ -286,7 +286,7 @@ const Menu = styled.ul`
 `;
 
 const SidebarItem = styled.li`
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.0rem;
 `;
 
 const StyledLink = styled(Link)`
