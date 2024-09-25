@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiMenu } from 'react-icons/fi';
+import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiMenu,FiX  } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -14,7 +14,7 @@ const DashboardPage = ({ refreshTrigger }) => {
   const [approvedLoans, setApprovedLoans] = useState([]);
   const [pendingLoans, setPendingLoans] = useState([]);
   const [rejectedLoans, setRejectedLoans] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Sidebar toggle state
 
   const handleLogout = async () => {
     try {
@@ -84,8 +84,8 @@ const DashboardPage = ({ refreshTrigger }) => {
     fetchData();
   }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   if (loading) {
@@ -99,72 +99,66 @@ const DashboardPage = ({ refreshTrigger }) => {
 
   return (
     <Container>
-      <MobileHeader>
-        <HamburgerMenu onClick={toggleSidebar}>
-          <FiMenu />
+       <MobileHeader>
+        <HamburgerMenu onClick={toggleMenu}>
+          {isMenuOpen ? <FiX /> : <FiMenu />}
         </HamburgerMenu>
         <h1>Loan Management</h1>
       </MobileHeader>
-
-      <Sidebar isSidebarOpen={isSidebarOpen}>
-        <SidebarTop>
-          <LogoIcon />
-          <LogoText>Loan Management</LogoText>
-        </SidebarTop>
-        <Menu>
-          <SidebarItem>
-            <StyledLink to="/apply-loan">
+      <MobileMenu isOpen={isMenuOpen} onClick={toggleMenu}>
+        <MenuItems onClick={(e) => e.stopPropagation()}>
+          <MenuItem>
+            <StyledLink to="/apply-loan" onClick={toggleMenu}>
               <FiDollarSign className="icon" /> Apply for Loan
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/view-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/view-loans" onClick={toggleMenu}>
               <FiList className="icon" /> View All Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/approved-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/approved-loans" onClick={toggleMenu}>
               <FiCheckCircle className="icon" /> Approved Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/rejected-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/rejected-loans" onClick={toggleMenu}>
               <FiXCircle className="icon" /> Rejected Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/view-pending">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/view-pending" onClick={toggleMenu}>
               <FiClock className="icon" /> Pending Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/repay-loans">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/repay-loans" onClick={toggleMenu}>
               <FiCreditCard className="icon" /> Settle a Loan
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-repayments">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/user-repayments" onClick={toggleMenu}>
               <FiTrendingUp className="icon" /> Repayments Made
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-fullyPaid">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/user-fullyPaid" onClick={toggleMenu}>
               <FiCheckCircle className="icon" /> Fully Paid Loans
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-profile">
+          </MenuItem>
+          <MenuItem>
+            <StyledLink to="/user-profile" onClick={toggleMenu}>
               <FiUser className="icon" /> View Profile
             </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
+          </MenuItem>
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>
               <FiLogOut className="icon" /> Logout
             </LogoutButton>
-          </SidebarItem>
-        </Menu>
-      </Sidebar>
-
+          </MenuItem>
+        </MenuItems>
+      </MobileMenu>
       <MainContent>
         <Header>
           <h1>Welcome, {user?.name || 'Guest'}</h1>
@@ -213,7 +207,6 @@ const DashboardPage = ({ refreshTrigger }) => {
   );
 };
 
-// Styled components
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
@@ -236,110 +229,85 @@ const MobileHeader = styled.div`
 
 const HamburgerMenu = styled.div`
   cursor: pointer;
+  padding: 1rem;
   color: white;
-  font-size: 1.5rem;
 `;
 
-const Sidebar = styled.div`
-  width: 250px;
-  background-color: #282c34;
-  color: white;
+const MobileMenu = styled.div`
+  display: none;
   position: fixed;
-  left: ${(props) => (props.isOpen ? '0' : '-250px')}; // Hide sidebar on small screens
-  height: 100%;
   top: 0;
-  padding: 1rem;
-  transition: left 0.3s ease-in-out; // Smooth transition for sidebar
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
+  transition: transform 0.3s ease-in-out;
 
   @media (max-width: 1000px) {
-    width: 250px; // Adjust width for small screens
+    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   }
 `;
 
-
-const SidebarTop = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-
-const LogoIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border-radius: 50%;
-`;
-
-const LogoText = styled.h1`
-  font-size: 1.5rem;
-  color: white;
-`;
-
-const Menu = styled.ul`
+const MenuItems = styled.ul`
   list-style: none;
-  width: 100%;
-  padding: 0;
+  padding: 2rem;
+  height: 100%;
+  overflow-y: auto;
 `;
 
-const SidebarItem = styled.li`
+const MenuItem = styled.li`
   margin-bottom: 1rem;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
+
+  .icon {
+    margin-right: 0.5rem;
+  }
 
   &:hover {
     text-decoration: underline;
   }
-
-  .icon {
-    margin-right: 0.5rem;
-  }
 `;
 
 const LogoutButton = styled.button`
+  background: transparent;
   border: none;
-  background: none;
-  color: #fff;
-  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
-  cursor: pointer;
 
   .icon {
     margin-right: 0.5rem;
   }
 `;
 
-const MainContent = styled.main`
-  flex-grow: 1;
-  margin-left: ${(props) => (props.isOpen ? '250px' : '0')}; // Adjust margin when sidebar is open
+const MainContent = styled.div`
+  flex: 1;
   padding: 2rem;
-  transition: margin-left 0.3s ease-in-out; // Smooth transition for content
-
-  @media (max-width: 1000px) {
-    margin-left: 0; // Full width on small screens
-  }
 `;
 
 const Header = styled.div`
+  background-color: #004080;
+  color: white;
+  padding: 2rem;
   margin-bottom: 2rem;
 `;
 
 const ProfileInfo = styled.div`
-  margin-top: 1rem;
   font-size: 1rem;
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const Content = styled.div``;
 
 const Section = styled.section`
   margin-bottom: 2rem;
@@ -347,15 +315,16 @@ const Section = styled.section`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 `;
 
 const StatCard = styled.div`
   background-color: white;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 `;
 
 const ActivityList = styled.ul`
@@ -364,36 +333,24 @@ const ActivityList = styled.ul`
 `;
 
 const ActivityItem = styled.li`
-  background-color: white;
   padding: 1rem;
+  background-color: white;
+  margin-bottom: 1rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
 `;
 
 const LoadingContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  flex-direction: column;
-
-  .spinner {
-    font-size: 3rem;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+  min-height: 100vh;
 `;
 
 const LoadingText = styled.p`
-  font-size: 1.2rem;
   margin-top: 1rem;
+  font-size: 1.2rem;
 `;
-
 
 export default DashboardPage;
