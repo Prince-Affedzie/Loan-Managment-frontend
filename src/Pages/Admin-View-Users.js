@@ -94,7 +94,7 @@ const AdminViewUsersPage = () => {
     return (
       <LoadingContainer>
         <AiOutlineLoading3Quarters className="spinner" />
-        <LoadingText>Loading Approved loans...</LoadingText>
+        <LoadingText>Loading User...</LoadingText>
       </LoadingContainer>
     );
   }
