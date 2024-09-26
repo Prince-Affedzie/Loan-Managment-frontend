@@ -154,7 +154,7 @@ const LoansTable = styled.table`
     border-bottom: 1px solid #ddd;
 
     @media (max-width: 768px) {
-      padding: 0.5rem;
+      padding: 0.9rem;
     }
   }
 
