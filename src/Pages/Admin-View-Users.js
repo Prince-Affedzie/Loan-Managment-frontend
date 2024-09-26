@@ -205,7 +205,7 @@ const UserList = styled.div`
 const UserItem = styled.div`
   background-color: #f1f5f9;
   border-radius: 12px;
-  padding: 5rem;
+  padding: 3rem;
   width :100%
   display: flex;
   justify-content: space-between;
