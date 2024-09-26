@@ -232,9 +232,10 @@ const ViewButton = styled.button`
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: padding: 8px 12px;;
   border-radius: 8px;
   cursor: pointer;
+  width: 100%
   @media (min-width: 601px) {
     width: auto; // Default width on larger screens
   }
@@ -245,7 +246,7 @@ const UpdateButton = styled.button`
   background-color: #1a73e8;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: padding: 8px 12px;;
   border-radius: 8px;
   cursor: pointer;
   @media (min-width: 601px) {
@@ -258,7 +259,7 @@ const RemoveButton = styled.button`
   background-color: #f44336;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding:padding: 8px 12px;;
   border-radius: 8px;
   cursor: pointer;
   @media (min-width: 601px) {
