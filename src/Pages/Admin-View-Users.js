@@ -194,6 +194,11 @@ const MainContent = styled.main`
   padding: 5rem;
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  
+   @media (max-width: 768px) {
+    max-width: 100%; /* Ensures the container takes full width on mobile */
+    padding: 1rem; /* Adjust padding for mobile view */
+  }
 `;
 
 const UserList = styled.div`
@@ -219,9 +224,16 @@ const UserItem = styled.div`
 const UserDetails = styled.div`
   h3 {
     margin: 0;
+    word-wrap: break-word; /* This ensures long names break into the next line */
+    max-width: 100%; /* 
   }
   p {
     margin: 0.5rem 0;
+    word-wrap: break-word; /* This ensures long email addresses or phone numbers break */
+    max-width: 100%; 
+  }
+     @media (max-width: 768px) {
+    word-wrap: break-word;
   }
 `;
 
