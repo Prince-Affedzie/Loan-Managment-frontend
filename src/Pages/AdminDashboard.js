@@ -324,7 +324,7 @@ const StyledLink = styled(Link)`
     background: #004a99; /* Medium Blue */
   }
      .icon {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
   }
 `;
 
