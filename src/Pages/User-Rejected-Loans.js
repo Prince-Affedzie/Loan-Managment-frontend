@@ -62,39 +62,48 @@ const UserRejectedLoansPage = () => {
   return (
     <Container>
       <Header>
-        <h1>Rejected Loans</h1>
+        <h1>Approved Loans</h1>
       </Header>
       <MainContent>
-      {loans.length > 0 ? (
-        <LoansTable>
-          <thead>
-            <tr>
-              <TableHeader>ID</TableHeader>
-              <TableHeader>Amount</TableHeader>
-              <TableHeader>Interest</TableHeader>
-              <TableHeader>Term</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {loans.map((loan, index) => (
-              <tr key={index}>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{loan.loanAmount}</TableCell>
-                <TableCell>{loan.interestRate}%</TableCell>
-                <TableCell>{loan.durationMonths} Months</TableCell>
-              </tr>
-            ))}
-          </tbody>
-        </LoansTable>
-      ): (
-        <p>No loan information available.</p>
-      )}
+        {loans.length > 0 ? (
+          <TableContainer>
+            <LoansTable>
+              <thead>
+                <tr>
+                  <TableHeader>ID</TableHeader>
+                  <TableHeader>Amount</TableHeader>
+                  <TableHeader>Balance</TableHeader>
+                  <TableHeader>Interest Rate</TableHeader>
+                  <TableHeader>Term</TableHeader>
+                  <TableHeader>Start Payment Date</TableHeader>
+                  <TableHeader>Due Date</TableHeader>
+                </tr>
+              </thead>
+              <tbody>
+                {loans.map((loan, index) => (
+                  <tr key={index}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{loan.loanAmount}</TableCell>
+                    <TableCell>{loan.balance}</TableCell>
+                    <TableCell>{loan.interestRate} %</TableCell>
+                    <TableCell>{loan.durationMonths} Months</TableCell>
+                    <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>
+                    <TableCell>{new Date(loan.dueDate).toDateString()}</TableCell>
+                  </tr>
+                ))}
+              </tbody>
+            </LoansTable>
+          </TableContainer>
+        ) : (
+          <p>No loan information available.</p>
+        )}
       </MainContent>
     </Container>
   );
 };
 
-// Styled components for styling the Approved Loans page
+// Styled components with responsive design
+
 const Container = styled.div`
   padding: 2rem;
   background-color: #e6f7ff;
@@ -149,33 +158,12 @@ const LoansTable = styled.table`
   border-collapse: collapse;
   text-align: left;
 
-  th, td {
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-
-    @media (max-width: 768px) {
-      padding: 0.9rem;
-    }
-  }
-
-  th {
-    background: #f8f9fa;
-  }
-
-  tr:hover {
-    background: #f1f1f1;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
+  
 `;
 
 const TableHeader = styled.th`
-  font-size: 1rem;
+  padding: 1rem;
+  font-size: 1.2rem;
   color: #333;
 
   @media (max-width: 768px) {
@@ -184,6 +172,7 @@ const TableHeader = styled.th`
 `;
 
 const TableCell = styled.td`
+  padding: 1rem;
   font-size: 1.4rem;
   color: #333;
   word-break: break-word; /* Break long text in cells */
