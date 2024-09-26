@@ -303,7 +303,7 @@ const StyledLink = styled(Link)`
   }
 
   .icon {
-    margin-right: 0.75rem;
+    margin-right: 0.3rem;
   }
 `;
 
@@ -325,7 +325,7 @@ const LogoutButton = styled.button`
 // Main Content
 const MainContent = styled.main`
   flex-grow: 1;
-  margin-left: 100px;
+  margin-left: 70px;
   padding: 2rem;
 
   @media (max-width: 1000px) {
