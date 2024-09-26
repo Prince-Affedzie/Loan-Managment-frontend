@@ -222,6 +222,10 @@ const UserDetails = styled.div`
 const ActionButtons = styled.div`
   display: flex;
   gap: 1rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    width: 100%; // Ensure the container takes full width
+  }
 `;
 
 const ViewButton = styled.button`
@@ -231,6 +235,10 @@ const ViewButton = styled.button`
   padding: 10px 15px;
   border-radius: 8px;
   cursor: pointer;
+  @media (min-width: 601px) {
+    width: auto; // Default width on larger screens
+  }
+
 `;
 
 const UpdateButton = styled.button`
@@ -240,6 +248,10 @@ const UpdateButton = styled.button`
   padding: 10px 15px;
   border-radius: 8px;
   cursor: pointer;
+  @media (min-width: 601px) {
+    width: auto; // Default width on larger screens
+  }
+
 `;
 
 const RemoveButton = styled.button`
@@ -249,6 +261,10 @@ const RemoveButton = styled.button`
   padding: 10px 15px;
   border-radius: 8px;
   cursor: pointer;
+  @media (min-width: 601px) {
+    width: auto; // Default width on larger screens
+  }
+
 `;
 
 const LoadingSpinner = styled.div`
