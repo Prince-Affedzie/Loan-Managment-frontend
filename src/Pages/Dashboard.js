@@ -241,7 +241,7 @@ const HamburgerMenu = styled.div`
 
 // Sidebar
 const Sidebar = styled.aside`
-  width: 100px;
+  width: 110px;
   background-color: #1e1e2d;
   color: white;
   padding: 2rem;
