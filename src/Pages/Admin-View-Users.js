@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { FiUserPlus, FiEdit, FiTrash, FiSearch, FiEye } from 'react-icons/fi'; // Add FiEye for view icon
 
 const backendUrl = "https://loan-managment-app.onrender.com"; // Replace with actual backend URL
@@ -90,7 +91,12 @@ const AdminViewUsersPage = () => {
   };
 
   if (loading) {
-    return <LoadingSpinner>Loading users...</LoadingSpinner>;
+    return (
+      <LoadingContainer>
+        <AiOutlineLoading3Quarters className="spinner" />
+        <LoadingText>Loading Approved loans...</LoadingText>
+      </LoadingContainer>
+    );
   }
 
   return (
@@ -194,7 +200,7 @@ const MainContent = styled.main`
   padding: 5rem;
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  
+
    @media (max-width: 768px) {
     max-width: 100%; /* Ensures the container takes full width on mobile */
     padding: 1rem; /* Adjust padding for mobile view */
@@ -300,6 +306,34 @@ const RemoveButton = styled.button`
 
 const LoadingSpinner = styled.div`
   text-align: center;
+`;
+const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  .spinner {
+    font-size: 3rem;
+    color: #1a73e8;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const LoadingText = styled.p`
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #1a73e8;
 `;
 
 export default AdminViewUsersPage;
