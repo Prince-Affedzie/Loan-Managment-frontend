@@ -208,6 +208,11 @@ const UserItem = styled.div`
   padding: 2.5rem;
   display: flex;
   justify-content: space-between;
+  flex-direction: column; /* Stack details and buttons vertically */
+  gap: 1rem;
+  @media (max-width: 768px) {
+    flex-direction: column; /* Maintain column layout for mobile */
+  }
 `;
 
 const UserDetails = styled.div`
@@ -225,6 +230,12 @@ const ActionButtons = styled.div`
   @media (max-width: 600px) {
     flex-direction: column;
     width: 100%; // Ensure the container takes full width
+
+     button {
+      width: 100%;
+      padding: 8px 10px; /* Smaller padding for mobile */
+      font-size: 14px;   /* Reduced font size for mobile */
+    }
   }
 `;
 
@@ -235,9 +246,11 @@ const ViewButton = styled.button`
   padding: padding: 8px 12px;;
   border-radius: 8px;
   cursor: pointer;
-  width: 100%
-  @media (min-width: 601px) {
-    width: auto; // Default width on larger screens
+  
+   @media (max-width: 768px) {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
   }
 
 `;
@@ -249,8 +262,10 @@ const UpdateButton = styled.button`
   padding: padding: 8px 12px;;
   border-radius: 8px;
   cursor: pointer;
-  @media (min-width: 601px) {
-    width: auto; // Default width on larger screens
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
   }
 
 `;
@@ -262,8 +277,10 @@ const RemoveButton = styled.button`
   padding:padding: 8px 12px;;
   border-radius: 8px;
   cursor: pointer;
-  @media (min-width: 601px) {
-    width: auto; // Default width on larger screens
+   @media (max-width: 768px) {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
   }
 
 `;
