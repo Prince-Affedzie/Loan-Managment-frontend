@@ -206,6 +206,7 @@ const UserItem = styled.div`
   background-color: #f1f5f9;
   border-radius: 12px;
   padding: 5rem;
+  width :100%
   display: flex;
   justify-content: space-between;
   flex-direction: column; /* Stack details and buttons vertically */
