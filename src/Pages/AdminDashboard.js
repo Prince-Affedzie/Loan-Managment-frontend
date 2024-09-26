@@ -317,7 +317,7 @@ const StyledLink = styled(Link)`
   font-size: 1.1rem;
   display: block;
    align-items: center;
-  padding: 0.5rem;
+ 
   border-radius: 4px;
 
   &:hover {
