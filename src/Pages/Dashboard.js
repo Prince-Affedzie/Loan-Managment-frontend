@@ -325,7 +325,7 @@ const LogoutButton = styled.button`
 // Main Content
 const MainContent = styled.main`
   flex-grow: 1;
-  margin-left: 70px;
+  margin-left: 60px;
   padding: 2rem;
 
   @media (max-width: 1000px) {
