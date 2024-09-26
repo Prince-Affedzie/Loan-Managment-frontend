@@ -289,6 +289,11 @@ const Sidebar = styled.aside`
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  
+  @media (max-width: 1000px) {
+    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
+  }
+
 `;
 const SidebarTop = styled.div`
   display: flex;
@@ -314,9 +319,9 @@ const SidebarItem = styled.div`
 const StyledLink = styled(Link)`
   color: #fff;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.0rem;
   display: block;
-   align-items: center;
+  align-items: center;
  
   border-radius: 4px;
 
@@ -324,7 +329,7 @@ const StyledLink = styled(Link)`
     background: #004a99; /* Medium Blue */
   }
      .icon {
-    margin-right: 0.2rem;
+    margin-right: 0.3rem;
   }
 `;
 
