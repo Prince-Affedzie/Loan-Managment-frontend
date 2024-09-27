@@ -27,7 +27,7 @@ const AdminUserDetailsPage = () => {
           console.log( userData)
           setUser(userData);
           console.log(userData.loan)
-          setLoans(userData.loan || []); // Set loans
+          setLoans(userData.loan); // Set loans
       
           // Combine all repayments from each loan
           //const allRepayments = userData.loan.reduce((acc, loan) => {
@@ -81,8 +81,10 @@ const AdminUserDetailsPage = () => {
             <LoanItem key={loan._id}>
               <p><strong>Loan ID:</strong> {loan._id}</p>
               <p><strong>Amount:</strong> {loan.loanAmount}</p>
+              <p><strong>Status:</strong> {loan.balance}</p>
               <p><strong>Status:</strong> {loan.status}</p>
-              <p><strong>Loan Date:</strong> {new Date(loan.date).toLocaleDateString()}</p>
+              <p><strong>Start Payment Date:</strong> {new Date(loan.startPaymentDate).toLocaleDateString()}</p>
+              <p><strong> Payment Ends on:</strong> {new Date(loan.dueDate).toLocaleDateString()}</p>
             </LoanItem>
           ))
         ) : (
