@@ -119,7 +119,12 @@ const AdminRepayments = () => {
   };
 
   if (loading) {
-    return <p>Loading Repayments Data...</p>;
+    return (
+      <LoadingContainer>
+        <AiOutlineLoading3Quarters className="spinner" />
+        <LoadingText>Loading Repayments...</LoadingText>
+      </LoadingContainer>
+    );
   }
 
 
@@ -292,5 +297,33 @@ const styles = {
     color: '#333',
   },
 };
+const LoadingContainer =`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  .spinner {
+    font-size: 3rem;
+    color: #1a73e8;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const LoadingText = `
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #1a73e8;
+`;
 
 export default AdminRepayments;
