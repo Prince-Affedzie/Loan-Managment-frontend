@@ -312,7 +312,7 @@ const LogoText = styled.h2`
   margin-top: 0.5rem;
 `;
 const SidebarItem = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
    width: 100%;
 `;
 

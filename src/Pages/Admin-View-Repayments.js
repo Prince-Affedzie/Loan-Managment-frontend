@@ -103,7 +103,7 @@ const AdminRepayments = () => {
         </td>
         <td style={styles.td}>
          
-          <button style={styles.deleteBtn}>Delete</button>
+          <button style={styles.deleteBtn}>Archieve</button>
         </td>
       </tr>
     ));
@@ -160,7 +160,7 @@ const AdminRepayments = () => {
               <th style={styles.th}>Balance</th>
               <th style={styles.th}>Payment Method</th>
               <th style={styles.th}>Date</th>
-              <th style={styles.th}>Laon Due Date</th>
+              <th style={styles.th}>Loan Due Date</th>
               <th style={styles.th}>Status</th>
               <th style={styles.th}>Actions</th>
             </tr>
