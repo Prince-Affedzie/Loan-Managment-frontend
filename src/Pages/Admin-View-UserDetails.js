@@ -32,7 +32,7 @@ const AdminUserDetailsPage = () => {
           }
 
 
-          console.log(userData,userLoans)
+          console.log(userData,userLoans,loans)
 
           
           // Set loans
