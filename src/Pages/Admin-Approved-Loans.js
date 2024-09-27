@@ -9,6 +9,7 @@ const AdminApprovedLoansPage = () => {
   const [loans, setLoans] = useState([]);
   const [filteredLoans, setFilteredLoans] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [message, setMessage] = useState(null); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,6 +48,38 @@ const AdminApprovedLoansPage = () => {
     setFilteredLoans(results);
   }, [searchTerm, loans]);
 
+  const handleStatusChange = async (loanId, newStatus) => {
+    try {
+      const response = await fetch(`${backendUrl}/api/admin/approveLoan`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ loanId, status: newStatus }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update loan status');
+      }
+
+      // Remove the loan from the list after approval/rejection
+      setLoans(loans.filter(loan => loan._id !== loanId));
+
+      // Set success message
+      setMessage(`Loan #${loanId} has been ${newStatus} successfully.`);
+
+      // Hide message after 3 seconds
+      setTimeout(() => setMessage(null), 3000);
+
+    } catch (err) {
+      console.error(err);
+      setMessage(`Failed to ${newStatus} loan #${loanId}.`);
+
+      // Hide error message after 3 seconds
+      setTimeout(() => setMessage(null), 3000);
+    }
+  };
+
   if (loading) {
     return (
       <LoadingContainer>
@@ -60,6 +93,7 @@ const AdminApprovedLoansPage = () => {
     <Container>
       <Header>
         <h1>Approved Loans</h1>
+        {message && <Message>{message}</Message>} {/* Display message */}
         <SearchBarContainer>
         <FiSearch size={24} />
         <SearchInput
@@ -93,6 +127,9 @@ const AdminApprovedLoansPage = () => {
                   <p><strong>Approved By:</strong> {loan.approvedBy}</p>
                   <p><strong>Approved Date:</strong> {new Date(loan.approvedDate).toDateString()}</p>
                 </LoanDetails>
+                <ActionButtons>
+                  <button onClick={() => handleStatusChange(loan._id, 'rejected')}>Cancel Approval</button>
+                </ActionButtons>
               </LoanItem>
             ))
           )}
@@ -207,5 +244,39 @@ const LoadingText = styled.p`
   font-size: 1.5rem;
   color: #1a73e8;
 `;
+
+const ActionButtons = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    background-color: #1565c0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0d47a1;
+    }
+
+    &:nth-child(2) {
+      background-color: #e53935;
+
+      &:hover {
+        background-color: #c62828;
+      }
+    }
+  }
+`;
+const Message = styled.p`
+  color: green;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+`;
+
 
 export default AdminApprovedLoansPage;
