@@ -25,7 +25,11 @@ const AdminUserDetailsPage = () => {
           const userLoans = userData.loan 
            
           setUser(userData);
-          setLoans(userLoans);
+          if (Array.isArray(userLoans)) {
+            setLoans(userLoans);
+          } else if (typeof userLoans === 'object') {
+            setLoans([userLoans]);
+          }
 
 
           console.log(userData,userLoans)
@@ -77,7 +81,7 @@ const AdminUserDetailsPage = () => {
         <p><strong>Registered On:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</p>
       </Section>
 
-      {/* Section 2: All Loans Collected by the User */}
+      
       <Section>
         <h2>All Loans and Associated Information</h2>
         {loans.length > 0 ? (
