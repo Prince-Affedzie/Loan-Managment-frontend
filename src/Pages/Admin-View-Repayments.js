@@ -120,10 +120,10 @@ const AdminRepayments = () => {
 
   if (loading) {
     return (
-      <LoadingContainer>
+        <>
         <AiOutlineLoading3Quarters className="spinner" />
-        <LoadingText>Loading Repayments...</LoadingText>
-      </LoadingContainer>
+        <p>Loading Repayments...</p>
+        </>
     );
   }
 
