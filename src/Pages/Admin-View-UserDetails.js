@@ -22,15 +22,16 @@ const AdminUserDetailsPage = () => {
           })
           
           const userData = await userResponse.json();
-          const userLoans = userData.loan
+          const userLoans = userData.loan 
            
-          
-          console.log( userData)
           setUser(userData);
-          console.log(userData.loan)
-
           setLoans(userLoans);
-          console.log(loans) // Set loans
+
+
+          console.log(userData,userLoans)
+
+          
+          // Set loans
       
           // Combine all repayments from each loan
           //const allRepayments = userData.loan.reduce((acc, loan) => {
