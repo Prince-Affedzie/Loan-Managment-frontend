@@ -120,10 +120,10 @@ const AdminRepayments = () => {
 
   if (loading) {
     return (
-        <>
+        <div style={styles.LoadingContainer}>
         <AiOutlineLoading3Quarters style={styles.spinner} />
         <p>Loading Repayments...</p>
-        </>
+        </div>
     );
   }
 
@@ -300,35 +300,15 @@ const styles = {
     fontSize: '3rem',
     color: '#1a73e8',
     animation: 'spin 1s linear infinite'
-  }
+  },
+  LoadingContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2rem'}
 };
-const LoadingContainer =`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
 
-  .spinner {
-    font-size: 3rem;
-    color: #1a73e8;
-    animation: spin 1s linear infinite;
-  }
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
-const LoadingText = `
-  margin-top: 1rem;
-  font-size: 1.5rem;
-  color: #1a73e8;
-`;
-
+ 
 export default AdminRepayments;
