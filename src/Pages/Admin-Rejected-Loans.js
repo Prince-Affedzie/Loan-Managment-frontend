@@ -146,6 +146,8 @@ const AdminRejectedLoansPage = () => {
                   <p><strong>Purpose:</strong> {loan.purpose}</p>
                   <p><strong>Duration:</strong> {loan.durationMonths} months</p>
                   <p><strong>Status:</strong> {loan.status}</p>
+                  <p><strong>Rejected By:</strong> {loan.approvedBy}</p>
+                  <p><strong>Approved Date:</strong> {new Date(loan.approvedDate).toDateString()}</p>
                 </LoanDetails>
                 <ActionButtons>
                   <button onClick={() => handleReapproveLoan(loan._id,'approved')}>Reapprove</button>
