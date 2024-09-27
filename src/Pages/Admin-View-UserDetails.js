@@ -26,13 +26,14 @@ const AdminUserDetailsPage = () => {
           
           console.log( userData)
           setUser(userData);
+          console.log(userData.loan)
           setLoans(userData.loan || []); // Set loans
       
           // Combine all repayments from each loan
-          const allRepayments = userData.loan.reduce((acc, loan) => {
-            return acc.concat(loan.repaymentSchedule || []);
-          }, []);
-          setRepayments(allRepayments); // Set repayments
+          //const allRepayments = userData.loan.reduce((acc, loan) => {
+            //return acc.concat(loan.repaymentSchedule || []);
+         // }, []);
+         // setRepayments(allRepayments); // Set repayments
         } catch (err) {
           console.error('Failed to fetch data:', err);
         } finally {
