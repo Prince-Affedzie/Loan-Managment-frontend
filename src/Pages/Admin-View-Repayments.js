@@ -121,7 +121,7 @@ const AdminRepayments = () => {
   if (loading) {
     return (
         <>
-        <AiOutlineLoading3Quarters className="spinner" />
+        <AiOutlineLoading3Quarters style={styles.spinner} />
         <p>Loading Repayments...</p>
         </>
     );
@@ -296,6 +296,11 @@ const styles = {
     fontSize: '1.2rem',
     color: '#333',
   },
+  spinner: {
+    fontSize: '3rem',
+    color: '#1a73e8',
+    animation: 'spin 1s linear infinite'
+  }
 };
 const LoadingContainer =`
   display: flex;
