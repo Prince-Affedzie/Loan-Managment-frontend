@@ -94,7 +94,7 @@ const AdminViewUsersPage = () => {
     return (
       <LoadingContainer>
         <AiOutlineLoading3Quarters className="spinner" />
-        <LoadingText>Loading User...</LoadingText>
+        <LoadingText>Loading Users Information...</LoadingText>
       </LoadingContainer>
     );
   }
@@ -129,7 +129,8 @@ const AdminViewUsersPage = () => {
                   <h3>{user.name}</h3>
                   <p><strong>Email:</strong> {user.email}</p>
                   <p><strong>Phone:</strong> {user.phoneNumber}</p>
-                  <p><strong>Location:</strong> {user.location}</p>
+                  <p><strong>Country:</strong> {user.country}</p>
+                  <p><strong>Residential Address:</strong> {user.ResidentialAddress}</p>
                 </UserDetails>
                 <ActionButtons>
                   <ViewButton onClick={() => handleViewUserDetails(user._id)}>

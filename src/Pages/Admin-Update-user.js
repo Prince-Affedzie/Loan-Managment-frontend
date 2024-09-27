@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminUpdateUser = () => {
@@ -71,7 +71,12 @@ const AdminUpdateUser = () => {
     }
   };
 
-  if (loading) return <p>Loading user data...</p>;
+  if (loading) return (
+    <div style={styles.LoadingContainer}>
+        <AiOutlineLoading3Quarters style={styles.spinner} />
+        <p>Loading Repayments...</p>
+        </div>
+  );
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -202,6 +207,17 @@ const styles = {
     marginTop: "10px",
     marginLeft: "10px",
   },
+  spinner: {
+    fontSize: '3rem',
+    color: '#1a73e8',
+    animation: 'spin 1s linear infinite'
+  },
+  LoadingContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2rem'}
 };
 
 export default AdminUpdateUser;
