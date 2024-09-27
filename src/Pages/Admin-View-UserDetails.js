@@ -27,7 +27,8 @@ const AdminUserDetailsPage = () => {
           console.log( userData)
           setUser(userData);
           console.log(userData.loan)
-          setLoans(userData.loan); // Set loans
+          setLoans(userData.loan);
+          console.log(loans) // Set loans
       
           // Combine all repayments from each loan
           //const allRepayments = userData.loan.reduce((acc, loan) => {
