@@ -19,8 +19,10 @@ const AdminUserDetailsPage = () => {
           const userResponse = await fetch(`${backendUrl}/api/admin/userDetails/${userId}`, {
             method: 'GET',
             credentials: 'include',
-          });
+          })
+          
           const userData = await userResponse.json();
+           
           
           console.log( userData)
           setUser(userData);
