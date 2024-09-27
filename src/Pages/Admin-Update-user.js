@@ -74,7 +74,7 @@ const AdminUpdateUser = () => {
   if (loading) return (
     <div style={styles.LoadingContainer}>
         <AiOutlineLoading3Quarters style={styles.spinner} />
-        <p>Loading Repayments...</p>
+        <p>Loading User Information...</p>
         </div>
   );
   if (error) return <p>Error: {error}</p>;
