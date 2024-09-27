@@ -22,12 +22,14 @@ const AdminUserDetailsPage = () => {
           })
           
           const userData = await userResponse.json();
+          const userLoans = userData.loan
            
           
           console.log( userData)
           setUser(userData);
           console.log(userData.loan)
-          setLoans(userData.loan);
+
+          setLoans(userLoans);
           console.log(loans) // Set loans
       
           // Combine all repayments from each loan
