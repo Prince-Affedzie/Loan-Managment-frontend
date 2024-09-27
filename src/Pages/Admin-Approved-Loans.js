@@ -90,6 +90,7 @@ const AdminApprovedLoansPage = () => {
                   <p><strong>Start Payment Date :</strong> {new Date(loan.startPaymentDate).toDateString()} </p>
                   <p><strong>Due Date:</strong> {new Date(loan.dueDate).toDateString()}</p>
                   <p><strong>Status:</strong> {loan.status}</p>
+                  <p><strong>Approved By:</strong> {loan.approvedBy}</p>
                 </LoanDetails>
               </LoanItem>
             ))
