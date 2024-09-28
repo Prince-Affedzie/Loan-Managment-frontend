@@ -120,7 +120,7 @@ const AdminUpdateUser = () => {
           <label style={styles.label}>Residential Address</label>
           <input
             type="text"
-            name="location"
+            name="ResidentialAddress"
             value={userData.ResidentialAddress}
             onChange={handleChange}
             style={styles.input}
