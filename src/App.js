@@ -4,7 +4,6 @@ import LoginPage from './Pages/LoginPage';
 import Dashboard from './Pages/Dashboard';
 import ApplyLoan from './Pages/ApplyLoan';
 import SignUpPage  from './Pages/SingnUp';
-import ViewLoansPage from './Pages/ViewLoans';
 import AdminDashboardPage from './Pages/AdminDashboard';
 import UserViewLoansPage from './Pages/userViewLons';
 import UserApprovedLoansPage from './Pages/User-Approved-Loans';
