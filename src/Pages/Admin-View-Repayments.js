@@ -8,13 +8,11 @@ const AdminRepayments = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
- 
   const [loading, setLoading] = useState(true);
 
   const rowsPerPage = 5;
 
   useEffect(() => {
-    // Fetch repayments from the server or backend here
     const fetchRepayments = async () => {
         setLoading(true);
         try {
@@ -47,9 +45,9 @@ const AdminRepayments = () => {
 
     if (searchTerm) {
       filtered = filtered.filter((repayment) => {
-        const loanNumber = repayment.loanId?.loanNumber || ''; // Use an empty string if undefined
-        const borrowerName = repayment.loanId?.borrower?.name || ''; // Use an empty string if undefined
-        const paymentMethod = repayment.paymentMethod || ''; // Use an empty string if undefined
+        const loanNumber = repayment.loanId?.loanNumber || ''; 
+        const borrowerName = repayment.loanId?.borrower?.name || '';
+        const paymentMethod = repayment.paymentMethod || '';
     
         return (
           loanNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -81,7 +79,6 @@ const AdminRepayments = () => {
         <td style={styles.td}>
           {repayment.loanId && repayment.loanId.borrower
             ? repayment.loanId.borrower.name
-              
             : 'Borrower not available'}
         </td>
         <td style={styles.td}>GH₵{repayment.amountPaid}</td>
@@ -94,20 +91,18 @@ const AdminRepayments = () => {
         <td style={styles.td}>{repayment.paymentMethod}</td>
         <td style={styles.td}>{new Date(repayment.paymentDate).toDateString()}</td>
         <td style={styles.td}>
-  {repayment.loanId && repayment.loanId.dueDate
-    ? new Date(repayment.loanId.dueDate).toDateString()
-    : 'Loan Due Date not available'}
-</td>
-<td style={styles.td}>
+          {repayment.loanId && repayment.loanId.dueDate
+            ? new Date(repayment.loanId.dueDate).toDateString()
+            : 'Loan Due Date not available'}
+        </td>
+        <td style={styles.td}>
           {repayment.loanId ? repayment.loanId.status : 'Status not available'}
         </td>
         <td style={styles.td}>
-         
-          <button style={styles.deleteBtn}>Archieve</button>
+          <button style={styles.deleteBtn}>Archive</button>
         </td>
       </tr>
     ));
-    
   };
 
   const handlePageChange = (direction) => {
@@ -127,12 +122,10 @@ const AdminRepayments = () => {
     );
   }
 
-
   return (
     <div style={styles.repaymentsContainer}>
       <header style={styles.header}>
         <h1 style={styles.heading}>Repayment Dashboard</h1>
-        
       </header>
 
       <div style={styles.controls}>
@@ -194,9 +187,10 @@ const styles = {
     width: '90%',
     margin: '30px auto',
     padding: '30px',
-    backgroundColor: '#f9f9f9', // Updated to match previous branding
+    backgroundColor: '#f9f9f9', 
     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
     borderRadius: '20px',
+    maxWidth: '1200px',
   },
   header: {
     display: 'flex',
@@ -206,22 +200,15 @@ const styles = {
   },
   heading: {
     fontSize: '2.2rem',
-    color: '#0A66C2', // Updated to match previous branding (primary color)
+    color: '#0A66C2',
     fontWeight: '600',
-  },
-  logoutBtn: {
-    backgroundColor: '#e74c3c',
-    color: 'white',
-    padding: '12px 25px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '1rem',
+    textAlign: 'center',
   },
   controls: {
     marginBottom: '20px',
     display: 'flex',
     justifyContent: 'space-between',
+    flexWrap: 'wrap', // Makes inputs stack on smaller screens
   },
   input: {
     padding: '12px',
@@ -229,6 +216,8 @@ const styles = {
     border: '1px solid #ccc',
     borderRadius: '5px',
     fontSize: '1rem',
+    minWidth: '200px', // Minimum width for responsiveness
+    marginBottom: '10px',
   },
   select: {
     padding: '12px',
@@ -236,6 +225,8 @@ const styles = {
     border: '1px solid #ccc',
     borderRadius: '5px',
     fontSize: '1rem',
+    minWidth: '200px', // Minimum width for responsiveness
+    marginBottom: '10px',
   },
   tableContainer: {
     overflowX: 'auto',
@@ -245,70 +236,58 @@ const styles = {
     borderCollapse: 'collapse',
   },
   thead: {
-    backgroundColor: '#0A66C2', // Updated to match previous branding (primary color)
+    backgroundColor: '#0A66C2', 
     color: 'white',
   },
   th: {
-    padding: '20px', // Increased padding for wider spacing
+    padding: '20px',
     textAlign: 'left',
     fontSize: '1rem',
   },
   td: {
-    padding: '20px', // Increased padding for wider spacing
+    padding: '15px', 
     textAlign: 'left',
-    fontSize: '1rem',
+    fontSize: '0.9rem',
     borderBottom: '1px solid #ddd',
-  },
-  viewBtn: {
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    padding: '8px 16px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginRight: '10px',
   },
   deleteBtn: {
     backgroundColor: '#e74c3c',
     color: 'white',
-    padding: '8px 16px',
-    border: 'none',
+    padding: '8px 15px',
     borderRadius: '5px',
+    border: 'none',
     cursor: 'pointer',
   },
   pagination: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '30px',
+    marginTop: '20px',
   },
   paginationBtn: {
-    backgroundColor: '#0A66C2', // Updated to match previous branding
+    padding: '10px 15px',
+    margin: '0 5px',
+    backgroundColor: '#0A66C2',
     color: 'white',
-    padding: '10px 20px',
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
-    fontSize: '1rem',
-    margin: '0 15px',
   },
   pageIndicator: {
-    fontSize: '1.2rem',
-    color: '#333',
+    margin: '0 10px',
+  },
+  LoadingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    flexDirection: 'column',
   },
   spinner: {
     fontSize: '3rem',
-    color: '#1a73e8',
-    animation: 'spin 1s linear infinite'
-  },
-  LoadingContainer:{
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '2rem'}
+    color: '#0A66C2',
+    marginBottom: '20px',
+  }
 };
 
-
- 
 export default AdminRepayments;
