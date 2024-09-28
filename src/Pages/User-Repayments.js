@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminRepayments = () => {
@@ -109,7 +110,12 @@ const AdminRepayments = () => {
   };
 
   if (loading) {
-    return <p>Loading Repayments...</p>; // Show loading message while fetching
+    return (
+      <div style={styles.LoadingContainer}>
+      <AiOutlineLoading3Quarters style={styles.spinner} />
+      <p>Loading Repayments...</p>
+      </div>
+  );// Show loading message while fetching
   }
 
   if (repayments.length === 0) {
@@ -264,6 +270,18 @@ const styles = {
   pageIndicator: {
     fontSize: "1.2rem",
   },
+  spinner: {
+    fontSize: '3rem',
+    color: '#1a73e8',
+    animation: 'spin 1s linear infinite'
+  },
+  LoadingContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2rem'}
 };
+
 
 export default AdminRepayments;
