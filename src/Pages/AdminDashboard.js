@@ -3,6 +3,9 @@ import { Line } from 'react-chartjs-2';
 import { FiUsers, FiCheckCircle, FiXCircle, FiClock, FiFileText, FiLogOut, FiBriefcase } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+
+
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -12,6 +15,7 @@ const backendUrl = "https://loan-managment-app.onrender.com";
 const AdminDashboardPage = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [approvedloans, setApprovedLoans] = useState([]);
   const [pendingLoans, setPendingLoans] = useState([]);
   const [rejectedLoans, setRejectedLoans] = useState([]);
@@ -176,6 +180,14 @@ const AdminDashboardPage = () => {
       },
     };
 
+    if (loading) {
+      return (
+        <LoadingContainer>
+          <AiOutlineLoading3Quarters className="spinner" />
+          <LoadingText>Loading Admin Dashboard...</LoadingText>
+        </LoadingContainer>
+      );
+    }
   return (
     <Container>
       <Sidebar>
@@ -409,5 +421,31 @@ const ActivityItem = styled.li`
   margin-bottom: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
+const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+
+  .spinner {
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const LoadingText = styled.p`
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: #00aaff;
+`;
+
 
 export default AdminDashboardPage;
