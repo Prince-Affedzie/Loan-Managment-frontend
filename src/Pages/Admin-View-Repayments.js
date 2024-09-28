@@ -142,8 +142,8 @@ const AdminRepayments = () => {
           style={styles.select}
         >
           <option value="">All Statuses</option>
-          <option value="paid">Complete</option>
-          <option value="pending">Pending</option>
+          <option value="fully paid">Complete</option>
+          <option value="approved">Pending</option>
         </select>
       </div>
 
