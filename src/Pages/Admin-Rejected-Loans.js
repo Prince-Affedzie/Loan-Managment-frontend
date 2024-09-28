@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { MdOutlineError } from 'react-icons/md'; // Modern icon for no loans
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
 import { FiSearch } from 'react-icons/fi'; // Search icon for search bar
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+
 
 const backendUrl = "https://loan-managment-app.onrender.com";
 
@@ -11,6 +13,7 @@ const AdminRejectedLoansPage = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [searchQuery, setSearchQuery] = useState(''); // Search query state
+  const [messageType, setMessageType] = useState('')
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -53,12 +56,14 @@ const AdminRejectedLoansPage = () => {
       // Update the loan list by removing the reapproved loan
       setLoans(loans.filter((loan) => loan._id !== loanId));
       setMessage(`Loan #${loanId} has been reapproved.`);
+      setMessageType('success');
 
       // Hide message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
     } catch (err) {
       console.error(err);
       setMessage(`Failed to reapprove loan #${loanId}.`);
+      setMessageType('error');
 
       // Hide error message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
@@ -113,7 +118,12 @@ const AdminRejectedLoansPage = () => {
     <Container>
       <Header>
         <h1>Rejected Loans</h1>
-        {message && <Message>{message}</Message>}
+        {message && (
+          <FloatingMessage type={messageType}>
+            {messageType === 'success' ? <FaCheckCircle /> : <FaTimesCircle />}
+            <span>{message}</span>
+          </FloatingMessage>
+        )}
       </Header>
       
       <SearchBarContainer>
@@ -310,5 +320,41 @@ const ActionButtons = styled.div`
     }
   }
 `;
+const FloatingMessage = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: ${props => (props.type === 'success' ? '#28a745' : '#dc3545')};
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeInOut 3s ease-in-out;
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  span {
+    font-size: 1.2rem;
+  }
+`;
+
 
 export default AdminRejectedLoansPage;

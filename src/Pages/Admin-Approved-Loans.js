@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
 import { FiSearch } from 'react-icons/fi'
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+
 
 const backendUrl = "https://loan-managment-app.onrender.com";
 
@@ -11,6 +13,7 @@ const AdminApprovedLoansPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [message, setMessage] = useState(null); 
   const [loading, setLoading] = useState(true);
+  const [messageType, setMessageType] = useState('')
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -67,6 +70,7 @@ const AdminApprovedLoansPage = () => {
 
       // Set success message
       setMessage(`Loan #${loanId} has been ${newStatus} successfully.`);
+      setMessageType('success');
 
       // Hide message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
@@ -74,6 +78,7 @@ const AdminApprovedLoansPage = () => {
     } catch (err) {
       console.error(err);
       setMessage(`Failed to ${newStatus} loan #${loanId}.`);
+      setMessageType('error');
 
       // Hide error message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
@@ -93,7 +98,12 @@ const AdminApprovedLoansPage = () => {
     <Container>
       <Header>
         <h1>Approved Loans</h1>
-        {message && <Message>{message}</Message>} {/* Display message */}
+        {message && (
+          <FloatingMessage type={messageType}>
+            {messageType === 'success' ? <FaCheckCircle /> : <FaTimesCircle />}
+            <span>{message}</span>
+          </FloatingMessage>
+        )}
         <SearchBarContainer>
         <FiSearch size={24} />
         <SearchInput
@@ -276,6 +286,42 @@ const Message = styled.p`
   color: green;
   font-size: 1.2rem;
   margin-top: 1rem;
+`;
+
+const FloatingMessage = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: ${props => (props.type === 'success' ? '#28a745' : '#dc3545')};
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeInOut 3s ease-in-out;
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  span {
+    font-size: 1.2rem;
+  }
 `;
 
 

@@ -123,7 +123,7 @@ const RepayLoanPage = () => {
               <h3>Loan Summary:</h3>
               <p><strong>Amount:</strong> GH$ {selectedLoan.loanAmount}</p>
               <p><strong>Balance:</strong> GH$ {selectedLoan.balance}</p>
-              <p><strong>Due Date:</strong> {selectedLoan.dueDate}</p>
+              <p><strong>Due Date:</strong> {new Date(selectedLoan.dueDate).toDateString()}</p>
             </LoanSummary>
           )}
 
