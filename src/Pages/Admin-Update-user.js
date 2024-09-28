@@ -121,7 +121,7 @@ const AdminUpdateUser = () => {
           <input
             type="text"
             name="location"
-            value={userData.ResidentialAddress}
+            value={userData.location}
             onChange={handleChange}
             style={styles.input}
            
