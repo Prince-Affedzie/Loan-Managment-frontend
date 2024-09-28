@@ -1,41 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminRepayments = () => {
-  const [repayments, setRepayments] = useState([]);
-  const [filteredRepayments, setFilteredRepayments] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [repayments, setRepayments] = useState([]); // repayments state to hold the data
+  const [filteredRepayments, setFilteredRepayments] = useState([]); // Filtered data for pagination
+  const [searchTerm, setSearchTerm] = useState(""); // Search filter
+  const [statusFilter, setStatusFilter] = useState(""); // Status filter
+  const [currentPage, setCurrentPage] = useState(1); // For pagination
+  const [loading, setLoading] = useState(true); // To show loading state
 
-  const rowsPerPage = 5;
+  const rowsPerPage = 5; // Number of rows to show per page
 
+  // Fetch repayments from the server when the component mounts
   useEffect(() => {
     const fetchRepayments = async () => {
-        setLoading(true);
-        try {
-          const response = await fetch(`${backendUrl}/api/admin/repayments`, {
-            method: 'GET',
-            credentials: 'include',
-          });
-          if (!response.ok) {
-            throw new Error('Failed to fetch loans');
-          }
-          const data = await response.json();
-          setRepayments(data);
-        } catch (err) {
-          console.error(err);
-          setRepayments([]);
-        } finally {
-          setLoading(false);
+      setLoading(true);
+      try {
+        const response = await fetch(`${backendUrl}/api/admin/repayments`, {
+          method: "GET",
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch loans");
         }
-      };
+        const data = await response.json();
+        setRepayments(Array.isArray(data) ? data : []); // Ensure repayments is always an array
+      } catch (err) {
+        console.error(err);
+        setRepayments([]); // Set an empty array if error occurs
+      } finally {
+        setLoading(false); // End loading state
+      }
+    };
 
     fetchRepayments();
   }, []);
 
+  // Apply filters when searchTerm, statusFilter, or repayments change
   useEffect(() => {
     applyFilters();
   }, [searchTerm, statusFilter, repayments]);
@@ -45,10 +47,10 @@ const AdminRepayments = () => {
 
     if (searchTerm) {
       filtered = filtered.filter((repayment) => {
-        const loanNumber = repayment.loanId?.loanNumber || ''; 
-        const borrowerName = repayment.loanId?.borrower?.name || '';
-        const paymentMethod = repayment.paymentMethod || '';
-    
+        const loanNumber = repayment.loanId?.loanNumber || ""; // Default to empty string if undefined
+        const borrowerName = repayment.loanId?.borrower?.name || ""; // Default to empty string
+        const paymentMethod = repayment.paymentMethod || ""; // Default to empty string
+
         return (
           loanNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
           borrowerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -56,50 +58,44 @@ const AdminRepayments = () => {
         );
       });
     }
-    
+
     if (statusFilter) {
-      filtered = filtered.filter((repayment) => repayment.loanId.status === statusFilter);
+      filtered = filtered.filter((repayment) => repayment.status === statusFilter);
     }
 
-    setFilteredRepayments(filtered);
-    setCurrentPage(1);
+    setFilteredRepayments(filtered); // Update filtered repayments
+    setCurrentPage(1); // Reset to the first page after filtering
   };
 
   const renderTableRows = () => {
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    const currentRepayments = filteredRepayments.slice(startIndex, endIndex);
+    const currentRepayments = filteredRepayments.slice(startIndex, endIndex); // Paginate filtered data
 
     return currentRepayments.map((repayment, index) => (
       <tr key={index}>
         <td style={styles.td}>
-          {repayment.loanId ? repayment.loanId._id : 'Loan ID not available'}
+          {repayment.loanId ? repayment.loanId._id : "Loan ID not available"}
         </td>
-        
         <td style={styles.td}>
           {repayment.loanId && repayment.loanId.borrower
             ? repayment.loanId.borrower.name
-            : 'Borrower not available'}
+            : "Borrower not available"}
         </td>
         <td style={styles.td}>GH₵{repayment.amountPaid}</td>
         <td style={styles.td}>
-          {repayment.loanId ? repayment.loanId.loanAmount : 'Loan Amount not available'}
-        </td>
-        <td style={styles.td}>
-          {repayment.loanId ? repayment.loanId.balance : 'Loan Balance not available'}
+          {repayment.loanId ? repayment.loanId.balance : "Loan Balance not available"}
         </td>
         <td style={styles.td}>{repayment.paymentMethod}</td>
         <td style={styles.td}>{new Date(repayment.paymentDate).toDateString()}</td>
         <td style={styles.td}>
           {repayment.loanId && repayment.loanId.dueDate
             ? new Date(repayment.loanId.dueDate).toDateString()
-            : 'Loan Due Date not available'}
+            : "Loan Due Date not available"}
         </td>
+        <td style={styles.td}>{repayment.status}</td>
         <td style={styles.td}>
-          {repayment.loanId ? repayment.loanId.status : 'Status not available'}
-        </td>
-        <td style={styles.td}>
-          <button style={styles.deleteBtn}>Archive</button>
+          <button style={styles.deleteBtn}>Delete</button>
         </td>
       </tr>
     ));
@@ -115,17 +111,22 @@ const AdminRepayments = () => {
 
   if (loading) {
     return (
-        <div style={styles.LoadingContainer}>
-        <AiOutlineLoading3Quarters style={styles.spinner} />
-        <p>Loading Repayments...</p>
-        </div>
-    );
+      <div style={styles.LoadingContainer}>
+      <AiOutlineLoading3Quarters style={styles.spinner} />
+      <p>Loading Repayments...</p>
+      </div>
+  );// Show loading message while fetching
+  }
+
+  if (repayments.length === 0) {
+    return <p>No repayments found.</p>; // Handle no repayments case
   }
 
   return (
     <div style={styles.repaymentsContainer}>
       <header style={styles.header}>
         <h1 style={styles.heading}>Repayment Dashboard</h1>
+        <button style={styles.logoutBtn}>Logout</button>
       </header>
 
       <div style={styles.controls}>
@@ -143,7 +144,7 @@ const AdminRepayments = () => {
         >
           <option value="">All Statuses</option>
           <option value="fully paid">Complete</option>
-          <option value="approved">Pending</option>
+          <option value="pending">Pending</option>
         </select>
       </div>
 
@@ -154,7 +155,6 @@ const AdminRepayments = () => {
               <th style={styles.th}>Loan ID</th>
               <th style={styles.th}>Borrower</th>
               <th style={styles.th}>Amount Paid (GH₵)</th>
-              <th style={styles.th}>Loan Amount Borrowed (GH₵)</th>
               <th style={styles.th}>Balance</th>
               <th style={styles.th}>Payment Method</th>
               <th style={styles.th}>Date</th>
@@ -181,6 +181,7 @@ const AdminRepayments = () => {
     </div>
   );
 };
+
 
 const styles = {
   repaymentsContainer: {
