@@ -58,7 +58,7 @@ const AdminUpdateUser = () => {
     console.log(userData);
     try {
       const response = await fetch(`${backendUrl}/api/admin/updateUser/${userId}`, {
-        method: "PuT",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
