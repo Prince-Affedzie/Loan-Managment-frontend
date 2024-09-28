@@ -270,7 +270,7 @@ const TableCell = styled.td`
   font-size: 1.4rem;
   color: ${(props) => (props.status === 'approved' ? '#28a745' : 
                       props.status === 'pending' ? '#ffc107' : 
-                      '#dc3545')};
+                      ' #333')};
 
   @media (max-width: 768px) {
     font-size: 0.9rem;
