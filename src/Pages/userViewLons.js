@@ -267,8 +267,8 @@ const TableHeader = styled.th`
 
 const TableCell = styled.td`
    padding : 1rem;
-  font-size: 1.4rem;
-  color: ${(props) => (props.status === 'approved' ? '#F7DC6F' : 
+  font-size: 1.1rem;
+  color: ${(props) => (props.status === 'approved' ? '#87CEEB' : 
                       props.status === 'pending' ? '#ffc107' : 
                       props.status === 'fully paid' ? '#28a745' : 
                       props.status === 'rejected' ? '#FF0000' :
