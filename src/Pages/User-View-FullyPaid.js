@@ -190,7 +190,7 @@ const TableHeader = styled.th`
 `;
 
 const TableCell = styled.td`
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   color: #333;
   word-break: break-word; /* Break long text in cells */
 
