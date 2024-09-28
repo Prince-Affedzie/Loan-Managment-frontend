@@ -32,7 +32,7 @@ const AdminUpdateUser = () => {
           name: data.name || "",
           email: data.email || "",
           phoneNumber:data.phoneNumber|| "",
-          location: data.location || "",
+          location: data.ResidentialAddress || "",
           role: data.role || "",
           status: data.status || "",
         }); // Populate the form with fetched data
