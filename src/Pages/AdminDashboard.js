@@ -201,7 +201,7 @@ const AdminDashboardPage = () => {
         </SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-view-fullypaid">
-            <FiClock className="icon" />Full Paid Loans
+            <FiClock className="icon" />Fully Paid Loans
           </StyledLink>
         </SidebarItem>
         <SidebarItem></SidebarItem>
