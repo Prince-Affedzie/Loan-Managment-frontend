@@ -204,7 +204,6 @@ const AdminDashboardPage = () => {
             <FiClock className="icon" />Fully Paid Loans
           </StyledLink>
         </SidebarItem>
-        <SidebarItem></SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-view-repayments">
             <FiFileText className="icon" />Repayments

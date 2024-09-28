@@ -122,8 +122,8 @@ const AdminFullyPaidPage = () => {
                   <p><strong>Duration:</strong> {loan.durationMonths} months</p>
                 </LoanDetails>
                 <ActionButtons>
-                  <button onClick={() => handleStatusChange(loan._id, 'approved')}>Approve</button>
-                  <button onClick={() => handleStatusChange(loan._id, 'rejected')}>Reject</button>
+                  <button onClick={() => handleStatusChange(loan._id, 'approved')}>Archieve</button>
+                  
                 </ActionButtons>
               </LoanItem>
             ))
