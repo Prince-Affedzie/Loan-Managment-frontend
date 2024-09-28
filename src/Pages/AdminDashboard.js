@@ -43,6 +43,7 @@ const AdminDashboardPage = () => {
 
   useEffect(() => {
     const fetchRepayments = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${backendUrl}/api/admin/repayments`, {
           method: 'GET',
@@ -56,6 +57,8 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setRepayments([]);
+      }finally {
+        setLoading(false);
       }
     };
     fetchRepayments();
@@ -63,6 +66,7 @@ const AdminDashboardPage = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${backendUrl}/api/admin/getUsers`, {
           method: 'GET',
@@ -76,6 +80,8 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setUsers([]);
+      }finally {
+        setLoading(false);
       }
     };
     fetchUsers();
@@ -83,6 +89,7 @@ const AdminDashboardPage = () => {
 
   useEffect(() => {
     const fetchLoans = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${backendUrl}/api/admin/getApprovedLoans`, {
           method: 'GET',
@@ -96,12 +103,15 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setApprovedLoans([]);
+      }finally {
+        setLoading(false);
       }
     };
     fetchLoans();
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const fetchPendingLoans = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/admin/pendingLoans`, {
@@ -116,12 +126,15 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setPendingLoans([]);
+      }finally {
+        setLoading(false);
       }
     };
     fetchPendingLoans();
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const fetchRejectedLoans = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/admin/rejectedLoans`, {
@@ -136,6 +149,8 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setRejectedLoans([]);
+      }finally {
+        setLoading(false);
       }
     };
     fetchRejectedLoans();
@@ -182,7 +197,7 @@ const AdminDashboardPage = () => {
 
     if (loading) {
       return (
-        <LoadingContainer>
+        <LoadingContainer> 
           <AiOutlineLoading3Quarters className="spinner" />
           <LoadingText>Loading Admin Dashboard...</LoadingText>
         </LoadingContainer>
