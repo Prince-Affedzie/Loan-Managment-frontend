@@ -268,8 +268,11 @@ const TableHeader = styled.th`
 const TableCell = styled.td`
    padding : 1rem;
   font-size: 1.4rem;
-  color: ${(props) => (props.status === 'approved' ? '#28a745' : 
+  color: ${(props) => (props.status === 'approved' ? '#F7DC6F' : 
                       props.status === 'pending' ? '#ffc107' : 
+                      props.status === 'fully paid' ? '#28a745' : 
+                      props.status === 'rejected' ? '#FF0000' :
+                    
                       ' #333')};
 
   @media (max-width: 768px) {
