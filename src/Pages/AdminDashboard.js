@@ -206,7 +206,6 @@ const AdminDashboardPage = () => {
         </SidebarItem>
         <SidebarItem></SidebarItem>
         <SidebarItem>
-          
           <StyledLink to="/admin-view-repayments">
             <FiFileText className="icon" />Repayments
           </StyledLink>
