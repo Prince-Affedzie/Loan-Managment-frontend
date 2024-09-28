@@ -117,11 +117,11 @@ const AdminUpdateUser = () => {
           />
         </div>
         <div style={styles.formGroup}>
-          <label style={styles.label}>Location</label>
+          <label style={styles.label}>Residential Address</label>
           <input
             type="text"
             name="location"
-            value={userData.location}
+            value={userData.ResidentialAddress}
             onChange={handleChange}
             style={styles.input}
            
