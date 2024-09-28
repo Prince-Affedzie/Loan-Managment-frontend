@@ -35,15 +35,15 @@ const AdminFullyPaidPage = () => {
     fetchLoans();
   }, []);
 
-  const handleStatusChange = async (loanId, newStatus) => {
+  const handleStatusChange = async (loanId) => {
     try {
-      const response = await fetch(`${backendUrl}/api/admin/approveLoan`, {
+      const response = await fetch(`${backendUrl}/api/admin/archiveloan`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ loanId, status: newStatus }),
+        body: JSON.stringify({loanId}),
       });
       if (!response.ok) {
         throw new Error('Failed to update loan status');
@@ -53,14 +53,14 @@ const AdminFullyPaidPage = () => {
       setLoans(loans.filter(loan => loan._id !== loanId));
 
       // Set success message
-      setMessage(`Loan #${loanId} has been ${newStatus} successfully.`);
+      setMessage(`Loan #${loanId} has been archieved successfully.`);
 
       // Hide message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
 
     } catch (err) {
       console.error(err);
-      setMessage(`Failed to ${newStatus} loan #${loanId}.`);
+      setMessage(`Failed to Archive loan #${loanId}.`);
 
       // Hide error message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
@@ -89,7 +89,7 @@ const AdminFullyPaidPage = () => {
   return (
     <Container>
       <Header>
-        <h1>Pending Loans</h1>
+        <h1>Fully Paid Loans</h1>
         {message && <Message>{message}</Message>} {/* Display message */}
         <SearchBarContainer>
         <FiSearch size={24} />
@@ -105,7 +105,7 @@ const AdminFullyPaidPage = () => {
       <MainContent>
         <LoanList>
           {filteredLoans.length === 0 ? (
-            <p>No pending loans available.</p>
+            <p>No Fully Paid loans available.</p>
           ) : (
             filteredLoans.map((loan) => (
               <LoanItem key={loan._id}>
@@ -122,7 +122,7 @@ const AdminFullyPaidPage = () => {
                   <p><strong>Duration:</strong> {loan.durationMonths} months</p>
                 </LoanDetails>
                 <ActionButtons>
-                  <button onClick={() => handleStatusChange(loan._id, 'approved')}>Archieve</button>
+                  <button onClick={() => handleStatusChange(loan._id)}>Archieve</button>
                   
                 </ActionButtons>
               </LoanItem>
