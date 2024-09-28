@@ -24,6 +24,7 @@ import AdminAddUserPage from './Pages/Admin-Add-User'
 import AdminUpdateUser from './Pages/Admin-Update-user'
 import UserFullyPaidLoansPage from './Pages/User-View-FullyPaid'
 import  AdminUserDetailsPage from './Pages/Admin-View-UserDetails'
+import AdminFullyPaidPage from './Pages/Admin-View-fullyPaid-Loan'
 //import LoanDetails from './pages/LoanDetails';
 //import AdminPanel from './pages/AdminPanel';
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/admin-view-userDetails/:userId" element={<  AdminUserDetailsPage />} />
         <Route path="/admin-update-user/:userId" element={< AdminUpdateUser  />} />
         <Route path="/admin-view-repayments" element={< AdminRepayments />} />
+        <Route path="/admin-view-fullypaid" element={<AdminFullyPaidPage />} />
         <Route path="/view-pending" element={<ViewPendingLoansPage />} />
 
         <Route path="/apply-loan" element={<ApplyLoan />} />
