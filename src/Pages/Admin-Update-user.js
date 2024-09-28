@@ -10,7 +10,7 @@ const AdminUpdateUser = () => {
     name: "",
     email: "",
     phoneNumber:"",
-    location: "",
+    ResidentialAddress: "",
     role: "",
     status: "",
   });
@@ -32,7 +32,7 @@ const AdminUpdateUser = () => {
           name: data.name || "",
           email: data.email || "",
           phoneNumber:data.phoneNumber|| "",
-          location: data.ResidentialAddress || "",
+          ResidentialAddress: data.ResidentialAddress || "",
           role: data.role || "",
           status: data.status || "",
         }); // Populate the form with fetched data
