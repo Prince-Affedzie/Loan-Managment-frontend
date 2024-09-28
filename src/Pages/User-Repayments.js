@@ -286,6 +286,7 @@ const styles = {
   spinner: {
     fontSize: '3rem',
     color: '#0A66C2',
+    animation: 'spin 1s linear infinite',
     marginBottom: '20px',
   }
 };
