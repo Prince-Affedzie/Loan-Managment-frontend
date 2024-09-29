@@ -14,6 +14,8 @@ const AdminRejectedLoansPage = () => {
   const [message, setMessage] = useState(null);
   const [searchQuery, setSearchQuery] = useState(''); // Search query state
   const [messageType, setMessageType] = useState('')
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loansPerPage] = useState(5);
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -105,6 +107,14 @@ const AdminRejectedLoansPage = () => {
     loan.borrower.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const indexOfLastLoan = currentPage * loansPerPage;
+  const indexOfFirstLoan = indexOfLastLoan - loansPerPage;
+  const currentLoans = filteredLoans.slice(indexOfFirstLoan, indexOfLastLoan);
+
+  // Change page
+  const nextPage = () => setCurrentPage(prev => prev + 1);
+  const prevPage = () => setCurrentPage(prev => prev - 1);
+
   if (loading) {
     return (
       <LoadingContainer>
@@ -137,14 +147,14 @@ const AdminRejectedLoansPage = () => {
       </SearchBarContainer>
 
       <MainContent>
-        {filteredLoans.length === 0 ? (
+        {currentLoans.length === 0 ? (
           <NoLoansContainer>
             <MdOutlineError size={50} />
             <p>No rejected loans match your search.</p>
           </NoLoansContainer>
         ) : (
           <LoanList>
-            {filteredLoans.map((loan) => (
+            {currentLoans.map((loan) => (
               <LoanItem key={loan._id}>
                 <LoanDetails>
                   <h5>Loan #{loan._id}</h5>
@@ -167,6 +177,15 @@ const AdminRejectedLoansPage = () => {
             ))}
           </LoanList>
         )}
+        <Pagination>
+            <PaginationButton onClick={prevPage} disabled={currentPage === 1}>Previous</PaginationButton>
+            <PaginationButton
+              onClick={nextPage}
+              disabled={indexOfLastLoan >= filteredLoans.length}
+            >
+              Next
+            </PaginationButton>
+          </Pagination>
       </MainContent>
     </Container>
   );
@@ -354,6 +373,27 @@ const FloatingMessage = styled.div`
 
   span {
     font-size: 1.2rem;
+  }
+`;
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+`;
+
+const PaginationButton = styled.button`
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: ${({ disabled }) => (disabled ? '#cccccc' : '#1565c0')};
+  color: #ffffff;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${({ disabled }) => (disabled ? '#cccccc' : '#0d47a1')};
   }
 `;
 
