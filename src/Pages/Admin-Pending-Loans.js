@@ -119,7 +119,7 @@ const AdminLoanPage = () => {
             filteredLoans.map((loan) => (
               <LoanItem key={loan._id}>
                 <LoanDetails>
-                  <h3>Loan #{loan._id}</h3>
+                  <h5>Loan #{loan._id}</h5>
                   <p><strong>Borrower:</strong> {loan.borrower.name} ({loan.borrower.email})</p>
                   <p><strong>Phone Number:</strong>  {loan.borrower.phoneNumber}</p>
                   <p><strong>Amount:</strong> GH$ {loan.loanAmount}</p>
