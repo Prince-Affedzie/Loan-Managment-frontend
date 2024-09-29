@@ -127,10 +127,10 @@ const AdminApprovedLoansPage = () => {
       </Header>
       <MainContent>
         <LoanList>
-          {filteredLoans.length === 0 ? (
+        {currentLoans.length === 0 ? (
             <p>No approved loans available.</p>
           ) : (
-            filteredLoans.map((loan) => (
+            currentLoans.map((loan) => (
               <LoanItem key={loan._id}>
                 <LoanDetails>
                   <h5>Loan #{loan._id}</h5>
