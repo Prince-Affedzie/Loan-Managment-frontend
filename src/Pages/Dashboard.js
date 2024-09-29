@@ -380,7 +380,7 @@ const Section = styled.section`
 const HamburgerMenu = styled.div`
   position: absolute;
   top: 0.5rem;
-  left: 0rem;
+  left: 0.5rem;
   font-size: 2rem;
   background-color:#0078D7
   color: #ffffff;
