@@ -138,7 +138,7 @@ const DashboardPage = ({ refreshTrigger }) => {
       </Sidebar>
 
       <MainContent>
-        <Header style={{top:"3px"}}>
+        <Header >
           <h1>Welcome, {user?.name || 'Guest'}</h1>
           <ProfileInfo>
             <p>Email: {user?.email || 'N/A'}</p>
@@ -277,6 +277,7 @@ const MainContent = styled.main`
 const Header = styled.header`
   background-color: white;
   padding: 1.5rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
