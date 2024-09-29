@@ -10,6 +10,8 @@ const AdminFullyPaidPage = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null); // To display success/error messages
   const [searchTerm, setSearchTerm] = useState(''); // State to track search input
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loansPerPage] = useState(5);
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -77,6 +79,15 @@ const AdminFullyPaidPage = () => {
     );
   });
 
+  const indexOfLastLoan = currentPage * loansPerPage;
+  const indexOfFirstLoan = indexOfLastLoan - loansPerPage;
+  const currentLoans = filteredLoans.slice(indexOfFirstLoan, indexOfLastLoan);
+
+  // Change page
+  const nextPage = () => setCurrentPage(prev => prev + 1);
+  const prevPage = () => setCurrentPage(prev => prev - 1);
+
+
   if (loading) {
     return (
       <LoadingContainer>
@@ -104,10 +115,10 @@ const AdminFullyPaidPage = () => {
       </Header>
       <MainContent>
         <LoanList>
-          {filteredLoans.length === 0 ? (
+          {currentLoans.length === 0 ? (
             <p>No Fully Paid loans available.</p>
           ) : (
-            filteredLoans.map((loan) => (
+            currentLoans.map((loan) => (
               <LoanItem key={loan._id}>
                 <LoanDetails>
                   <h3>Loan #{loan._id}</h3>
@@ -129,6 +140,16 @@ const AdminFullyPaidPage = () => {
             ))
           )}
         </LoanList>
+         {/* Pagination Controls */}
+         <Pagination>
+          <PaginationButton onClick={prevPage} disabled={currentPage === 1}>Previous</PaginationButton>
+          <PaginationButton
+            onClick={nextPage}
+            disabled={indexOfLastLoan >= filteredLoans.length}
+          >
+            Next
+          </PaginationButton>
+        </Pagination>
       </MainContent>
     </Container>
   );
@@ -277,5 +298,27 @@ const ActionButtons = styled.div`
     }
   }
 `;
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+`;
+
+const PaginationButton = styled.button`
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: ${({ disabled }) => (disabled ? '#cccccc' : '#1565c0')};
+  color: #ffffff;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${({ disabled }) => (disabled ? '#cccccc' : '#0d47a1')};
+  }
+`;
+
 
 export default AdminFullyPaidPage;
