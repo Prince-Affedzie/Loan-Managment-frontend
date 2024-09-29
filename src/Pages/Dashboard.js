@@ -102,12 +102,12 @@ const DashboardPage = ({ refreshTrigger }) => {
 
          {/* Hamburger Menu - Only Visible on Mobile */}
       <HamburgerMenu onClick={toggleSidebar}>
-        <FiMenu />
+        <FiMenu style={{ color: '#f9a825' }} />
       </HamburgerMenu>
 
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
-          <LogoText>UG Loan System</LogoText>
+          <LogoText>Loan Management System</LogoText>
         </SidebarTop>
         <Menu>
           <SidebarItem>
@@ -194,7 +194,7 @@ const Container = styled.div`
 
 // Sidebar
 const Sidebar = styled.aside`
-  width: 250px;
+  width: 150px;
   background-color: #002147;
   color: white;
   padding: 2rem;
