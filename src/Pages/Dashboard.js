@@ -138,7 +138,7 @@ const DashboardPage = ({ refreshTrigger }) => {
       </Sidebar>
 
       <MainContent>
-        <Header>
+        <Header style={{top:"3rem"}}>
           <h1>Welcome, {user?.name || 'Guest'}</h1>
           <ProfileInfo>
             <p>Email: {user?.email || 'N/A'}</p>
