@@ -381,6 +381,7 @@ const HamburgerMenu = styled.div`
   top: 0.5rem;
   left: 0rem;
   font-size: 2rem;
+  background-color:#0078D7
   color: #ffffff;
   cursor: pointer;
   z-index: 1100;
