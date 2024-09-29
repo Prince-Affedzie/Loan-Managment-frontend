@@ -215,7 +215,7 @@ const SidebarTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 `;
 
 const LogoText = styled.h1`
@@ -378,8 +378,8 @@ const Section = styled.section`
 `;
 const HamburgerMenu = styled.div`
   position: absolute;
-  top: 1.5rem;
-  left: 0.5rem;
+  top: 1.2rem;
+  left: 0.2rem;
   font-size: 2rem;
   color: #ffffff;
   cursor: pointer;
