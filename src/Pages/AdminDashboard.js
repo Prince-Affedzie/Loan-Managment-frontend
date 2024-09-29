@@ -249,9 +249,7 @@ const AdminDashboardPage = () => {
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
-          <button onClick={handleLogout}>
-            <FiLogOut className="icon" />Logout
-          </button>
+        <LogoutButton onClick={handleLogout}><FiLogOut className="icon" /> Logout</LogoutButton>
         </SidebarItem>
       </Sidebar>
 
@@ -384,6 +382,19 @@ const MainContent = styled.main`
 
   @media (max-width: 1000px) {
     margin-left: 0;
+  }
+`;
+const LogoutButton = styled.button`
+  background: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+
+  .icon {
+    margin-right: 0.75rem;
   }
 `;
 
