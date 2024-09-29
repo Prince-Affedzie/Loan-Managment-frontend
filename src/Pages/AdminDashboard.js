@@ -491,8 +491,8 @@ const LoadingText = styled.p`
 `;
 const HamburgerMenu = styled.div`
   position: absolute;
-  top: 0.5rem;
-  left: 0rem;
+  top: 1rem;
+  left: 0.5rem;
   font-size: 2rem;
   background-color: #001f3f
   color: #ffffff;
