@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { FiUserPlus, FiEdit, FiTrash, FiSearch, FiEye } from 'react-icons/fi'; // Add FiEye for view icon
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { FiUserPlus, FiEdit, FiTrash, FiSearch, FiEye } from 'react-icons/fi';
 
-const backendUrl = "https://loan-managment-app.onrender.com"; // Replace with actual backend URL
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminViewUsersPage = () => {
   const navigate = useNavigate();
@@ -12,6 +12,10 @@ const AdminViewUsersPage = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5); // You can change this number to show more or fewer users per page
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -50,6 +54,7 @@ const AdminViewUsersPage = () => {
     );
 
     setFilteredUsers(filtered);
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   const handleAddUser = () => {
@@ -90,6 +95,24 @@ const AdminViewUsersPage = () => {
     navigate(`/admin-view-userDetails/${userId}`);
   };
 
+  // Pagination logic
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   if (loading) {
     return (
       <LoadingContainer>
@@ -120,10 +143,10 @@ const AdminViewUsersPage = () => {
 
       <MainContent>
         <UserList>
-          {filteredUsers.length === 0 ? (
+          {currentUsers.length === 0 ? (
             <p>No users found.</p>
           ) : (
-            filteredUsers.map((user) => (
+            currentUsers.map((user) => (
               <UserItem key={user._id}>
                 <UserDetails>
                   <h3>{user.name}</h3>
@@ -147,12 +170,19 @@ const AdminViewUsersPage = () => {
             ))
           )}
         </UserList>
+
+        {/* Pagination Controls */}
+        <PaginationControls>
+          <button onClick={prevPage} disabled={currentPage === 1}>Previous</button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={nextPage} disabled={currentPage === totalPages}>Next</button>
+        </PaginationControls>
       </MainContent>
     </Container>
   );
 };
 
-// Styled components
+// Styled components (Add styles for pagination controls)
 const Container = styled.div`
   padding: 2rem;
   background-color: #f9fafc;
@@ -202,9 +232,9 @@ const MainContent = styled.main`
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 
-   @media (max-width: 768px) {
-    max-width: 100%; /* Ensures the container takes full width on mobile */
-    padding: 1rem; /* Adjust padding for mobile view */
+  @media (max-width: 768px) {
+    max-width: 100%; 
+    padding: 1rem; 
   }
 `;
 
@@ -218,28 +248,30 @@ const UserItem = styled.div`
   background-color: #f1f5f9;
   border-radius: 12px;
   padding: 1.5rem;
-  width :100%
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  flex-direction: column; /* Stack details and buttons vertically */
+  flex-direction: column; 
   gap: 1rem;
+  
   @media (max-width: 768px) {
-    flex-direction: column; /* Maintain column layout for mobile */
+    flex-direction: column; 
   }
 `;
 
 const UserDetails = styled.div`
   h3 {
     margin: 0;
-    word-wrap: break-word; /* This ensures long names break into the next line */
-    max-width: 100%; /* 
+    word-wrap: break-word; 
+    max-width: 100%; 
   }
   p {
     margin: 0.5rem 0;
-    word-wrap: break-word; /* This ensures long email addresses or phone numbers break */
+    word-wrap: break-word; 
     max-width: 100%; 
   }
-     @media (max-width: 768px) {
+  
+  @media (max-width: 768px) {
     word-wrap: break-word;
   }
 `;
@@ -247,78 +279,61 @@ const UserDetails = styled.div`
 const ActionButtons = styled.div`
   display: flex;
   gap: 1rem;
-  @media (max-width: 600px) {
-    flex-direction: column;
-    width: 100%; // Ensure the container takes full width
-
-     button {
-      width: 100%;
-      padding: 8px 10px; /* Smaller padding for mobile */
-      font-size: 14px;   /* Reduced font size for mobile */
-    }
-  }
 `;
 
 const ViewButton = styled.button`
-  background-color: #007bff;
+  background-color: #2196f3;
   color: white;
-  border: none;
-  padding: padding: 8px 12px;;
+  padding: 10px;
   border-radius: 8px;
-  cursor: pointer;
-  
-   @media (max-width: 768px) {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 14px;
-  }
-
 `;
 
 const UpdateButton = styled.button`
-  background-color: #1a73e8;
+  background-color: #ffc107;
   color: white;
-  border: none;
-  padding: padding: 8px 12px;;
+  padding: 10px;
   border-radius: 8px;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 14px;
-  }
-
 `;
 
 const RemoveButton = styled.button`
   background-color: #f44336;
   color: white;
-  border: none;
-  padding:padding: 8px 12px;;
+  padding: 10px;
   border-radius: 8px;
-  cursor: pointer;
-   @media (max-width: 768px) {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 14px;
-  }
-
 `;
 
-const LoadingSpinner = styled.div`
-  text-align: center;
-`;
-const LoadingContainer = styled.div`
+const PaginationControls = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  margin-top: 1rem;
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 
   .spinner {
-    font-size: 3rem;
-    color: #1a73e8;
     animation: spin 1s linear infinite;
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
   @keyframes spin {
@@ -332,9 +347,8 @@ const LoadingContainer = styled.div`
 `;
 
 const LoadingText = styled.p`
-  margin-top: 1rem;
   font-size: 1.5rem;
-  color: #1a73e8;
+  color: #555;
 `;
 
 export default AdminViewUsersPage;
