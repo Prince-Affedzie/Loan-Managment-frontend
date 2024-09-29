@@ -379,7 +379,7 @@ const Section = styled.section`
 const HamburgerMenu = styled.div`
   position: absolute;
   top: 1.5rem;
-  left: 1.5rem;
+  left: 0.5rem;
   font-size: 2rem;
   color: #ffffff;
   cursor: pointer;
