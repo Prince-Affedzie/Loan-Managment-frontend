@@ -196,6 +196,7 @@ const MainContent = styled.main`
   background: #fff;
   border-radius: 8px;
   padding: 2rem;
+  width:10vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
