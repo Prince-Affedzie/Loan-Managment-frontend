@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import { FiUsers, FiCheckCircle, FiXCircle, FiClock, FiFileText, FiLogOut, FiBriefcase } from 'react-icons/fi';
+import { FiUsers, FiCheckCircle, FiXCircle, FiClock, FiFileText, FiLogOut, FiBriefcase,FiMenu } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -20,7 +20,7 @@ const AdminDashboardPage = () => {
   const [pendingLoans, setPendingLoans] = useState([]);
   const [rejectedLoans, setRejectedLoans] = useState([]);
   const [repayments, setRepayments] = useState([]);
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleLogout = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/auth/logout`, {
@@ -195,6 +195,10 @@ const AdminDashboardPage = () => {
       },
     };
 
+    const toggleSidebar = () => {
+      setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
+    };
+
     if (loading) {
       return (
         <LoadingContainer> 
@@ -205,7 +209,10 @@ const AdminDashboardPage = () => {
     }
   return (
     <Container>
-      <Sidebar>
+       <HamburgerMenu onClick={toggleSidebar}>
+        <FiMenu style={{ color: 'white' ,backgroundColor:" #002147"}} />
+      </HamburgerMenu>
+      <Sidebar  isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
           <LogoIcon />
           <LogoText>Loan Management</LogoText>
@@ -315,17 +322,22 @@ const Container = styled.div`
 `;
 
 const Sidebar = styled.aside`
-  width: 250px;
-  background: #002d72; /* Dark Blue */
-  color: #fff;
+ width: 150px;
+  background-color: #002147;
+  color: white;
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  
-  @media (max-width: 1000px) {
-    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
-  }
+  position: fixed;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-100%')}); /* Initially hidden on mobile */
+  z-index: 1000;
 
+  @media (min-width: 1000px) {
+    transform: none; /* Keep sidebar visible on larger screens */
+    width: 250px;
+  }
 `;
 const SidebarTop = styled.div`
   display: flex;
@@ -366,8 +378,13 @@ const StyledLink = styled(Link)`
 `;
 
 const MainContent = styled.main`
-  flex: 1;
+  flex-grow: 1;
+  margin-left: 300px;
   padding: 2rem;
+
+  @media (max-width: 1000px) {
+    margin-left: 0;
+  }
 `;
 
 const Header = styled.header`
@@ -460,6 +477,20 @@ const LoadingText = styled.p`
   margin-top: 1rem;
   font-family: 'Poppins', sans-serif;
   color: #00aaff;
+`;
+const HamburgerMenu = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  left: 0rem;
+  font-size: 2rem;
+  background-color:#0078D7
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 1100;
+
+  @media (min-width: 1000px) {
+    display: none; /* Hide hamburger menu on larger screens */
+  }
 `;
 
 

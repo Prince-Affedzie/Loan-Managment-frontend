@@ -102,7 +102,7 @@ const DashboardPage = ({ refreshTrigger }) => {
 
          {/* Hamburger Menu - Only Visible on Mobile */}
       <HamburgerMenu onClick={toggleSidebar}>
-        <FiMenu style={{ color: 'white' ,backgroundColor:"#0078D7"}} />
+        <FiMenu style={{ color: 'white' ,backgroundColor:" #002147"}} />
       </HamburgerMenu>
 
       <Sidebar isSidebarOpen={isSidebarOpen}>
