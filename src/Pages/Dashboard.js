@@ -224,7 +224,7 @@ const SidebarTop = styled.div`
 `;
 
 const LogoText = styled.h1`
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: #f9a825;
   text-align: center;
 `;
