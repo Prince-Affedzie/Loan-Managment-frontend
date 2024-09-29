@@ -93,7 +93,7 @@ const AdminRepayments = () => {
             ? new Date(repayment.loanId.dueDate).toDateString()
             : "Loan Due Date not available"}
         </td>
-        <td style={styles.td}>{repayment.loanId.status}</td>
+        <td style={styles.td}>{repayment.loanId ? repayment.loanId.status: 'Status not available'}</td>
         <td style={styles.td}>
           <button style={styles.deleteBtn}>Archive</button>
         </td>
