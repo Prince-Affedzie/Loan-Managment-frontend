@@ -99,12 +99,12 @@ const DashboardPage = ({ refreshTrigger }) => {
 
   return (
     <Container>
-     {/* <MobileHeader>
+     { <MobileHeader>
         <HamburgerMenu onClick={toggleSidebar}>
           <FiMenu />
         </HamburgerMenu>
         <h1>Loan Management</h1>
-      </MobileHeader>*/}
+      </MobileHeader>}
 
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
@@ -237,6 +237,13 @@ const HamburgerMenu = styled.div`
   cursor: pointer;
   color: white;
   font-size: 1.5rem;
+  display: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+
+  @media (max-width: 1000px) {
+    display: block; /* Show on mobile */}
 `;
 
 // Sidebar

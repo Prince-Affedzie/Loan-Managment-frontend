@@ -95,7 +95,7 @@ const AdminRepayments = () => {
         </td>
         <td style={styles.td}>{repayment.status}</td>
         <td style={styles.td}>
-          <button style={styles.deleteBtn}>Delete</button>
+          <button style={styles.deleteBtn}>Archive</button>
         </td>
       </tr>
     ));
