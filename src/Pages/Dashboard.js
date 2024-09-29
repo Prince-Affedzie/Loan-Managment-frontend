@@ -220,7 +220,7 @@ const SidebarTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2.0rem;
+  margin-bottom: 1.0rem;
 `;
 
 const LogoText = styled.h1`
