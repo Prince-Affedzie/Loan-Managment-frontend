@@ -195,7 +195,7 @@ const SearchInput = styled.input`
 const MainContent = styled.main`
   background: #fff;
   border-radius: 8px;
-  padding: 3.5rem;
+  padding: 2.5rem;
   width:100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
