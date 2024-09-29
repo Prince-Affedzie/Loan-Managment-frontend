@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes }from 'styled-components';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
-import { FiSearch } from 'react-icons/fi'
+import styled from 'styled-components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'; 
+import { FiSearch } from 'react-icons/fi';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const backendUrl = "https://loan-managment-app.onrender.com";
@@ -9,11 +9,13 @@ const backendUrl = "https://loan-managment-app.onrender.com";
 const AdminLoanPage = () => {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState(null); // To display success/error messages
-  const [searchTerm, setSearchTerm] = useState(''); // State to track search input
-  const [messageType, setMessageType] = useState('')
+  const [message, setMessage] = useState(null); 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [messageType, setMessageType] = useState('');
+  
+  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [loansPerPage] = useState(5);
+  const [loansPerPage] = useState(5); // Define how many loans per page
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -73,6 +75,7 @@ const AdminLoanPage = () => {
     }
   };
 
+  // Filter loans based on the search term
   const filteredLoans = loans.filter(loan => {
     const lowerSearchTerm = searchTerm.toLowerCase();
     return (
@@ -81,9 +84,9 @@ const AdminLoanPage = () => {
       loan.borrower.phoneNumber.includes(lowerSearchTerm) ||
       loan.loanAmount.toString().includes(lowerSearchTerm)
     );
-   
   });
-  setCurrentPage(1);
+
+  // Pagination logic
   const indexOfLastLoan = currentPage * loansPerPage;
   const indexOfFirstLoan = indexOfLastLoan - loansPerPage;
   const currentLoans = filteredLoans.slice(indexOfFirstLoan, indexOfLastLoan);
@@ -112,16 +115,16 @@ const AdminLoanPage = () => {
           </FloatingMessage>
         )}
         <SearchBarContainer>
-        <FiSearch size={24} />
-        <SearchInput
-          type="text"
-          placeholder="Search by borrower's name or email..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </SearchBarContainer>
-
+          <FiSearch size={24} />
+          <SearchInput
+            type="text"
+            placeholder="Search by borrower's name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </SearchBarContainer>
       </Header>
+
       <MainContent>
         <LoanList>
           {currentLoans.length === 0 ? (
@@ -132,7 +135,7 @@ const AdminLoanPage = () => {
                 <LoanDetails>
                   <h5>Loan #{loan._id}</h5>
                   <p><strong>Borrower:</strong> {loan.borrower.name} ({loan.borrower.email})</p>
-                  <p><strong>Phone Number:</strong>  {loan.borrower.phoneNumber}</p>
+                  <p><strong>Phone Number:</strong> {loan.borrower.phoneNumber}</p>
                   <p><strong>Amount:</strong> GH$ {loan.loanAmount}</p>
                   <p><strong>Interest:</strong> {loan.interestRate}%</p>
                   <p><strong>Payment Starts on:</strong> {new Date(loan.startPaymentDate).toDateString()}</p>
@@ -148,6 +151,8 @@ const AdminLoanPage = () => {
             ))
           )}
         </LoanList>
+
+        {/* Pagination Controls */}
         <Pagination>
           <PaginationButton onClick={prevPage} disabled={currentPage === 1}>Previous</PaginationButton>
           <PaginationButton
@@ -161,7 +166,6 @@ const AdminLoanPage = () => {
     </Container>
   );
 };
-
 // Styled components for the Admin Loan page
 const Container = styled.div`
   padding: 2rem;
