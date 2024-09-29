@@ -99,6 +99,12 @@ const DashboardPage = ({ refreshTrigger }) => {
 
   return (
     <Container>
+
+         {/* Hamburger Menu - Only Visible on Mobile */}
+      <HamburgerMenu onClick={toggleSidebar}>
+        <FiMenu />
+      </HamburgerMenu>
+
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
           <LogoText>UG Loan System</LogoText>
@@ -194,14 +200,17 @@ const Sidebar = styled.aside`
   padding: 2rem;
   position: fixed;
   height: 100%;
-  transition: all 0.3s ease;
-  z-index: 10;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-100%')}); /* Initially hidden on mobile */
+  z-index: 1000;
 
-  @media (max-width: 1000px) {
-    left: ${({ isSidebarOpen }) => (isSidebarOpen ? '0' : '-250px')};
+  @media (min-width: 1000px) {
+    transform: none; /* Keep sidebar visible on larger screens */
+    width: 250px;
   }
 `;
-
 const SidebarTop = styled.div`
   display: flex;
   flex-direction: column;
@@ -365,6 +374,19 @@ const Section = styled.section`
     font-size: 1.8rem;
     color: #002147;
     margin-bottom: 1.5rem; /* Space between heading and content */
+  }
+`;
+const HamburgerMenu = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-size: 2rem;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 1100;
+
+  @media (min-width: 1000px) {
+    display: none; /* Hide hamburger menu on larger screens */
   }
 `;
 
