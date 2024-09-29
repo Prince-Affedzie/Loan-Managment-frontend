@@ -99,68 +99,34 @@ const DashboardPage = ({ refreshTrigger }) => {
 
   return (
     <Container>
-     { <MobileHeader>
-        <HamburgerMenu onClick={toggleSidebar}>
-          <FiMenu />
-        </HamburgerMenu>
-        <h1>Loan Management</h1>
-      </MobileHeader>}
-
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
-          <LogoIcon />
-          <LogoText>Loan Management</LogoText>
+          <LogoText>UG Loan System</LogoText>
         </SidebarTop>
         <Menu>
           <SidebarItem>
-            <StyledLink to="/apply-loan">
-              <FiDollarSign className="icon" /> Apply for Loan
-            </StyledLink>
+            <StyledLink to="/apply-loan"><FiDollarSign className="icon" /> Apply for Loan</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/view-loans">
-              <FiList className="icon" /> View All Loans
-            </StyledLink>
+            <StyledLink to="/view-loans"><FiList className="icon" /> View Loans</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/approved-loans">
-              <FiCheckCircle className="icon" /> Approved Loans
-            </StyledLink>
+            <StyledLink to="/approved-loans"><FiCheckCircle className="icon" /> Approved Loans</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/rejected-loans">
-              <FiXCircle className="icon" /> Rejected Loans
-            </StyledLink>
+            <StyledLink to="/rejected-loans"><FiXCircle className="icon" /> Rejected Loans</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/view-pending">
-              <FiClock className="icon" /> Pending Loans
-            </StyledLink>
+            <StyledLink to="/view-pending"><FiClock className="icon" /> Pending Loans</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/repay-loans">
-              <FiCreditCard className="icon" /> Settle a Loan
-            </StyledLink>
+            <StyledLink to="/repay-loans"><FiCreditCard className="icon" /> Settle a Loan</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/user-repayments">
-              <FiTrendingUp className="icon" /> Repayments Made
-            </StyledLink>
+            <StyledLink to="/user-profile"><FiUser className="icon" /> View Profile</StyledLink>
           </SidebarItem>
           <SidebarItem>
-            <StyledLink to="/user-fullyPaid">
-              <FiCheckCircle className="icon" /> Fully Paid Loans
-            </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <StyledLink to="/user-profile">
-              <FiUser className="icon" /> View Profile
-            </StyledLink>
-          </SidebarItem>
-          <SidebarItem>
-            <LogoutButton onClick={handleLogout}>
-              <FiLogOut className="icon" /> Logout
-            </LogoutButton>
+            <LogoutButton onClick={handleLogout}><FiLogOut className="icon" /> Logout</LogoutButton>
           </SidebarItem>
         </Menu>
       </Sidebar>
@@ -196,13 +162,13 @@ const DashboardPage = ({ refreshTrigger }) => {
               </StatCard>
             </StatsGrid>
           </Section>
+
           <Section>
             <h2>Upcoming Payments</h2>
             <ActivityList>
-              {approvedLoans.map((payment) => (
+              {approvedLoans.map(payment => (
                 <ActivityItem key={payment.id}>
-                  Repayment of ${payment.balance} due on{' '}
-                  {new Date(payment.dueDate).toDateString()}
+                  Repayment of ${payment.balance} due on {new Date(payment.dueDate).toDateString()}
                 </ActivityItem>
               ))}
             </ActivityList>
@@ -212,51 +178,21 @@ const DashboardPage = ({ refreshTrigger }) => {
     </Container>
   );
 };
+
+// Styled Components
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
   background-color: #f0f2f5;
 `;
 
-// Mobile-first Header
-const MobileHeader = styled.div`
-  display: none;
-  width: 100%;
-  padding: 1rem;
-  background-color: #1e1e2d;
-  color: white;
-  justify-content: space-between;
-  align-items: center;
-
-  @media (max-width: 1000px) {
-    display: flex;
-  }
-`;
-
-const HamburgerMenu = styled.div`
-  cursor: pointer;
-  color: white;
-  font-size: 1.5rem;
-  display: none;
-  font-size: 1.8rem;
-  color: white;
-  cursor: pointer;
-
-  @media (max-width: 1000px) {
-    display: block; /* Show on mobile */}
-`;
-
 // Sidebar
 const Sidebar = styled.aside`
-  width: 120px;
-  background-color: #1e1e2d;
+  width: 250px;
+  background-color: #002147;
   color: white;
   padding: 2rem;
-  
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: fixed;
   height: 100%;
   transition: all 0.3s ease;
   z-index: 10;
@@ -273,56 +209,45 @@ const SidebarTop = styled.div`
   margin-bottom: 4rem;
 `;
 
-const LogoIcon = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: #f0f2f5;
-  border-radius: 50%;
-`;
-
 const LogoText = styled.h1`
-  font-size: 1.6rem;
-  color: white;
-  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #f9a825;
+  text-align: center;
 `;
 
 const Menu = styled.ul`
   list-style: none;
-  width: 100%;
   padding: 0;
 `;
 
 const SidebarItem = styled.li`
-  margin-bottom: 2.0rem;
+  margin-bottom: 1.5rem;
 `;
 
 const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #fff;
-  font-size: 1.1rem;
+  color: #ffffff;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 
   &:hover {
-    color: #00aaff;
+    color: #f9a825;
   }
 
   .icon {
-    margin-right: 0.3rem;
+    margin-right: 0.75rem;
   }
 `;
 
 const LogoutButton = styled.button`
-  border: none;
   background: none;
-  color: #fff;
-  font-size: 1.1rem;
+  color: #ffffff;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  border: none;
 
   .icon {
     margin-right: 0.75rem;
@@ -332,7 +257,7 @@ const LogoutButton = styled.button`
 // Main Content
 const MainContent = styled.main`
   flex-grow: 1;
-  margin-left: 60px;
+  margin-left: 250px;
   padding: 2rem;
 
   @media (max-width: 1000px) {
@@ -340,28 +265,28 @@ const MainContent = styled.main`
   }
 `;
 
-const Header = styled.div`
+const Header = styled.header`
+  background-color: white;
+  padding: 1.5rem;
   margin-bottom: 2rem;
-  font-family: 'Poppins', sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    color: #002147;
+    font-size: 1.8rem;
+  }
 `;
 
 const ProfileInfo = styled.div`
   margin-top: 1rem;
-  font-size: 1rem;
+  color: #666;
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Section = styled.section`
-  margin-bottom: 2rem;
-`;
-
+// Stats Section
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
 `;
 
@@ -369,53 +294,46 @@ const StatCard = styled.div`
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-family: 'Poppins', sans-serif;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: scale(1.05);
-  }
 
   h3 {
-    font-size: 1.2rem;
-    color: #444;
+    font-size: 1.5rem;
+    color: #002147;
   }
 
   p {
-    font-size: 1.8rem;
-    color: #00aaff;
+    font-size: 2rem;
+    color: #f9a825;
   }
 `;
 
-// Activity List
+// Activity Section
 const ActivityList = styled.ul`
   list-style: none;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
 `;
 
 const ActivityItem = styled.li`
   background-color: white;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
-  font-size: 1rem;
-  color: #333;
+  color: #002147;
 `;
 
 // Loading
 const LoadingContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  flex-direction: column;
 
   .spinner {
     font-size: 3rem;
+    color: #f9a825;
     animation: spin 1s linear infinite;
   }
 
@@ -427,10 +345,27 @@ const LoadingContainer = styled.div`
 `;
 
 const LoadingText = styled.p`
-  font-size: 1.2rem;
   margin-top: 1rem;
-  font-family: 'Poppins', sans-serif;
-  color: #00aaff;
+  font-size: 1.2rem;
+  color: #002147;
+`;
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Space between sections */
+`;
+
+const Section = styled.section`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 1.8rem;
+    color: #002147;
+    margin-bottom: 1.5rem; /* Space between heading and content */
+  }
 `;
 
 
