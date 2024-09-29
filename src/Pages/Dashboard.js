@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp, FiLogOut, FiMenu } from 'react-icons/fi';
+import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCreditCard, FiTrendingUp,FiFileText, FiLogOut, FiMenu } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -125,6 +125,11 @@ const DashboardPage = ({ refreshTrigger }) => {
           <SidebarItem>
             <StyledLink to="/view-pending"><FiClock className="icon" /> Pending Loans</StyledLink>
           </SidebarItem>
+          <SidebarItem>
+          <StyledLink to="/user-repayments">
+            <FiFileText className="icon" />Repayments
+          </StyledLink>
+        </SidebarItem>
           <SidebarItem>
             <StyledLink to="/repay-loans"><FiCreditCard className="icon" /> Settle a Loan</StyledLink>
           </SidebarItem>
