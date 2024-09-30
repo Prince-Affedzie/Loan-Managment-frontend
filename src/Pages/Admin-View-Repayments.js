@@ -95,7 +95,7 @@ const AdminRepayments = () => {
         </td>
         <td style={styles.td}>{repayment.loanId ? repayment.loanId.status: 'Status not available'}</td>
         <td style={styles.td}>
-          <button style={styles.deleteBtn}>Archive</button>
+          <button style={styles.deleteBtn}>Approve</button>
         </td>
       </tr>
     ));
@@ -251,7 +251,7 @@ const styles = {
     borderBottom: '1px solid #ddd',
   },
   deleteBtn: {
-    backgroundColor: '#e74c3c',
+    backgroundColor: 'light green',
     color: 'white',
     padding: '8px 15px',
     borderRadius: '5px',
