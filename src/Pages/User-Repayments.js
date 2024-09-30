@@ -93,7 +93,7 @@ const AdminRepayments = () => {
             ? new Date(repayment.loanId.dueDate).toDateString()
             : "Loan Due Date not available"}
         </td>
-        <td style={styles.td}>{repayment.loanId ? repayment.loanId.status: 'Status not available'}</td>
+        <td style={styles.td}>{repayment.loanId ? repayment.status: 'Status not available'}</td>
        
       </tr>
     ));
@@ -140,7 +140,7 @@ const AdminRepayments = () => {
           style={styles.select}
         >
           <option value="">All Statuses</option>
-          <option value="fully paid">Complete</option>
+          <option value="approved">Complete</option>
           <option value="pending">Pending</option>
         </select>
       </div>
