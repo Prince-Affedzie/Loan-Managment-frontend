@@ -25,7 +25,7 @@ const AdminFullyPaidPage = () => {
   const fetchLoans = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${backendUrl}/api/admin/repaidLoans`, {
+      const response = await fetch(`${backendUrl}/api/admin/getUnArchiveLoans`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -43,10 +43,10 @@ const AdminFullyPaidPage = () => {
   };
 
   // Fetch unarchived loans
-  const fetchUnarchivedLoans = async () => {
+  const fetcharchivedLoans = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${backendUrl}/api/admin/getUnArchiveLoans`, {
+      const response = await fetch(`${backendUrl}/api/admin/getArchiveLoans`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -140,7 +140,7 @@ const AdminFullyPaidPage = () => {
           <button onClick={() => setViewMode('archived')}>View Archived Loans</button>
           <button onClick={() => {
             setViewMode('unarchived');
-            fetchUnarchivedLoans();
+            fetcharchivedLoans();
           }}>
             View Unarchived Loans
           </button>
