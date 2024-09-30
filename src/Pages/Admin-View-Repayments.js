@@ -117,7 +117,7 @@ const AdminRepayments = () => {
         <td style={styles.td}>
           {repayment.loanId ? repayment.loanId.balance : "Loan Balance not available"}
         </td>
-        <td style={styles.td}>{repayment.transactionId}</td>
+        <td style={styles.td}>{repayment.transactionId || 'Transaction Id not available'}</td>
         <td style={styles.td}>{repayment.paymentMethod}</td>
         <td style={styles.td}>{new Date(repayment.paymentDate).toDateString()}</td>
         <td style={styles.td}>
