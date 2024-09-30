@@ -10,6 +10,7 @@ const RepayLoanPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedLoan, setSelectedLoan] = useState(null);
   const [amountPaid, setRepaymentAmount] = useState('');
+  const [transactionId, settransactionId] = useState('');
   const [paymentDate, setPaymentDate] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
 
@@ -54,7 +55,7 @@ const RepayLoanPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedLoan || !amountPaid || !paymentMethod || !paymentDate) {
+    if (!selectedLoan || !amountPaid ||!transactionId || !paymentMethod || !paymentDate) {
       alert('Please fill in all fields.');
       return;
     }
@@ -62,6 +63,7 @@ const RepayLoanPage = () => {
     const repaymentData = {
       loanId: selectedLoan._id,
       amountPaid, // Ensure it's a number
+      transactionId,
       paymentDate,
       paymentMethod,
     };
@@ -80,6 +82,7 @@ const RepayLoanPage = () => {
         alert('Repayment successful!');
         setSelectedLoan(null); // Reset after successful submission
         setRepaymentAmount('');
+        settransactionId('')
         setPaymentDate('');
         setPaymentMethod('');
       } else {
@@ -134,6 +137,16 @@ const RepayLoanPage = () => {
               value={amountPaid} 
               onChange={(e) => setRepaymentAmount(e.target.value)} 
               placeholder="Enter amount" 
+              required 
+            />
+          </FormGroup>
+          <FormGroup>
+            <label>Transaction ID:</label>
+            <Input 
+              type="text" 
+              value={transactionId} 
+              onChange={(e) => settransactionId(e.target.value)} 
+              placeholder="Enter Transaction Id" 
               required 
             />
           </FormGroup>
