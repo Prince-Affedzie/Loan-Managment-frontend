@@ -15,22 +15,24 @@ const AdminFullyPaidPage = () => {
   const [loansPerPage] = useState(5);
   const [viewMode, setViewMode] = useState('archived'); // 'archived' or 'unarchived'
 
-  // Fetch archived loans
+  // Fetch loans based on view mode
   useEffect(() => {
     if (viewMode === 'archived') {
-      fetchLoans();
+      fetchArchivedLoans(); // Fetch archived loans when in 'archived' view
+    } else {
+      fetchUnarchivedLoans(); // Fetch unarchived loans when in 'unarchived' view
     }
   }, [viewMode]);
 
-  const fetchLoans = async () => {
+  const fetchArchivedLoans = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${backendUrl}/api/admin/getUnArchiveLoans`, {
+      const response = await fetch(`${backendUrl}/api/admin/getArchiveLoans`, {
         method: 'GET',
         credentials: 'include',
       });
       if (!response.ok) {
-        throw new Error('Failed to fetch loans');
+        throw new Error('Failed to fetch archived loans');
       }
       const data = await response.json();
       setLoans(data);
@@ -42,11 +44,10 @@ const AdminFullyPaidPage = () => {
     }
   };
 
-  // Fetch unarchived loans
-  const fetcharchivedLoans = async () => {
+  const fetchUnarchivedLoans = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${backendUrl}/api/admin/getArchiveLoans`, {
+      const response = await fetch(`${backendUrl}/api/admin/getUnArchiveLoans`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -135,15 +136,10 @@ const AdminFullyPaidPage = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </SearchBarContainer>
-        {/* Button to switch between archived and unarchived loans */}
+        {/* Buttons to switch between archived and unarchived loans */}
         <ButtonContainer>
-          <button onClick={() => setViewMode('archived')}>View UnArchived Loans</button>
-          <button onClick={() => {
-            setViewMode('unarchived');
-            fetcharchivedLoans();
-          }}>
-            View Archived Loans
-          </button>
+          <button onClick={() => setViewMode('unarchived')}>View Unarchived Loans</button>
+          <button onClick={() => setViewMode('archived')}>View Archived Loans</button>
         </ButtonContainer>
       </Header>
       <MainContent>
@@ -365,3 +361,4 @@ const PaginationButton = styled.button`
 `;
 
 export default AdminFullyPaidPage;
+
