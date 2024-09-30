@@ -126,7 +126,6 @@ const AdminRepayments = () => {
     <div style={styles.repaymentsContainer}>
       <header style={styles.header}>
         <h1 style={styles.heading}>Repayment Dashboard</h1>
-        <button style={styles.logoutBtn}>Logout</button>
       </header>
 
       <div style={styles.controls}>
