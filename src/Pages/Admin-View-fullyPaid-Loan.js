@@ -7,13 +7,13 @@ const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminFullyPaidPage = () => {
   const [loans, setLoans] = useState([]);
-  const [unarchivedLoans, setUnarchivedLoans] = useState([]); // State for unarchived loans
+  const [archivedLoans, setarchivedLoans] = useState([]); // State for unarchived loans
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null); // To display success/error messages
   const [searchTerm, setSearchTerm] = useState(''); // State to track search input
   const [currentPage, setCurrentPage] = useState(1);
   const [loansPerPage] = useState(5);
-  const [showUnarchivedLoans, setShowUnarchivedLoans] = useState(false); // Toggle unarchived/archived loans view
+  const [showarchivedLoans, setShowarchivedLoans] = useState(false); // Toggle unarchived/archived loans view
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -40,10 +40,10 @@ const AdminFullyPaidPage = () => {
   }, []);
 
   // Fetch unarchived loans
-  const fetchUnarchivedLoans = async () => {
+  const fetcharchivedLoans = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${backendUrl}/api/admin/getUnArchiveLoans`, {
+      const response = await fetch(`${backendUrl}/api/admin/getArchiveLoans`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -51,10 +51,10 @@ const AdminFullyPaidPage = () => {
         throw new Error('Failed to fetch unarchived loans');
       }
       const data = await response.json();
-      setUnarchivedLoans(data);
+      setarchivedLoans(data);
     } catch (err) {
       console.error(err);
-      setUnarchivedLoans([]);
+      setarchivedLoans([]);
     } finally {
       setLoading(false);
     }
@@ -79,7 +79,7 @@ const AdminFullyPaidPage = () => {
       if (action === 'archive') {
         setLoans(loans.filter((loan) => loan._id !== loanId));
       } else {
-        setUnarchivedLoans(unarchivedLoans.filter((loan) => loan._id !== loanId));
+        setarchivedLoans(archivedLoans.filter((loan) => loan._id !== loanId));
       }
 
       // Set success message
@@ -97,7 +97,7 @@ const AdminFullyPaidPage = () => {
     }
   };
 
-  const filteredLoans = (showUnarchivedLoans ? unarchivedLoans : loans).filter((loan) => {
+  const filteredLoans = (showarchivedLoans ? archivedLoans : loans).filter((loan) => {
     const lowerSearchTerm = searchTerm.toLowerCase();
     return (
       loan.borrower.name.toLowerCase().includes(lowerSearchTerm) ||
@@ -127,7 +127,7 @@ const AdminFullyPaidPage = () => {
   return (
     <Container>
       <Header>
-        <h1>{showUnarchivedLoans ? "Unarchived Loans" : "Fully Paid Loans"}</h1>
+        <h1>{showarchivedLoans ? "archived Loans" : "Fully Paid Loans"}</h1>
         {message && <Message>{message}</Message>} {/* Display message */}
         <SearchBarContainer>
           <FiSearch size={24} />
@@ -140,18 +140,18 @@ const AdminFullyPaidPage = () => {
         </SearchBarContainer>
         {/* Button to toggle between unarchived and archived loans */}
         <button onClick={() => {
-          setShowUnarchivedLoans(!showUnarchivedLoans);
-          if (!showUnarchivedLoans) {
-            fetchUnarchivedLoans();
+          setShowarchivedLoans(!showarchivedLoans);
+          if (!showarchivedLoans) {
+            fetcharchivedLoans();
           }
         }}>
-          {showUnarchivedLoans ? 'View Archived Loans' : 'View Unarchived Loans'}
+          {showarchivedLoans ? 'View Archived Loans' : 'View Unarchived Loans'}
         </button>
       </Header>
       <MainContent>
         <LoanList>
           {currentLoans.length === 0 ? (
-            <p>No {showUnarchivedLoans ? "Unarchived" : "Fully Paid"} loans available.</p>
+            <p>No {showarchivedLoans ? "archived" : "Fully Paid"} loans available.</p>
           ) : (
             currentLoans.map((loan) => (
               <LoanItem key={loan._id}>
@@ -168,8 +168,8 @@ const AdminFullyPaidPage = () => {
                   <p><strong>Duration:</strong> {loan.durationMonths} months</p>
                 </LoanDetails>
                 <ActionButtons>
-                  <button onClick={() => handleStatusChange(loan._id, showUnarchivedLoans ? 'archive' : 'unarchive')}>
-                    {showUnarchivedLoans ? 'Archive' : 'Unarchive'}
+                  <button onClick={() => handleStatusChange(loan._id, showarchivedLoans ? 'archive' : 'unarchive')}>
+                    {showarchivedLoans ? 'Archive' : 'Unarchive'}
                   </button>
                 </ActionButtons>
               </LoanItem>
