@@ -319,7 +319,7 @@ const StatCard = styled.div`
 
   p {
     font-size: 2rem;
-    color: #f9a825;
+    color: #0078D7;
   }
 `;
 
