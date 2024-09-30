@@ -9,7 +9,7 @@ const AdminRepayments = () => {
   const [statusFilter, setStatusFilter] = useState(""); // Status filter
   const [currentPage, setCurrentPage] = useState(1); // For pagination
   const [loading, setLoading] = useState(true); // To show loading state
-
+  const [message,setMessage] = useState("")
   const rowsPerPage = 5; // Number of rows to show per page
 
   // Fetch repayments from the server when the component mounts
@@ -36,6 +36,30 @@ const AdminRepayments = () => {
 
     fetchRepayments();
   }, []);
+
+  const handleStatusChange = async(repaymentId,status)=>{
+    try{
+     const response = await fetch(`${ backendUrl}/admin/approveRepayment`,{
+      method:'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(repaymentId,status)
+     })
+     if(!response.ok){
+      throw new Error(`Failed to Upadte Transaction`);
+     }
+     setMessage(`Repayment #${repaymentId} has been approved successfully.`);
+     setTimeout(() => setMessage(null), 3000);
+
+    }catch(err){
+      console.error(err);
+      setMessage(`Failed to approve repayment with id #${repaymentId}`);
+      setTimeout(() => setMessage(null), 3000);
+      
+    }
+  }
+
 
   // Apply filters when searchTerm, statusFilter, or repayments change
   useEffect(() => {
@@ -93,9 +117,9 @@ const AdminRepayments = () => {
             ? new Date(repayment.loanId.dueDate).toDateString()
             : "Loan Due Date not available"}
         </td>
-        <td style={styles.td}>{repayment.loanId ? repayment.loanId.status: 'Status not available'}</td>
+        <td style={styles.td}>{repayment.loanId ? repayment.status: 'Status not available'}</td>
         <td style={styles.td}>
-          <button style={styles.deleteBtn}>Approve</button>
+          <button style={styles.deleteBtn} onClick={handleStatusChange(repayment.loanId,'approved')}>Approve</button>
         </td>
       </tr>
     ));
@@ -126,6 +150,7 @@ const AdminRepayments = () => {
     <div style={styles.repaymentsContainer}>
       <header style={styles.header}>
         <h1 style={styles.heading}>Repayment Dashboard</h1>
+         <p style={styles.message}>{message}</p> {/* Display message */}
       </header>
 
       <div style={styles.controls}>
@@ -251,7 +276,7 @@ const styles = {
     borderBottom: '1px solid #ddd',
   },
   deleteBtn: {
-    backgroundColor: 'light green',
+    backgroundColor: 'green',
     color: 'white',
     padding: '8px 15px',
     borderRadius: '5px',
@@ -288,6 +313,11 @@ const styles = {
     color: '#0A66C2',
     animation: 'spin 1s linear infinite',
     marginBottom: '20px',
+  },
+  message:{
+    color: 'green',
+    fontSize: '1.2rem',
+    marginTop: '1rem'
   }
 };
 
