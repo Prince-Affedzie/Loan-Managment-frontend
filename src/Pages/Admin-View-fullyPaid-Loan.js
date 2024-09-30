@@ -137,12 +137,12 @@ const AdminFullyPaidPage = () => {
         </SearchBarContainer>
         {/* Button to switch between archived and unarchived loans */}
         <ButtonContainer>
-          <button onClick={() => setViewMode('archived')}>View Archived Loans</button>
+          <button onClick={() => setViewMode('archived')}>View UnArchived Loans</button>
           <button onClick={() => {
             setViewMode('unarchived');
             fetcharchivedLoans();
           }}>
-            View Unarchived Loans
+            View Archived Loans
           </button>
         </ButtonContainer>
       </Header>
