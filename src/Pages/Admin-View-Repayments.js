@@ -9,7 +9,8 @@ const AdminRepayments = () => {
   const [statusFilter, setStatusFilter] = useState(""); // Status filter
   const [currentPage, setCurrentPage] = useState(1); // For pagination
   const [loading, setLoading] = useState(true); // To show loading state
-  const [message,setMessage] = useState("")
+  const [loadingState, setLoadingState] = useState({}); // Loading state for individual repayment approval buttons
+  const [message, setMessage] = useState(""); // Success/Error message
   const rowsPerPage = 5; // Number of rows to show per page
 
   // Fetch repayments from the server when the component mounts
@@ -22,7 +23,7 @@ const AdminRepayments = () => {
           credentials: "include",
         });
         if (!response.ok) {
-          throw new Error("Failed to fetch loans");
+          throw new Error("Failed to fetch repayments");
         }
         const data = await response.json();
         setRepayments(Array.isArray(data) ? data : []); // Ensure repayments is always an array
@@ -37,29 +38,35 @@ const AdminRepayments = () => {
     fetchRepayments();
   }, []);
 
-  const handleStatusChange = async(repaymentId,status)=>{
-    try{
-     const response = await fetch(`${ backendUrl}/admin/approveRepayment`,{
-      method:'PUT',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(repaymentId,status)
-     })
-     if(!response.ok){
-      throw new Error(`Failed to Upadte Transaction`);
-     }
-     setMessage(`Repayment #${repaymentId} has been approved successfully.`);
-     setTimeout(() => setMessage(null), 3000);
+  const handleStatusChange = async (repaymentId, status) => {
+    setLoadingState((prev) => ({ ...prev, [repaymentId]: true })); // Mark current repayment as loading
 
-    }catch(err){
+    try {
+      const response = await fetch(`${backendUrl}/api/admin/approveRepayment`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ repaymentId, status }), // Corrected payload structure
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to update repayment status`);
+      }
+
+      // Update repayments state to reflect the approved status
+      setRepayments(repayments.map(repayment =>
+        repayment._id === repaymentId ? { ...repayment, status: status } : repayment
+      ));
+
+      setMessage(`Repayment #${repaymentId} has been approved successfully.`);
+    } catch (err) {
       console.error(err);
-      setMessage(`Failed to approve repayment with id #${repaymentId}`);
-      setTimeout(() => setMessage(null), 3000);
-      
+      setMessage(`Failed to approve repayment with ID #${repaymentId}`);
+    } finally {
+      setLoadingState((prev) => ({ ...prev, [repaymentId]: false })); // Remove loading state for the repayment
+      setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
     }
-  }
-
+  };
 
   // Apply filters when searchTerm, statusFilter, or repayments change
   useEffect(() => {
@@ -117,9 +124,15 @@ const AdminRepayments = () => {
             ? new Date(repayment.loanId.dueDate).toDateString()
             : "Loan Due Date not available"}
         </td>
-        <td style={styles.td}>{repayment.loanId ? repayment.status: 'Status not available'}</td>
+        <td style={styles.td}>{repayment.status || 'Status not available'}</td>
         <td style={styles.td}>
-          <button style={styles.deleteBtn} onClick={handleStatusChange(repayment.loanId,'approved')}>Approve</button>
+          <button
+            style={styles.approveBtn}
+            onClick={() => handleStatusChange(repayment._id, 'approved')}
+            disabled={loadingState[repayment._id]} // Disable button when loading
+          >
+            {loadingState[repayment._id] ? "Approving..." : "Approve"}
+          </button>
         </td>
       </tr>
     ));
@@ -136,10 +149,10 @@ const AdminRepayments = () => {
   if (loading) {
     return (
       <div style={styles.LoadingContainer}>
-      <AiOutlineLoading3Quarters style={styles.spinner} />
-      <p>Loading Repayments...</p>
+        <AiOutlineLoading3Quarters style={styles.spinner} />
+        <p>Loading Repayments...</p>
       </div>
-  );// Show loading message while fetching
+    ); // Show loading message while fetching
   }
 
   if (repayments.length === 0) {
@@ -150,7 +163,7 @@ const AdminRepayments = () => {
     <div style={styles.repaymentsContainer}>
       <header style={styles.header}>
         <h1 style={styles.heading}>Repayment Dashboard</h1>
-         <p style={styles.message}>{message}</p> {/* Display message */}
+        <p style={styles.message}>{message}</p> {/* Display message */}
       </header>
 
       <div style={styles.controls}>
@@ -192,20 +205,27 @@ const AdminRepayments = () => {
       </div>
 
       <div style={styles.pagination}>
-        <button style={styles.paginationBtn} onClick={() => handlePageChange("prev")}>
+        <button
+          style={styles.paginationBtn}
+          onClick={() => handlePageChange("prev")}
+          disabled={currentPage === 1} // Disable if on the first page
+        >
           Previous
         </button>
         <span style={styles.pageIndicator}>
           Page {currentPage} of {Math.ceil(filteredRepayments.length / rowsPerPage)}
         </span>
-        <button style={styles.paginationBtn} onClick={() => handlePageChange("next")}>
+        <button
+          style={styles.paginationBtn}
+          onClick={() => handlePageChange("next")}
+          disabled={currentPage * rowsPerPage >= filteredRepayments.length} // Disable if no more pages
+        >
           Next
         </button>
       </div>
     </div>
   );
 };
-
 
 const styles = {
   repaymentsContainer: {
@@ -275,13 +295,14 @@ const styles = {
     fontSize: '0.9rem',
     borderBottom: '1px solid #ddd',
   },
-  deleteBtn: {
-    backgroundColor: 'green',
+  approveBtn: {
+    backgroundColor: '#28a745',
     color: 'white',
     padding: '8px 15px',
     borderRadius: '5px',
     border: 'none',
     cursor: 'pointer',
+    minWidth: '80px',
   },
   pagination: {
     display: 'flex',
@@ -297,6 +318,10 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
+    disabled: {
+      backgroundColor: '#cccccc',
+      cursor: 'not-allowed',
+    },
   },
   pageIndicator: {
     margin: '0 10px',
@@ -314,11 +339,12 @@ const styles = {
     animation: 'spin 1s linear infinite',
     marginBottom: '20px',
   },
-  message:{
+  message: {
     color: 'green',
     fontSize: '1.2rem',
-    marginTop: '1rem'
-  }
+    marginTop: '1rem',
+  },
 };
 
 export default AdminRepayments;
+
