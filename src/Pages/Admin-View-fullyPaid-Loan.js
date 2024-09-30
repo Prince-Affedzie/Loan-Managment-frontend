@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
-import { FiSearch } from 'react-icons/fi'
+import { FiSearch } from 'react-icons/fi';
 
 const backendUrl = "https://loan-managment-app.onrender.com";
 
 const AdminFullyPaidPage = () => {
   const [loans, setLoans] = useState([]);
+  const [unarchivedLoans, setUnarchivedLoans] = useState([]); // State for unarchived loans
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null); // To display success/error messages
   const [searchTerm, setSearchTerm] = useState(''); // State to track search input
   const [currentPage, setCurrentPage] = useState(1);
   const [loansPerPage] = useState(5);
+  const [showUnarchivedLoans, setShowUnarchivedLoans] = useState(false); // Toggle unarchived/archived loans view
 
   useEffect(() => {
     const fetchLoans = async () => {
@@ -37,39 +39,65 @@ const AdminFullyPaidPage = () => {
     fetchLoans();
   }, []);
 
-  const handleStatusChange = async (loanId) => {
+  // Fetch unarchived loans
+  const fetchUnarchivedLoans = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(`${backendUrl}/api/admin/archiveloan`, {
+      const response = await fetch(`${backendUrl}/api/admin/getUnArchiveLoans`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch unarchived loans');
+      }
+      const data = await response.json();
+      setUnarchivedLoans(data);
+    } catch (err) {
+      console.error(err);
+      setUnarchivedLoans([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleStatusChange = async (loanId, action) => {
+    const endpoint = action === 'archive' ? 'archiveloan' : 'unarchiveloan';
+    try {
+      const response = await fetch(`${backendUrl}/api/admin/${endpoint}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({loanId}),
+        body: JSON.stringify({ loanId }),
       });
       if (!response.ok) {
         throw new Error('Failed to update loan status');
       }
 
-      // Remove the loan from the list after approval/rejection
-      setLoans(loans.filter(loan => loan._id !== loanId));
+      // Remove the loan from the list after archive/unarchive
+      if (action === 'archive') {
+        setLoans(loans.filter((loan) => loan._id !== loanId));
+      } else {
+        setUnarchivedLoans(unarchivedLoans.filter((loan) => loan._id !== loanId));
+      }
 
       // Set success message
-      setMessage(`Loan #${loanId} has been archieved successfully.`);
+      setMessage(`Loan #${loanId} has been ${action === 'archive' ? 'archived' : 'unarchived'} successfully.`);
 
       // Hide message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
 
     } catch (err) {
       console.error(err);
-      setMessage(`Failed to Archive loan #${loanId}.`);
+      setMessage(`Failed to ${action} loan #${loanId}.`);
 
       // Hide error message after 3 seconds
       setTimeout(() => setMessage(null), 3000);
     }
   };
 
-  const filteredLoans = loans.filter(loan => {
+  const filteredLoans = (showUnarchivedLoans ? unarchivedLoans : loans).filter((loan) => {
     const lowerSearchTerm = searchTerm.toLowerCase();
     return (
       loan.borrower.name.toLowerCase().includes(lowerSearchTerm) ||
@@ -84,15 +112,14 @@ const AdminFullyPaidPage = () => {
   const currentLoans = filteredLoans.slice(indexOfFirstLoan, indexOfLastLoan);
 
   // Change page
-  const nextPage = () => setCurrentPage(prev => prev + 1);
-  const prevPage = () => setCurrentPage(prev => prev - 1);
-
+  const nextPage = () => setCurrentPage((prev) => prev + 1);
+  const prevPage = () => setCurrentPage((prev) => prev - 1);
 
   if (loading) {
     return (
       <LoadingContainer>
         <AiOutlineLoading3Quarters className="spinner" />
-        <LoadingText>Loading Fully Paid loans...</LoadingText>
+        <LoadingText>Loading loans...</LoadingText>
       </LoadingContainer>
     );
   }
@@ -100,30 +127,38 @@ const AdminFullyPaidPage = () => {
   return (
     <Container>
       <Header>
-        <h1>Fully Paid Loans</h1>
+        <h1>{showUnarchivedLoans ? "Unarchived Loans" : "Fully Paid Loans"}</h1>
         {message && <Message>{message}</Message>} {/* Display message */}
         <SearchBarContainer>
-        <FiSearch size={24} />
-        <SearchInput
-          type="text"
-          placeholder="Search by borrower's name or email..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </SearchBarContainer>
-
+          <FiSearch size={24} />
+          <SearchInput
+            type="text"
+            placeholder="Search by borrower's name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </SearchBarContainer>
+        {/* Button to toggle between unarchived and archived loans */}
+        <button onClick={() => {
+          setShowUnarchivedLoans(!showUnarchivedLoans);
+          if (!showUnarchivedLoans) {
+            fetchUnarchivedLoans();
+          }
+        }}>
+          {showUnarchivedLoans ? 'View Archived Loans' : 'View Unarchived Loans'}
+        </button>
       </Header>
       <MainContent>
         <LoanList>
           {currentLoans.length === 0 ? (
-            <p>No Fully Paid loans available.</p>
+            <p>No {showUnarchivedLoans ? "Unarchived" : "Fully Paid"} loans available.</p>
           ) : (
             currentLoans.map((loan) => (
               <LoanItem key={loan._id}>
                 <LoanDetails>
                   <h5>Loan #{loan._id}</h5>
                   <p><strong>Borrower:</strong> {loan.borrower.name} ({loan.borrower.email})</p>
-                  <p><strong>Phone Number:</strong>  {loan.borrower.phoneNumber}</p>
+                  <p><strong>Phone Number:</strong> {loan.borrower.phoneNumber}</p>
                   <p><strong>Amount:</strong> GH$ {loan.loanAmount}</p>
                   <p><strong>Balance:</strong> GH$ {loan.balance}</p>
                   <p><strong>Interest:</strong> {loan.interestRate}%</p>
@@ -133,15 +168,16 @@ const AdminFullyPaidPage = () => {
                   <p><strong>Duration:</strong> {loan.durationMonths} months</p>
                 </LoanDetails>
                 <ActionButtons>
-                  <button onClick={() => handleStatusChange(loan._id)}>Archieve</button>
-                  
+                  <button onClick={() => handleStatusChange(loan._id, showUnarchivedLoans ? 'archive' : 'unarchive')}>
+                    {showUnarchivedLoans ? 'Archive' : 'Unarchive'}
+                  </button>
                 </ActionButtons>
               </LoanItem>
             ))
           )}
         </LoanList>
-         {/* Pagination Controls */}
-         <Pagination>
+        {/* Pagination Controls */}
+        <Pagination>
           <PaginationButton onClick={prevPage} disabled={currentPage === 1}>Previous</PaginationButton>
           <PaginationButton
             onClick={nextPage}
@@ -197,7 +233,6 @@ const SearchInput = styled.input`
   flex-grow: 1;
   padding: 0.5rem;
 `;
-
 
 const Message = styled.p`
   color: green;
@@ -278,26 +313,15 @@ const ActionButtons = styled.div`
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
+    background-color: #28a745;
+    color: #fff;
 
-    &:first-child {
-      background-color: #28a745;
-      color: #fff;
-
-      &:hover {
-        background-color: #218838;
-      }
-    }
-
-    &:last-child {
-      background-color: #dc3545;
-      color: #fff;
-
-      &:hover {
-        background-color: #c82333;
-      }
+    &:hover {
+      background-color: #218838;
     }
   }
 `;
+
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
@@ -319,6 +343,5 @@ const PaginationButton = styled.button`
     background-color: ${({ disabled }) => (disabled ? '#cccccc' : '#0d47a1')};
   }
 `;
-
 
 export default AdminFullyPaidPage;
