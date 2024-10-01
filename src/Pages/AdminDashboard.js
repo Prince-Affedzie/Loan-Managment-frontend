@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import { FiUsers, FiCheckCircle, FiXCircle, FiClock, FiFileText, FiLogOut, FiBriefcase,FiMenu } from 'react-icons/fi';
+import { Bar } from 'react-chartjs-2'; // Import Bar chart
+import { FiUsers, FiCheckCircle, FiXCircle, FiClock, FiFileText, FiLogOut, FiBriefcase, FiMenu } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+// Register Bar chart elements
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const backendUrl = "https://loan-managment-app.onrender.com";
 
@@ -21,6 +21,7 @@ const AdminDashboardPage = () => {
   const [rejectedLoans, setRejectedLoans] = useState([]);
   const [repayments, setRepayments] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const handleLogout = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/auth/logout`, {
@@ -41,6 +42,7 @@ const AdminDashboardPage = () => {
     }
   };
 
+  // Fetch repayments
   useEffect(() => {
     const fetchRepayments = async () => {
       setLoading(true);
@@ -57,13 +59,14 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setRepayments([]);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
     fetchRepayments();
   }, []);
 
+  // Fetch users
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
@@ -80,13 +83,14 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setUsers([]);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
     fetchUsers();
   }, []);
 
+  // Fetch approved loans
   useEffect(() => {
     const fetchLoans = async () => {
       setLoading(true);
@@ -103,16 +107,17 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setApprovedLoans([]);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
     fetchLoans();
   }, []);
 
+  // Fetch pending loans
   useEffect(() => {
-    setLoading(true);
     const fetchPendingLoans = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${backendUrl}/api/admin/pendingLoans`, {
           method: 'GET',
@@ -126,16 +131,17 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setPendingLoans([]);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
     fetchPendingLoans();
   }, []);
 
+  // Fetch rejected loans
   useEffect(() => {
-    setLoading(true);
     const fetchRejectedLoans = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${backendUrl}/api/admin/rejectedLoans`, {
           method: 'GET',
@@ -149,7 +155,7 @@ const AdminDashboardPage = () => {
       } catch (err) {
         console.error(err);
         setRejectedLoans([]);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
@@ -159,60 +165,63 @@ const AdminDashboardPage = () => {
   const TotalLoans = approvedloans.length + pendingLoans.length + rejectedLoans.length;
   const TotalAmountOnLoan = approvedloans.reduce((total, loan) => total + (loan.loanAmount || 0), 0);
   const TotalAmountRepaid = repayments.reduce((total, repayment) => total + (repayment.amountPaid || 0), 0);
-  const PendingAmount = TotalAmountOnLoan- TotalAmountRepaid;
+  const PendingAmount = TotalAmountOnLoan - TotalAmountRepaid;
 
-  // Prepare data for the chart
-  
-    // Sample data for the chart (you can replace this with actual loan data)
-    const chartData = {
-      labels: [ 'Total Amount On Loan', 'Total Amount Repaid', 'Pending Amount'],
-      datasets: [
-        {
-          label: 'Loan Statistics',
-          data: [
-            TotalAmountOnLoan,
-            TotalAmountRepaid,
-            PendingAmount,
-          ],
-          borderColor: '#007bff',
-          backgroundColor: 'rgba(0, 123, 255, 0.2)',
-          fill: true,
-          tension: 0.3,
-        },
-      ],
-    };
-  
-    const chartOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-        },
-        title: {
-          display: true,
-          text: 'Loan Management Overview',
-        },
+  // Prepare data for the bar chart
+  const chartData = {
+    labels: ['Total Amount On Loan', 'Total Amount Repaid', 'Pending Amount'],
+    datasets: [
+      {
+        label: 'Loan Statistics',
+        data: [
+          TotalAmountOnLoan,
+          TotalAmountRepaid,
+          PendingAmount,
+        ],
+        backgroundColor: 'rgba(0, 123, 255, 0.5)', // Adjusted for Bar chart
+        borderColor: '#007bff',
+        borderWidth: 1,
       },
-    };
+    ],
+  };
 
-    const toggleSidebar = () => {
-      setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
-    };
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+      },
+      title: {
+        display: true,
+        text: 'Loan Management Overview',
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
 
-    if (loading) {
-      return (
-        <LoadingContainer> 
-          <AiOutlineLoading3Quarters className="spinner" />
-          <LoadingText>Loading Admin Dashboard...</LoadingText>
-        </LoadingContainer>
-      );
-    }
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <AiOutlineLoading3Quarters className="spinner" />
+        <LoadingText>Loading Admin Dashboard...</LoadingText>
+      </LoadingContainer>
+    );
+  }
+
   return (
     <Container>
-       <HamburgerMenu onClick={toggleSidebar}>
-        <FiMenu style={{ color: 'black' ,backgroundColor:""}} />
+      <HamburgerMenu onClick={toggleSidebar}>
+        <FiMenu style={{ color: 'black' }} />
       </HamburgerMenu>
-      <Sidebar  isSidebarOpen={isSidebarOpen}>
+      <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
           <LogoIcon />
           <LogoText>Loan Management</LogoText>
@@ -225,31 +234,33 @@ const AdminDashboardPage = () => {
         </SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-pending-loans">
-            <FiClock className="icon" />Pending Loans
+            <FiClock className="icon" /> Pending Loans
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-rejected-loans">
-            <FiXCircle className="icon" />Rejected Loans
+            <FiXCircle className="icon" /> Rejected Loans
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-view-fullypaid">
-            <FiClock className="icon" />Fully Paid Loans
+            <FiClock className="icon" /> Fully Paid Loans
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-view-repayments">
-            <FiFileText className="icon" />Repayments
+            <FiFileText className="icon" /> Repayments
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
           <StyledLink to="/admin-view-users">
-            <FiUsers className="icon" />View Users
+            <FiUsers className="icon" /> View Users
           </StyledLink>
         </SidebarItem>
         <SidebarItem>
-        <LogoutButton onClick={handleLogout}><FiLogOut className="icon" /> Logout</LogoutButton>
+          <LogoutButton onClick={handleLogout}>
+            <FiLogOut className="icon" /> Logout
+          </LogoutButton>
         </SidebarItem>
       </Sidebar>
 
@@ -258,9 +269,9 @@ const AdminDashboardPage = () => {
           <h1>Admin Dashboard</h1>
         </Header>
         <Content>
-        <Section>
+          <Section>
             <h2>Loan Overview</h2>
-            <Line data={chartData} options={ chartOptions }  />
+            <Bar data={chartData} options={chartOptions} /> {/* Render Bar chart */}
           </Section>
           <Section>
             <h2>Dashboard Statistics</h2>
@@ -299,8 +310,6 @@ const AdminDashboardPage = () => {
               </StatCard>
             </StatsGrid>
           </Section>
-
-          
         </Content>
       </MainContent>
     </Container>
@@ -309,10 +318,6 @@ const AdminDashboardPage = () => {
 
 // Styled components (remains unchanged from your current code)
 
-
-
-
-// Styled components for styling the admin dashboard
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
@@ -320,7 +325,7 @@ const Container = styled.div`
 `;
 
 const Sidebar = styled.aside`
- width: 150px;
+  width: 150px;
   background-color: #002147;
   color: white;
   padding: 2rem;
@@ -337,12 +342,14 @@ const Sidebar = styled.aside`
     width: 250px;
   }
 `;
+
 const SidebarTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
 `;
+
 const LogoIcon = styled(FiBriefcase)`
   font-size: 6rem; /* Adjust this value to increase/decrease the size */
   margin-bottom: 1rem; /* Space between the icon and text */
@@ -353,9 +360,10 @@ const LogoText = styled.h2`
   font-size: 1.5rem;
   margin-top: 0.5rem;
 `;
+
 const SidebarItem = styled.div`
   margin-bottom: 2rem;
-   width: 100%;
+  width: 100%;
 `;
 
 const StyledLink = styled(Link)`
@@ -364,13 +372,12 @@ const StyledLink = styled(Link)`
   font-size: 1.0rem;
   display: block;
   align-items: center;
- 
   border-radius: 4px;
 
   &:hover {
     background: #004a99; /* Medium Blue */
   }
-     .icon {
+  .icon {
     margin-right: 0.3rem;
   }
 `;
@@ -384,6 +391,7 @@ const MainContent = styled.main`
     margin-left: 0;
   }
 `;
+
 const LogoutButton = styled.button`
   background: none;
   color: #ffffff;
@@ -422,7 +430,6 @@ const Section = styled.section`
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 0.4rem;
- 
 `;
 
 const StatsGrid = styled.div`
@@ -450,20 +457,6 @@ const StatCard = styled.div`
   }
 `;
 
-const ActivityList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const ActivityItem = styled.li`
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
 const LoadingContainer = styled.div`
   display: flex;
   align-items: center;
@@ -489,12 +482,13 @@ const LoadingText = styled.p`
   font-family: 'Poppins', sans-serif;
   color: #00aaff;
 `;
+
 const HamburgerMenu = styled.div`
   position: absolute;
   top: 2rem;
   left: 0.5rem;
   font-size: 2rem;
-  background-color: #001f3f
+  background-color: #001f3f;
   color: #ffffff;
   cursor: pointer;
   z-index: 1100;
@@ -503,6 +497,5 @@ const HamburgerMenu = styled.div`
     display: none; /* Hide hamburger menu on larger screens */
   }
 `;
-
 
 export default AdminDashboardPage;
