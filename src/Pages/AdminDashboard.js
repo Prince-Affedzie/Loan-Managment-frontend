@@ -219,7 +219,7 @@ const AdminDashboardPage = () => {
   return (
     <Container>
       <HamburgerMenu onClick={toggleSidebar}>
-        <FiMenu style={{ color: 'black' }} />
+        <FiMenu style={{ color: 'white' }} />
       </HamburgerMenu>
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
