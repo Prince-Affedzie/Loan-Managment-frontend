@@ -74,8 +74,8 @@ const UserApprovedLoansPage = () => {
                 {loans.map((loan, index) => (
                   <tr key={index}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell> GH₵{loan.loanAmount}</TableCell>
-                    <TableCell> GH₵{loan.balance}</TableCell>
+                    <TableCell> GH₵ {loan.loanAmount}</TableCell>
+                    <TableCell> GH₵ {loan.balance}</TableCell>
                     <TableCell>{loan.interestRate} %</TableCell>
                     <TableCell>{loan.durationMonths} Months</TableCell>
                     <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>

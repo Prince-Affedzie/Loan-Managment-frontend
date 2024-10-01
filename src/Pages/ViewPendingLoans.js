@@ -68,7 +68,7 @@ const LoanList = ({ loans }) => (
       {loans.map((loan, index) => (
         <TableRow key={loan._id}>
           <TableCell>{index + 1}</TableCell>
-          <TableCell>{loan.loanAmount}</TableCell>
+          <TableCell> GH₵ {loan.loanAmount}</TableCell>
           <TableCell>{loan.interestRate}%</TableCell>
           <TableCell>{loan.durationMonths} Months</TableCell>
           <TableCell>{new Date(loan.startPaymentDate).toDateString()}</TableCell>
