@@ -179,7 +179,7 @@ const DashboardPage = ({ refreshTrigger }) => {
             <ActivityList>
               {approvedLoans.map(payment => (
                 <ActivityItem key={payment.id}>
-                  Repayment of GH₵{payment.balance} due on {new Date(payment.dueDate).toDateString()}
+                  Repayment of GH₵ {payment.balance} due on {new Date(payment.dueDate).toDateString()}
                 </ActivityItem>
               ))}
             </ActivityList>
