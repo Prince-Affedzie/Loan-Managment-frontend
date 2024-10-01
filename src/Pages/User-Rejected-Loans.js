@@ -62,7 +62,7 @@ const UserRejectedLoansPage = () => {
   return (
     <Container>
       <Header>
-        <h1>Approved Loans</h1>
+        <h1>Rejected Loans</h1>
       </Header>
       <MainContent>
         {loans.length > 0 ? (
