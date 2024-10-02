@@ -196,7 +196,7 @@ const FooterText = styled.p`
 const Footer = styled.footer`
   margin-top: 2rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   position: absolute;
   bottom: 1rem;
   text-align: center;
@@ -207,7 +207,7 @@ const Footer = styled.footer`
   }
 
   @media (max-width: 768px) {
-    font-size: 0.9rem; /* Adjust footer size on mobile */
+    font-size: 1.0rem; /* Adjust footer size on mobile */
     bottom: 0.5rem;
   }
 `;
