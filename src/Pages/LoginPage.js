@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -21,7 +21,6 @@ const LoginPage = () => {
         credentials: 'include',
       });
       if(response.ok){
-        
         navigate('/dashboard');
       } else {
         alert('Invalid Credentials');
@@ -53,6 +52,11 @@ const LoginPage = () => {
         </Form>
         <FooterText>Don't have an account? <a href="/sign-up">Sign up</a></FooterText>
       </LoginContainer>
+
+      {/* Powered by Pros Technologies */}
+      <Footer>
+        Powered by <span>Pros Technologies</span>
+      </Footer>
     </Wrapper>
   );
 };
@@ -60,10 +64,12 @@ const LoginPage = () => {
 // Styled Components
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: linear-gradient(135deg, #1e90ff, #6a82fb);
+  position: relative;
 `;
 
 const LoginContainer = styled.div`
@@ -133,6 +139,20 @@ const FooterText = styled.p`
 
   a:hover {
     text-decoration: underline;
+  }
+`;
+
+const Footer = styled.footer`
+  margin-top: 2rem;
+  color: #fff;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 1rem;
+  text-align: center;
+  
+  span {
+    font-weight: bold;
+    color: #f1c40f;
   }
 `;
 
