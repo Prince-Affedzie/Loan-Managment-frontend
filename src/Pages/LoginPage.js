@@ -194,7 +194,7 @@ const FooterText = styled.p`
 `;
 
 const Footer = styled.footer`
-  margin-top: 1.5rem;
+  margin-top: 1.0rem;
   color: #fff;
   font-size: 1.2rem;
   position: absolute;
