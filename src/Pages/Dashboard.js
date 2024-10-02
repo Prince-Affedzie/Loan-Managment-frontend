@@ -3,6 +3,8 @@ import { FiUser, FiDollarSign, FiList, FiCheckCircle, FiXCircle, FiClock, FiCred
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import prostechlogo  from '../Components/Prostechnologies-logo.png.png'
+
 
 const backendUrl = "https://loan-managment-app.onrender.com";
 
@@ -107,6 +109,7 @@ const DashboardPage = ({ refreshTrigger }) => {
 
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
+        <img src={prostechlogo} alt="ProsTech Logo" style={{width:'5rem',height:'5rem'}} />
           <LogoText>Loan Management System</LogoText>
         </SidebarTop>
         <Menu>
