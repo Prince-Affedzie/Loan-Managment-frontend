@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const backendUrl =  "https://loan-managment-app.onrender.com";
+const backendUrl = "https://loan-managment-app.onrender.com";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -73,6 +73,7 @@ const Wrapper = styled.div`
   height: 100vh;
   background: linear-gradient(135deg, #1e90ff, #6a82fb);
   position: relative;
+  padding: 1rem; /* Added padding for mobile responsiveness */
 `;
 
 const Header = styled.header`
@@ -80,10 +81,15 @@ const Header = styled.header`
   text-align: center;
   font-size: 2rem;
   color: #fff;
-  margin-bottom: 2rem; /* Adjust the margin to control spacing */
+  margin-bottom: 2rem; 
   position: absolute;
-  top: 2rem; /* Fixes the header at the top */
+  top: 2rem; 
   left: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; /* Reduced font size for mobile */
+    top: 1rem;
+  }
 `;
 
 const LoginContainer = styled.div`
@@ -94,23 +100,40 @@ const LoginContainer = styled.div`
   text-align: center;
   width: 100%;
   max-width: 400px;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 2rem; /* Reduced padding on mobile */
+    max-width: 90%; /* Allows container to take more width on mobile */
+  }
 `;
 
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* Adjust font size for mobile */
+  }
 `;
 
 const Subtitle = styled.p`
   color: #666;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust subtitle size on mobile */
+  }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem; /* Reduced gap between form elements on mobile */
+  }
 `;
 
 const Input = styled.input`
@@ -123,6 +146,11 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: #3498db;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.7rem; /* Reduced padding for mobile */
+    font-size: 0.9rem; /* Adjust input font size */
   }
 `;
 
@@ -139,6 +167,11 @@ const Button = styled.button`
   &:hover {
     background-color: #2980b9;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.8rem; /* Reduced padding on mobile */
+    font-size: 1rem; /* Adjust button font size */
+  }
 `;
 
 const FooterText = styled.p`
@@ -154,12 +187,16 @@ const FooterText = styled.p`
   a:hover {
     text-decoration: underline;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Adjust footer text size on mobile */
+  }
 `;
 
 const Footer = styled.footer`
   margin-top: 2rem;
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1rem;
   position: absolute;
   bottom: 1rem;
   text-align: center;
@@ -167,6 +204,11 @@ const Footer = styled.footer`
   span {
     font-weight: bold;
     color: #f1c40f;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Adjust footer size on mobile */
+    bottom: 0.5rem;
   }
 `;
 
