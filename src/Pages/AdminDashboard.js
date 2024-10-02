@@ -225,7 +225,7 @@ const AdminDashboardPage = () => {
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
          {/* <LogoIcon />*/}
-         <img src={prostechlogo} alt="ProsTech Logo" />
+         <img src={prostechlogo} alt="ProsTech Logo" style={{width:'5rem',height:'2.5rem'}} />
           <LogoText>Loan Management</LogoText>
         </SidebarTop>
 
