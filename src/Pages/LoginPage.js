@@ -75,6 +75,17 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
+const Header = styled.header`
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 2rem; /* Adjust the margin to control spacing */
+  position: absolute;
+  top: 2rem; /* Fixes the header at the top */
+  left: 0;
+`;
+
 const LoginContainer = styled.div`
   background-color: #fff;
   padding: 2rem 3rem;
@@ -148,7 +159,7 @@ const FooterText = styled.p`
 const Footer = styled.footer`
   margin-top: 2rem;
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.4rem;
   position: absolute;
   bottom: 1rem;
   text-align: center;
@@ -158,19 +169,5 @@ const Footer = styled.footer`
     color: #f1c40f;
   }
 `;
-
-const Header = styled.header`
-  margin-top: 2rem;
-  color: #fff;
-  font-size: 2rem;
-  position: absolute;
-  text-align: center;
-  
-  span {
-    font-weight: bold;
-    color: #f1c40f;
-  }
-`;
-
 
 export default LoginPage;

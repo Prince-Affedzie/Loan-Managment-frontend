@@ -139,6 +139,11 @@ const DashboardPage = ({ refreshTrigger }) => {
           <SidebarItem>
             <LogoutButton onClick={handleLogout}><FiLogOut className="icon" /> Logout</LogoutButton>
           </SidebarItem>
+          <SidebarItem>
+            <SidebarItem>
+            <h4>For Any Challenges, Contact Us Pros Technologies on</h4>
+          </SidebarItem>
+          </SidebarItem>
         </Menu>
       </Sidebar>
 
