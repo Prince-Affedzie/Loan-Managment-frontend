@@ -32,6 +32,9 @@ const AdminLoginPage = () => {
 
   return (
     <Wrapper>
+       <Header>
+        Loan Management System
+      </Header>
       <LoginContainer>
         <Title>Admin Portal</Title>
         <Form onSubmit={handleSubmit}>
@@ -50,6 +53,9 @@ const AdminLoginPage = () => {
           <Button type="submit">Login</Button>
         </Form>
       </LoginContainer>
+      <Footer>
+        Powered by <span>Pros Technologies</span>
+      </Footer>
     </Wrapper>
   );
 };
@@ -61,6 +67,17 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100vh;
   background: #2c3e50;
+`;
+
+const Header = styled.header`
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 2rem; /* Adjust the margin to control spacing */
+  position: absolute;
+  top: 2rem; /* Fixes the header at the top */
+  left: 0;
 `;
 
 const LoginContainer = styled.div`
@@ -110,6 +127,19 @@ const Button = styled.button`
 
   &:hover {
     background-color: #c0392b;
+  }
+`;
+const Footer = styled.footer`
+  margin-top: 2rem;
+  color: #fff;
+  font-size: 1.4rem;
+  position: absolute;
+  bottom: 1rem;
+  text-align: center;
+  
+  span {
+    font-weight: bold;
+    color: #f1c40f;
   }
 `;
 
