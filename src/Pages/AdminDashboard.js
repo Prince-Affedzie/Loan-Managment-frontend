@@ -265,7 +265,7 @@ const AdminDashboardPage = () => {
           </LogoutButton>
         </SidebarItem>
         <SidebarItem>
-        <h4>For Any Challenges, Contact Us Pros Technologies on +233558117327</h4>
+        <h4> Contact Support: Pros Technologies - +233209010310</h4>
         </SidebarItem>
       </Sidebar>
 
