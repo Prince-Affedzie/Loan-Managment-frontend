@@ -374,7 +374,7 @@ const SidebarItem = styled.div`
 const StyledLink = styled(Link)`
   color: #fff;
   text-decoration: none;
-  font-size: 1.0rem;
+  font-size: 1.2rem;
   display: block;
   align-items: center;
   border-radius: 4px;
@@ -385,6 +385,8 @@ const StyledLink = styled(Link)`
   .icon {
     margin-right: 0.3rem;
   }
+     @media (max-width: 1000px) {
+    font-size: 0.9rem;
 `;
 
 const MainContent = styled.main`
