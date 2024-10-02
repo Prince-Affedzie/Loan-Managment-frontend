@@ -76,7 +76,7 @@ const Header = styled.header`
   color: #fff;
   margin-bottom: 2rem; /* Adjust the margin to control spacing */
   position: absolute;
-  top: 2rem; /* Fixes the header at the top */
+  top: 2.5rem; /* Fixes the header at the top */
   left: 0;
 `;
 
