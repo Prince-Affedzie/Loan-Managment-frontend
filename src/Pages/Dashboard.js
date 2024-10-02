@@ -141,7 +141,7 @@ const DashboardPage = ({ refreshTrigger }) => {
           </SidebarItem>
           <SidebarItem>
             <SidebarItem>
-            <h4>For Any Challenges, Contact Us Pros Technologies on</h4>
+            <h4>For Any Challenges, Contact Us Pros Technologies on  +233558117327</h4>
           </SidebarItem>
           </SidebarItem>
         </Menu>
