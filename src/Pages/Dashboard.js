@@ -257,6 +257,9 @@ const StyledLink = styled(Link)`
   .icon {
     margin-right: 0.75rem;
   }
+    @media (max-width: 1000px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const LogoutButton = styled.button`
