@@ -248,7 +248,7 @@ const SidebarItem = styled.li`
 
 const StyledLink = styled(Link)`
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   display: flex;
   align-items: center;
   transition: color 0.3s ease;
