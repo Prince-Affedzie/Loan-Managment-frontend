@@ -32,6 +32,9 @@ const LoginPage = () => {
 
   return (
     <Wrapper>
+      <Header>
+        Loan Management System
+      </Header>
       <LoginContainer>
         <Title>Welcome Back!</Title>
         <Subtitle>Please login to your account</Subtitle>
@@ -145,7 +148,7 @@ const FooterText = styled.p`
 const Footer = styled.footer`
   margin-top: 2rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: 2rem;
   position: absolute;
   bottom: 1rem;
   text-align: center;
@@ -155,5 +158,20 @@ const Footer = styled.footer`
     color: #f1c40f;
   }
 `;
+
+const Header = styled.header`
+  margin-top: 2rem;
+  color: #fff;
+  font-size: 2rem;
+  position: absolute;
+  bottom: 1rem;
+  text-align: center;
+  
+  span {
+    font-weight: bold;
+    color: #f1c40f;
+  }
+`;
+
 
 export default LoginPage;
