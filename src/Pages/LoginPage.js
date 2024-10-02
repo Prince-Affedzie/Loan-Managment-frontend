@@ -164,7 +164,6 @@ const Header = styled.header`
   color: #fff;
   font-size: 2rem;
   position: absolute;
-  bottom: 1rem;
   text-align: center;
   
   span {
