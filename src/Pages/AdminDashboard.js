@@ -4,6 +4,7 @@ import { FiUsers, FiCheckCircle, FiXCircle, FiClock, FiFileText, FiLogOut, FiBri
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import {prostechlogo}  from '../Components/Prostechnologies-logo.png.png'
 
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -223,7 +224,8 @@ const AdminDashboardPage = () => {
       </HamburgerMenu>
       <Sidebar isSidebarOpen={isSidebarOpen}>
         <SidebarTop>
-          <LogoIcon />
+         {/* <LogoIcon />*/}
+         <img src={prostechlogo} alt="ProsTech Logo" />
           <LogoText>Loan Management</LogoText>
         </SidebarTop>
 
