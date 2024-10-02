@@ -198,7 +198,7 @@ const Footer = styled.footer`
   color: #fff;
   font-size: 1.2rem;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   text-align: center;
   
   span {
