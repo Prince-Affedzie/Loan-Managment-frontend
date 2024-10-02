@@ -350,11 +350,11 @@ const SidebarTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `;
 
 const LogoIcon = styled(FiBriefcase)`
-  font-size: 6rem; /* Adjust this value to increase/decrease the size */
+  font-size: 4rem; /* Adjust this value to increase/decrease the size */
   margin-bottom: 1rem; /* Space between the icon and text */
 `;
 
