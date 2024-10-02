@@ -265,7 +265,7 @@ const AdminDashboardPage = () => {
           </LogoutButton>
         </SidebarItem>
         <SidebarItem>
-        <p style={{color:"grey"}}> Contact Support: Pros Technologies - +233209010310</p>
+        <p style={{color:"grey"}}> Contact Support:<span style={{fontSize:'0.5rem'}}>Pros Technologies - +233209010310</span> </p>
         </SidebarItem>
       </Sidebar>
 
