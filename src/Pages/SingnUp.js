@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const backendUrl = "https://loan-managment-app.onrender.com";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
 
 const SignUpPage = () => {
   const navigate = useNavigate();

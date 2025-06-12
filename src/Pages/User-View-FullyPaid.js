@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
 
 import styled from 'styled-components';
-const backendUrl = "https://loan-managment-app.onrender.com";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
 // Mock data for demonstration
 // const approvedLoansData = [
  // { id: 1, amount: '$5000', date: '2024-09-10', term: '12 months' },

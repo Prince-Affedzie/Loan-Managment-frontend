@@ -39,7 +39,7 @@ const UserProfilePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://loan-managment-app.onrender.com/api/auth/profile', {
+      const response = await fetch('https://loan-management-system11-fd25b18e0ccd.herokuapp.com/api/auth/profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

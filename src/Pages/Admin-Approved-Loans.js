@@ -5,7 +5,7 @@ import { FiSearch } from 'react-icons/fi'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 
-const backendUrl = "https://loan-managment-app.onrender.com";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
 
 const AdminApprovedLoansPage = () => {
   const [loans, setLoans] = useState([]);

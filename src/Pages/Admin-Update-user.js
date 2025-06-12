@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-const backendUrl = "https://loan-managment-app.onrender.com";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
 
 const AdminUpdateUser = () => {
   const { userId } = useParams(); // Get user ID from URL
