@@ -6,7 +6,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import prostechlogo  from '../Components/Prostechnologies-logo.png.png'
 
 
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com";
 
 const DashboardPage = ({ refreshTrigger }) => {
   const navigate = useNavigate();

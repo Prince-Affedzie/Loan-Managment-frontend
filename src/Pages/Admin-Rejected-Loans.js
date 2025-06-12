@@ -6,7 +6,7 @@ import { FiSearch } from 'react-icons/fi'; // Search icon for search bar
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com";
 
 const AdminRejectedLoansPage = () => {
   const [loans, setLoans] = useState([]);

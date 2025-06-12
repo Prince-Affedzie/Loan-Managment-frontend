@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/"; // Change this to your backend URL
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com"; // Change this to your backend URL
 
 const AdminAddUserPage = () => {
   const [name, setName] = useState('');

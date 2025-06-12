@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading icon
 import { FiSearch } from 'react-icons/fi';
 
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com";
 
 const AdminFullyPaidPage = () => {
   const [loans, setLoans] = useState([]); // Archived loans

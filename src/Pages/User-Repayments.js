@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com";
 
 const AdminRepayments = () => {
   const [repayments, setRepayments] = useState([]); // repayments state to hold the data

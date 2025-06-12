@@ -4,7 +4,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // Modern loading ic
 import styled from 'styled-components';
 import { FiEdit, FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com";
 const UserProfile = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState({});

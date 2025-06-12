@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { FiUserPlus, FiEdit, FiTrash, FiSearch, FiEye } from 'react-icons/fi';
 
-const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com/";
+const backendUrl = "https://loan-management-system11-fd25b18e0ccd.herokuapp.com";
 
 const AdminViewUsersPage = () => {
   const navigate = useNavigate();
